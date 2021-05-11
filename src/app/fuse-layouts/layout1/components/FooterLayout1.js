@@ -1,11 +1,11 @@
 import AppBar from '@material-ui/core/AppBar';
 import { ThemeProvider } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
-import { memo } from 'react';
 import Typography from '@material-ui/core/Typography';
-import { useSelector } from 'react-redux';
 import { selectFooterTheme } from 'app/store/fuse/settingsSlice';
 import clsx from 'clsx';
+import { memo } from 'react';
+import { useSelector } from 'react-redux';
 
 function FooterLayout1(props) {
 	const footerTheme = useSelector(selectFooterTheme);
@@ -19,7 +19,12 @@ function FooterLayout1(props) {
 				style={{ backgroundColor: footerTheme.palette.background.paper }}
 			>
 				<Toolbar className="min-h-48 md:min-h-64 px-8 sm:px-12 py-0 flex items-center overflow-x-auto">
-					<Typography>Footer</Typography>
+					<Typography>
+						<span className="ml-1">&copy; {new Date().getFullYear()} </span>
+						<a href="/" target="_blank" rel="noopener noreferrer">
+							Teamworks Prototype
+						</a>
+					</Typography>
 				</Toolbar>
 			</AppBar>
 		</ThemeProvider>

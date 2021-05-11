@@ -9,21 +9,28 @@ i18next.addResourceBundle('ar', 'navigation', ar);
 
 const navigationConfig = [
 	{
-		id: 'applications',
-		title: 'Applications',
-		translate: 'APPLICATIONS',
-		type: 'group',
-		icon: 'apps',
-		children: [
-			{
-				id: 'example-component',
-				title: 'Example',
-				translate: 'EXAMPLE',
-				type: 'item',
-				icon: 'whatshot',
-				url: '/example'
-			}
-		]
+		id: 'dashboard',
+		title: 'Dashboard',
+		translate: 'Dashboard',
+		type: 'item',
+		icon: 'dashboard',
+		url: '/dashboard'
+	},
+	{
+		id: 'teamworks',
+		title: 'Teamworks',
+		translate: 'Teamworks',
+		type: 'item',
+		icon: 'groupwork',
+		url: '/teamworks'
+	},
+	{
+		id: 'users',
+		title: 'Users',
+		translate: 'Users',
+		type: 'item',
+		icon: 'account_box',
+		url: '/users'
 	}
 ];
 

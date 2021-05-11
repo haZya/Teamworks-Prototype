@@ -19,7 +19,7 @@ function Navigation(props) {
 
 	return (
 		<FuseNavigation
-			className={clsx('navigation', props.className)}
+			className={clsx('navigation pt-32', props.className)}
 			navigation={navigation}
 			layout={props.layout}
 			dense={props.dense}
