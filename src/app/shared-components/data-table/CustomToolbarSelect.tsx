@@ -29,7 +29,7 @@ interface IProps {
 		dataIndex: number;
 	}[];
 	setSelectedRows: (rows: number[]) => void;
-	onDelete?: (deletedRowIds: any[]) => void;
+	onDelete?: (deletedRowIds: string[] | number[]) => void;
 }
 
 const CustomToolbarSelect: React.FC<IProps> = ({ selectedRows, displayData, setSelectedRows, onDelete }) => {
@@ -51,10 +51,10 @@ const CustomToolbarSelect: React.FC<IProps> = ({ selectedRows, displayData, setS
 
 	const handleClickDeleteSelected = () => {
 		if (onDelete) {
-			const deletedData = displayData.filter(data =>
-				selectedRows.data.map(row => row.dataIndex).includes(data.dataIndex)
-			);
-			onDelete(deletedData.map(data => data.data[0]));
+			const toDelete = displayData
+				.filter(data => selectedRows.data.map(row => row.dataIndex).includes(data.dataIndex))
+				.map(d => d.data[0]);
+			onDelete(toDelete);
 			setSelectedRows([]);
 		}
 	};

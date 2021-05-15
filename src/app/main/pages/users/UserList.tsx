@@ -1,140 +1,50 @@
-// import ContactsMultiSelectMenu from './ContactsMultiSelectMenu';
-// import { removeContact, selectContacts, toggleStarredContact } from './store/contactsSlice';
-
+import FuseUtils from '@fuse/utils';
+import _ from '@lodash';
+import { Avatar, makeStyles } from '@material-ui/core';
+import themesConfig from 'app/fuse-configs/themesConfig';
 import DefaultComponents from 'app/shared-components/data-table/CustomComponents';
 import DataTable from 'app/shared-components/data-table/DataTable';
+import DefaultColumnOptions from 'app/shared-components/data-table/DefaultColumnOptions';
 import DefaultOptions from 'app/shared-components/data-table/DefaultOptions';
-import FilterAutoComplete from 'app/shared-components/data-table/FilterAutoComplete';
-import { MUIDataTableColumnDef } from 'mui-datatables/index';
-import { useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
+import { removeUsers, selectUsers } from './store/usersSlice';
 
-function UserList(props: any) {
-	// const dispatch = useDispatch();
-	// const contacts = useSelector(selectContacts);
-	// const searchText = useSelector(({ contactsApp }) => contactsApp.contacts.searchText);
-	// const user = useSelector(({ contactsApp }) => contactsApp.user);
+const useStyles = makeStyles(theme => ({
+	root: {
+		display: 'flex',
+		'& > *': {
+			margin: theme.spacing(0)
+		}
+	},
+	avatar: {
+		width: theme.spacing(4.47),
+		height: theme.spacing(4.47)
+	}
+}));
 
-	// const [filteredData, setFilteredData] = useState(null);
+function UserList() {
+	const dispatch = useDispatch();
+	const users = useSelector(selectUsers);
+	const searchText: string = useSelector(({ usersPage }: RootStateOrAny) => usersPage.users.searchText);
+	const currentUserr = useSelector(({ usersPage }: RootStateOrAny) => usersPage.currentUser);
+	const [filteredData, setFilteredData] = useState([]);
+	const classes = useStyles();
 
-	// const columns = useMemo(
-	// 	() => [
-	// 		{
-	// 			Header: ({ selectedFlatRows }: { selectedFlatRows: any }) => {
-	// 				const selectedRowIds = selectedFlatRows.map((row: any) => row.original.id);
+	useEffect(() => {
+		function getFilteredArray(entities: any[], _searchText: string) {
+			if (_searchText.length === 0) {
+				return entities;
+			}
+			return FuseUtils.filterArrayByString(entities, _searchText);
+		}
 
-	// 				return selectedFlatRows.length > 0 && <div />;
-	// 			},
-	// 			accessor: 'avatar',
-	// 			Cell: ({ row }: { row: any }) => {
-	// 				return <Avatar className="mx-8" alt={row.original.name} src={row.original.avatar} />;
-	// 			},
-	// 			className: 'justify-center',
-	// 			width: 64,
-	// 			sortable: false
-	// 		},
-	// 		{
-	// 			Header: 'First Name',
-	// 			accessor: 'name',
-	// 			className: 'font-medium',
-	// 			sortable: true
-	// 		},
-	// 		{
-	// 			Header: 'Last Name',
-	// 			accessor: 'lastName',
-	// 			className: 'font-medium',
-	// 			sortable: true
-	// 		},
-	// 		{
-	// 			Header: 'Company',
-	// 			accessor: 'company',
-	// 			sortable: true
-	// 		},
-	// 		{
-	// 			Header: 'Job Title',
-	// 			accessor: 'jobTitle',
-	// 			sortable: true
-	// 		},
-	// 		{
-	// 			Header: 'Email',
-	// 			accessor: 'email',
-	// 			sortable: true
-	// 		},
-	// 		{
-	// 			Header: 'Phone',
-	// 			accessor: 'phone',
-	// 			sortable: true
-	// 		},
-	// 		{
-	// 			id: 'action',
-	// 			width: 128,
-	// 			sortable: false,
-	// 			Cell: ({ row }: { row: any }) => (
-	// 				<div className="flex items-center">
-	// 					<IconButton
-	// 						onClick={ev => {
-	// 							ev.stopPropagation();
-	// 							// dispatch(toggleStarredContact(row.original.id));
-	// 						}}
-	// 					>
-	// 						{/* {user.starred && user.starred.includes(row.original.id) ? (
-	// 							<Icon className="text-yellow-700">star</Icon>
-	// 						) : (
-	// 							<Icon>star_border</Icon>
-	// 						)}
-	// 					</IconButton>
-	// 					<IconButton
-	// 						onClick={ev => {
-	// 							ev.stopPropagation();
-	// 							dispatch(removeContact(row.original.id));
-	// 						}}
-	// 					> */}
-	// 						<Icon>delete</Icon>
-	// 					</IconButton>
-	// 				</div>
-	// 			)
-	// 		}
-	// 	],
-	// 	[dispatch]
-	// );
+		if (users) {
+			setFilteredData(getFilteredArray(users, searchText));
+		}
+	}, [users, searchText]);
 
-	// useEffect(() => {
-	// 	function getFilteredArray(entities, _searchText) {
-	// 		if (_searchText.length === 0) {
-	// 			return contacts;
-	// 		}
-	// 		return FuseUtils.filterArrayByString(contacts, _searchText);
-	// 	}
-
-	// 	if (contacts) {
-	// 		setFilteredData(getFilteredArray(contacts, searchText));
-	// 	}
-	// }, [contacts, searchText]);
-
-	// if (!filteredData) {
-	// 	return null;
-	// }
-
-	// if (filteredData.length === 0) {
-	// 	return (
-	// 		<div className="flex flex-1 items-center justify-center h-full">
-	// 			<Typography color="textSecondary" variant="h5">
-	// 				There are no contacts!
-	// 			</Typography>
-	// 		</div>
-	// 	);
-	// }
-
-	const data = useMemo(
-		() => [
-			{ id: 1, area: 'customFilterListOptionscustom sdf customFilterListOptions sdf sfsdfd' },
-			{ id: 2, area: 't2' },
-			{ id: 3, area: 't3' },
-			{ id: 4, area: 'customFilterListOptionscustom sdf customFilterListOptions sdf sfsdd' }
-		],
-		[]
-	);
-
-	const columns: MUIDataTableColumnDef[] = useMemo(
+	const columns = useMemo(
 		() => [
 			{
 				name: 'id',
@@ -144,101 +54,86 @@ function UserList(props: any) {
 					download: false,
 					print: false,
 					viewColumns: false,
+					sort: false,
 					filter: false
 				}
 			},
 			{
-				name: 'area',
-				label: 'Area',
+				name: 'avatar',
+				label: 'Avatar',
 				options: {
-					filterType: 'custom',
-					filterList: [],
-					customFilterListOptions: {
-						render: (v: string[]) => `Area: ${v.join(', ')}`,
-						update: (filterList: any[], _: number, index: number) => {
-							filterList[index].splice(0, filterList[index].length);
-							return filterList;
-						}
-					},
-					filterOptions: {
-						logic: (prop, filterValue) => {
-							if (filterValue.length) return !filterValue.includes(prop);
-							return false;
-						},
-						display: (filterList, onChange, index, column) => {
-							const filterItems = [...Array.from(new Set(data.map(row => row.area)))];
-
-							return (
-								<FilterAutoComplete
-									title={column.label}
-									itemCount={filterItems.length}
-									filterOptions={filterItems}
-									filterList={filterList}
-									onChange={onChange}
-									index={index}
-									column={column}
+					searchable: false,
+					sort: false,
+					filter: false,
+					customBodyRender: (value, tableMeta, updateValue) => {
+						return (
+							<div className={classes.root}>
+								<Avatar
+									className={classes.avatar}
+									alt={tableMeta.rowData[2]?.toUpperCase()}
+									src={value}
+									style={{ backgroundColor: _.sample(themesConfig)?.palette.secondary.main }}
 								/>
-							);
-						},
-						fullWidth: true
+							</div>
+						);
 					}
 				}
+			},
+			{
+				name: 'name',
+				label: 'First Name',
+				options: DefaultColumnOptions('name', 'First Name', filteredData)
+			},
+			{
+				name: 'lastName',
+				label: 'Last Name',
+				options: DefaultColumnOptions('lastName', 'Last Name', filteredData)
+			},
+			{
+				name: 'company',
+				label: 'Company',
+				options: DefaultColumnOptions('company', 'Company', filteredData)
+			},
+			{
+				name: 'jobTitle',
+				label: 'Job Title',
+				options: DefaultColumnOptions('jobTitle', 'Job Title', filteredData)
+			},
+			{
+				name: 'email',
+				label: 'Email',
+				options: DefaultColumnOptions('email', 'Email', filteredData)
+			},
+			{
+				name: 'phone',
+				label: 'Phone',
+				options: DefaultColumnOptions('phone', 'Phone', filteredData)
 			}
-			// {
-			// 	name: 'Actions',
-			// 	options: {
-			// 		filter: false,
-			// 		sort: false,
-			// 		searchable: false,
-			// 		download: false,
-			// 		print: false,
-			// 		empty: true,
-			// 		customBodyRenderLite: dataIndex => {
-			// 			return (
-			// 				<div>
-			// 					<CustomIconButton
-			// 						size="small"
-			// 						onClick={() => {
-			// 							setDataIndex(dataIndex);
-			// 							setOpen(true);
-			// 						}}
-			// 					>
-			// 						<UpdateIcon />
-			// 					</CustomIconButton>
-			// 				</div>
-			// 			);
-			// 		}
-			// 	}
-			// }
 		],
-		[data]
+		[filteredData, classes]
 	);
+
+	const handleDeleteSelected = (toDelete: string[] | number[]) => {
+		dispatch(removeUsers(toDelete));
+	};
 
 	return (
 		<div>
 			<DataTable
-				title="Areas List"
+				title="Users List"
 				columns={columns}
-				data={data}
+				data={filteredData}
 				options={{
 					...DefaultOptions({
-						title: 'Areas List',
-						rowCount: data.length
-						//   onDelete: handleDeleteSelected,
+						title: 'Users List',
+						rowCount: filteredData.length,
+						data: filteredData,
+						onDelete: handleDeleteSelected
 					})
 					// ...options,
 				}}
 				components={DefaultComponents}
 			/>
-			{/* <ContactsTable
-				columns={columns}
-				data={filteredData}
-				onRowClick={(ev, row) => {
-					if (row) {
-						dispatch(openEditContactDialog(row.original));
-					}
-				}}
-			/> */}
 		</div>
 	);
 }

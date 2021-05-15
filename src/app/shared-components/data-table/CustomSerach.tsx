@@ -4,7 +4,7 @@ import React, { useEffect } from 'react';
 
 const StyledIconButton = withStyles(theme => ({
 	root: {
-		marginTop: '-8px',
+		marginTop: -8,
 		'&:hover': {
 			color: theme.palette.secondary.main
 		}
@@ -13,8 +13,8 @@ const StyledIconButton = withStyles(theme => ({
 
 interface IProps {
 	searchText: string;
-	handleSearch: any;
-	hideSearch: any;
+	handleSearch: (text: string) => void;
+	hideSearch: () => void;
 	options: any;
 	rowCount?: number;
 }
@@ -42,7 +42,7 @@ const CustomSearchRender: React.FC<IProps> = ({ searchText, handleSearch, hideSe
 
 	return (
 		<Grow in style={{ transformOrigin: '0 0 0' }} timeout={300}>
-			<>
+			<div>
 				<TextField
 					autoFocus
 					placeholder={`Search ${rowCount} ${rowCount === 1 ? 'row...' : 'rows...'}`}
@@ -57,7 +57,7 @@ const CustomSearchRender: React.FC<IProps> = ({ searchText, handleSearch, hideSe
 				<StyledIconButton onClick={hideSearch}>
 					<Clear />
 				</StyledIconButton>
-			</>
+			</div>
 		</Grow>
 	);
 };

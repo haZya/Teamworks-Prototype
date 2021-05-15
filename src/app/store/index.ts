@@ -1,4 +1,5 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore, Middleware, Reducer } from '@reduxjs/toolkit';
+import { LogEntryObject } from 'redux-logger/index';
 import createReducer from './rootReducer';
 
 if (process.env.NODE_ENV === 'development' && module.hot) {
@@ -8,11 +9,13 @@ if (process.env.NODE_ENV === 'development' && module.hot) {
 	});
 }
 
-const middlewares = [];
+const middlewares: Middleware[] = [];
 
 if (process.env.NODE_ENV === 'development') {
 	const { createLogger } = require(`redux-logger`);
-	const logger = createLogger({ collapsed: (getState, action, logEntry) => !logEntry.error });
+	const logger: Middleware = createLogger({
+		collapsed: (_getState: () => any, _action: any, logEntry: LogEntryObject) => !logEntry.error
+	});
 
 	middlewares.push(logger);
 }
@@ -27,15 +30,20 @@ const store = configureStore({
 	devTools: process.env.NODE_ENV === 'development'
 });
 
-store.asyncReducers = {};
+export interface IAsyncReducers {
+	[key: string]: Reducer;
+}
 
-export const injectReducer = (key, reducer) => {
-	if (store.asyncReducers[key]) {
+const asyncReducers: IAsyncReducers = {};
+
+export const injectReducer = (key: string, reducer: Reducer) => {
+	if (asyncReducers[key]) {
 		return false;
 	}
-	store.asyncReducers[key] = reducer;
-	store.replaceReducer(createReducer(store.asyncReducers));
+	asyncReducers[key] = reducer;
+	store.replaceReducer(createReducer(asyncReducers));
 	return store;
 };
 
 export default store;
+export type RootState = ReturnType<typeof store.getState>;

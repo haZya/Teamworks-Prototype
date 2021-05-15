@@ -7,12 +7,17 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { selectMainTheme } from 'app/store/fuse/settingsSlice';
 import { motion } from 'framer-motion';
-import { useDispatch, useSelector } from 'react-redux';
-// import { setContactsSearchText } from './store/contactsSlice';
+import { MutableRefObject } from 'react';
+import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
+import { setUsersSearchText } from './store/usersSlice';
 
-function UsersPageHeader(props) {
+interface IProps {
+	pageLayout: MutableRefObject<any>;
+}
+
+function UsersPageHeader({ pageLayout }: IProps) {
 	const dispatch = useDispatch();
-	// const searchText = useSelector(({ contactsApp }) => contactsApp.contacts.searchText);
+	const searchText: string = useSelector(({ usersPage }: RootStateOrAny) => usersPage.users.searchText);
 	const mainTheme = useSelector(selectMainTheme);
 
 	return (
@@ -21,7 +26,7 @@ function UsersPageHeader(props) {
 				<Hidden lgUp>
 					<IconButton
 						onClick={ev => {
-							props.pageLayout.current.toggleLeftSidebar();
+							pageLayout.current.toggleLeftSidebar();
 						}}
 						aria-label="open left sidebar"
 					>
@@ -38,40 +43,35 @@ function UsersPageHeader(props) {
 					>
 						account_box
 					</Icon>
-					<Typography
-						component={motion.span}
-						initial={{ x: -20 }}
-						animate={{ x: 0, transition: { delay: 0.2 } }}
-						delay={300}
-						className="hidden sm:flex text-16 md:text-24 mx-12 font-semibold"
-					>
-						Users
-					</Typography>
+					<motion.span initial={{ x: -20 }} animate={{ x: 0, transition: { delay: 0.2 } }}>
+						<Typography className="hidden sm:flex text-16 md:text-24 mx-12 font-semibold">Users</Typography>
+					</motion.span>
 				</div>
 			</div>
 
 			<div className="flex flex-1 items-center justify-center px-8 sm:px-12">
 				<ThemeProvider theme={mainTheme}>
-					<Paper
-						component={motion.div}
+					<motion.div
 						initial={{ y: -20, opacity: 0 }}
 						animate={{ y: 0, opacity: 1, transition: { delay: 0.2 } }}
-						className="flex p-4 items-center w-full max-w-512 h-48 px-16 py-4 shadow"
+						className="w-full max-w-512"
 					>
-						<Icon color="action">search</Icon>
+						<Paper className="flex p-4 items-center h-48 px-16 py-4 shadow">
+							<Icon color="action">search</Icon>
 
-						<Input
-							placeholder="Search for anything"
-							className="flex flex-1 px-16"
-							disableUnderline
-							fullWidth
-							// value={searchText}
-							inputProps={{
-								'aria-label': 'Search'
-							}}
-							// onChange={ev => dispatch(setContactsSearchText(ev))}
-						/>
-					</Paper>
+							<Input
+								placeholder="Search for anything"
+								className="flex flex-1 px-16"
+								disableUnderline
+								fullWidth
+								value={searchText}
+								inputProps={{
+									'aria-label': 'Search'
+								}}
+								onChange={ev => dispatch(setUsersSearchText(ev.target.value || ''))}
+							/>
+						</Paper>
+					</motion.div>
 				</ThemeProvider>
 			</div>
 		</div>

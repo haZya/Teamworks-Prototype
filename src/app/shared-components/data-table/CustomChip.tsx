@@ -12,7 +12,8 @@ const CustomChip: React.FC<IProps> = ({ label, onDelete }) => {
 			variant="outlined"
 			color="secondary"
 			style={{
-				margin: '10px 0px 10px 10px',
+				margin: '10px 0 10px 10px',
+				padding: '2px 0 2px 0',
 				height: '100%'
 			}}
 			label={

@@ -1,8 +1,6 @@
 import { useDebounce, usePrevious } from '@fuse/hooks';
-import { Controller, useForm } from 'react-hook-form';
 import FuseLayoutConfigs from '@fuse/layouts/FuseLayoutConfigs';
 import _ from '@lodash';
-import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormLabel from '@material-ui/core/FormLabel';
@@ -12,12 +10,14 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import Select from '@material-ui/core/Select';
 import { makeStyles } from '@material-ui/core/styles';
 import Switch from '@material-ui/core/Switch';
+import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
-import clsx from 'clsx';
-import { useCallback, useMemo, memo, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { updateUserSettings } from 'app/auth/store/userSlice';
 import { setDefaultSettings } from 'app/store/fuse/settingsSlice';
+import clsx from 'clsx';
+import { memo, useCallback, useEffect, useMemo } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
 
 const useStyles = makeStyles(theme => ({
 	root: {},
@@ -361,7 +361,7 @@ function FuseSettings(props) {
 				/>
 			</div>
 
-			<Controller
+			{/* <Controller
 				name="customScrollbars"
 				control={control}
 				render={({ field: { onChange, value } }) => (
@@ -376,7 +376,7 @@ function FuseSettings(props) {
 						/>
 					</FormControl>
 				)}
-			/>
+			/> */}
 
 			<Controller
 				name="direction"

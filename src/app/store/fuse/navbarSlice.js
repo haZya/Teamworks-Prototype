@@ -7,31 +7,31 @@ const navbarSlice = createSlice({
 		mobileOpen: false
 	},
 	reducers: {
-		navbarToggleFolded: (state, action) => {
+		navbarToggleFolded: state => {
 			state.foldedOpen = !state.foldedOpen;
 		},
-		navbarOpenFolded: (state, action) => {
+		navbarOpenFolded: state => {
 			state.foldedOpen = true;
 		},
-		navbarCloseFolded: (state, action) => {
+		navbarCloseFolded: state => {
 			state.foldedOpen = false;
 		},
-		navbarToggleMobile: (state, action) => {
+		navbarToggleMobile: state => {
 			state.mobileOpen = !state.mobileOpen;
 		},
-		navbarOpenMobile: (state, action) => {
+		navbarOpenMobile: state => {
 			state.mobileOpen = true;
 		},
-		navbarCloseMobile: (state, action) => {
+		navbarCloseMobile: state => {
 			state.mobileOpen = false;
 		},
-		navbarClose: (state, action) => {
+		navbarClose: state => {
 			state.open = false;
 		},
-		navbarOpen: (state, action) => {
+		navbarOpen: state => {
 			state.open = true;
 		},
-		navbarToggle: (state, action) => {
+		navbarToggle: state => {
 			state.open = !state.open;
 		}
 	}

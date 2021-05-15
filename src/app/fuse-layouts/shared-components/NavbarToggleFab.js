@@ -1,8 +1,6 @@
 import Fab from '@material-ui/core/Fab';
 import Icon from '@material-ui/core/Icon';
-import IconButton from '@material-ui/core/IconButton';
-import { useTheme, makeStyles } from '@material-ui/core/styles';
-
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Tooltip from '@material-ui/core/Tooltip';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { navbarToggle, navbarToggleMobile } from 'app/store/fuse/navbarSlice';

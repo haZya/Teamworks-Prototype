@@ -23,7 +23,8 @@ function FooterLayout1(props) {
 						<span className="ml-1">&copy; {new Date().getFullYear()} </span>
 						<a href="/" target="_blank" rel="noopener noreferrer">
 							Teamworks Prototype
-						</a>
+						</a>{' '}
+						by Janaka Nandasena
 					</Typography>
 				</Toolbar>
 			</AppBar>

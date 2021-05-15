@@ -7,13 +7,12 @@ import Toolbar from '@material-ui/core/Toolbar';
 import NavbarToggleButton from 'app/fuse-layouts/shared-components/NavbarToggleButton';
 import QuickPanelToggleButton from 'app/fuse-layouts/shared-components/quickPanel/QuickPanelToggleButton';
 import UserMenu from 'app/fuse-layouts/shared-components/UserMenu';
+import { selectToolbarTheme } from 'app/store/fuse/settingsSlice';
 import clsx from 'clsx';
 import { memo } from 'react';
 import { useSelector } from 'react-redux';
-import { selectToolbarTheme } from 'app/store/fuse/settingsSlice';
 import AdjustFontSize from '../../shared-components/AdjustFontSize';
 import FullScreenToggle from '../../shared-components/FullScreenToggle';
-import LanguageSwitcher from '../../shared-components/LanguageSwitcher';
 
 const useStyles = makeStyles(theme => ({
 	root: {}
@@ -47,7 +46,7 @@ function ToolbarLayout2(props) {
 					</div>
 
 					<div className="flex items-center px-8 h-full overflow-x-auto">
-						<LanguageSwitcher />
+						{/* <LanguageSwitcher /> */}
 
 						<AdjustFontSize />
 

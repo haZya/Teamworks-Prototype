@@ -7,9 +7,11 @@ export const DefaultMuiTheme = (theme: Theme): Theme =>
 			MUIDataTable: {
 				paper: {
 					'@media screen and (max-width: 599px)': {
-						borderRadius: 0
+						borderRadius: 0,
+						marginBottom: 0
 					},
-					borderRadius: 16
+					borderRadius: 16,
+					marginBottom: 24
 				}
 			},
 			MUIDataTableToolbar: {
@@ -25,10 +27,15 @@ export const DefaultMuiTheme = (theme: Theme): Theme =>
 			MUIDataTableToolbarSelect: {
 				root: {
 					boxShadow: 'none',
-					borderRadius: 0
+					borderRadius: 0,
+					height: 64
 				}
 			},
 			MUIDataTableHeadCell: {
+				root: {
+					fontWeight: 600,
+					fontSize: '1.4rem'
+				},
 				toolButton: {
 					fontWeight: 600,
 					fontSize: '1.4rem',
@@ -45,7 +52,10 @@ export const DefaultMuiTheme = (theme: Theme): Theme =>
 			},
 			MUIDataTableFilter: {
 				root: {
-					maxWidth: '400px'
+					maxWidth: '400px',
+					'@media screen and (max-width: 499px)': {
+						padding: '24px 5px 36px 5px'
+					}
 				},
 				title: {
 					marginLeft: '0px'
@@ -57,20 +67,20 @@ export const DefaultMuiTheme = (theme: Theme): Theme =>
 			},
 			MUIDataTableJumpToPage: {
 				root: {
-					'@media screen and (max-width: 761px)': {
+					'@media screen and (max-width: 699px)': {
 						padding: 0
 					}
 				}
 			},
 			MUIDataTablePagination: {
 				toolbar: {
-					'@media screen and (max-width: 761px)': {
+					'@media screen and (max-width: 699px)': {
 						marginTop: '-15px',
 						padding: 0
 					}
 				},
 				navContainer: {
-					'@media screen and (max-width: 761px)': {
+					'@media screen and (max-width: 699px)': {
 						display: 'grid'
 					}
 				}
