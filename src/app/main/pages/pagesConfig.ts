@@ -1,5 +1,7 @@
+import Error404PageConfig from './errors/404/Error404PageConfig';
+import Error500PageConfig from './errors/500/Error500PageConfig';
 import UsersPageConfig from './users/UsersPageConfig';
 
-const pagesConfigs = [UsersPageConfig];
+const pagesConfigs = [Error404PageConfig, Error500PageConfig, UsersPageConfig];
 
 export default pagesConfigs;

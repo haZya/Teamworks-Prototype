@@ -1,9 +1,8 @@
 import FuseUtils from '@fuse/utils';
-import ExampleConfig from 'app/main/example/ExampleConfig';
 import pagesConfigs from 'app/main/pages/pagesConfig';
 import { Redirect } from 'react-router-dom';
 
-const routeConfigs = [...pagesConfigs, ExampleConfig];
+const routeConfigs = [...pagesConfigs];
 
 const routes = [
 	// if you want to make whole app auth protected by default change defaultAuth for example:
@@ -12,7 +11,11 @@ const routes = [
 	...FuseUtils.generateRoutesFromConfigs(routeConfigs),
 	{
 		path: '/',
+		exact: true,
 		component: () => <Redirect to="/dashboard" />
+	},
+	{
+		component: () => <Redirect to="/404" />
 	}
 ];
 
