@@ -22,8 +22,8 @@ function UsersPageHeader({ pageLayout }: IProps) {
 
 	return (
 		<div className="flex flex-1 items-center justify-between p-4 sm:p-24">
-			<div className="flex flex-shrink items-center sm:w-224">
-				<Hidden lgUp>
+			<Hidden lgUp>
+				<div className="flex flex-shrink items-center sm:w-224">
 					<IconButton
 						onClick={ev => {
 							pageLayout.current.toggleLeftSidebar();
@@ -32,22 +32,24 @@ function UsersPageHeader({ pageLayout }: IProps) {
 					>
 						<Icon>menu</Icon>
 					</IconButton>
-				</Hidden>
 
-				<div className="flex items-center">
-					<Icon
-						component={motion.span}
-						initial={{ scale: 0 }}
-						animate={{ scale: 1, transition: { delay: 0.2 } }}
-						className="text-24 md:text-32"
-					>
-						account_box
-					</Icon>
-					<motion.span initial={{ x: -20 }} animate={{ x: 0, transition: { delay: 0.2 } }}>
-						<Typography className="hidden sm:flex text-16 md:text-24 mx-12 font-semibold">Users</Typography>
-					</motion.span>
+					<div className="flex items-center">
+						<Icon
+							component={motion.span}
+							initial={{ scale: 0 }}
+							animate={{ scale: 1, transition: { delay: 0.2 } }}
+							className="text-24 md:text-32"
+						>
+							account_box
+						</Icon>
+						<motion.span initial={{ x: -20 }} animate={{ x: 0, transition: { delay: 0.2 } }}>
+							<Typography className="hidden sm:flex text-16 md:text-24 mx-12 font-semibold">
+								Users
+							</Typography>
+						</motion.span>
+					</div>
 				</div>
-			</div>
+			</Hidden>
 
 			<div className="flex flex-1 items-center justify-center px-8 sm:px-12">
 				<ThemeProvider theme={mainTheme}>

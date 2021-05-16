@@ -7,12 +7,20 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
+import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { openNewUserDialog } from './store/usersSlice';
 
 const useStyles = makeStyles(theme => ({
+	paper: {
+		borderRadius: '16px!important',
+		[theme.breakpoints.down('md')]: {
+			borderRadius: '0!important',
+			height: '100%'
+		}
+	},
 	navLink: {
 		color: 'inherit!important',
 		textDecoration: 'none!important',
@@ -76,9 +84,13 @@ function UsersPageSidebar() {
 	const classes = useStyles();
 
 	return (
-		<div className="p-0 lg:p-24 lg:ltr:pr-4 lg:rtl:pl-4">
-			<motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1, transition: { delay: 0.2 } }}>
-				<Paper className="rounded-0 shadow-none lg:rounded-16 lg:shadow">
+		<div className="p-0 lg:p-24 lg:ltr:pr-4 lg:rtl:pl-4 h-full lg:h-auto">
+			<motion.div
+				className="h-full lg:h-auto"
+				initial={{ y: 20, opacity: 0 }}
+				animate={{ y: 0, opacity: 1, transition: { delay: 0.2 } }}
+			>
+				<Paper className={clsx(classes.paper, 'shadow-none lg:shadow')}>
 					<div className="p-24 flex items-center">
 						<Avatar alt={currentUser.name} src={currentUser.avatar} />
 						<Typography className="mx-12">{currentUser.name}</Typography>

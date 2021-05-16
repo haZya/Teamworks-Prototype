@@ -2,7 +2,7 @@ import FuseScrollbars from '@fuse/core/FuseScrollbars';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import * as PropTypes from 'prop-types';
-import { forwardRef, useImperativeHandle, memo, useRef } from 'react';
+import { forwardRef, memo, useImperativeHandle, useRef } from 'react';
 import FusePageCardedHeader from './FusePageCardedHeader';
 import FusePageCardedSidebar from './FusePageCardedSidebar';
 
@@ -142,6 +142,7 @@ const useStyles = makeStyles(theme => ({
 const FusePageCarded = forwardRef((props, ref) => {
 	const leftSidebarRef = useRef(null);
 	const rightSidebarRef = useRef(null);
+	const contentRef = useRef(null);
 	const rootRef = useRef(null);
 	const classes = useStyles(props);
 	const isRightSidebar = props.rightSidebarHeader || props.rightSidebarContent;
@@ -149,6 +150,7 @@ const FusePageCarded = forwardRef((props, ref) => {
 
 	useImperativeHandle(ref, () => ({
 		rootRef,
+		contentRef,
 		toggleLeftSidebar: () => {
 			leftSidebarRef.current.toggleSidebar();
 		},
@@ -193,6 +195,7 @@ const FusePageCarded = forwardRef((props, ref) => {
 
 						{props.content && (
 							<FuseScrollbars
+								ref={contentRef}
 								className={classes.content}
 								enable={props.innerScroll}
 								scrollToTopOnRouteChange={props.innerScroll}

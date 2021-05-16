@@ -361,7 +361,7 @@ function FuseSettings(props) {
 				/>
 			</div>
 
-			{/* <Controller
+			<Controller
 				name="customScrollbars"
 				control={control}
 				render={({ field: { onChange, value } }) => (
@@ -376,7 +376,7 @@ function FuseSettings(props) {
 						/>
 					</FormControl>
 				)}
-			/> */}
+			/>
 
 			<Controller
 				name="direction"

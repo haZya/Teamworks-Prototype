@@ -1,12 +1,12 @@
 import FuseUtils from '@fuse/utils';
 import _ from '@lodash';
-import { Avatar, makeStyles } from '@material-ui/core';
+import { Avatar, makeStyles, useMediaQuery, useTheme } from '@material-ui/core';
 import themesConfig from 'app/fuse-configs/themesConfig';
 import DefaultComponents from 'app/shared-components/data-table/CustomComponents';
 import DataTable from 'app/shared-components/data-table/DataTable';
 import DefaultColumnOptions from 'app/shared-components/data-table/DefaultColumnOptions';
 import DefaultOptions from 'app/shared-components/data-table/DefaultOptions';
-import { useEffect, useMemo, useState } from 'react';
+import { MutableRefObject, useEffect, useMemo, useState } from 'react';
 import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
 import { removeUsers, selectUsers } from './store/usersSlice';
 
@@ -23,7 +23,11 @@ const useStyles = makeStyles(theme => ({
 	}
 }));
 
-function UserList() {
+interface IProps {
+	container: MutableRefObject<any>;
+}
+
+function UserList({ container }: IProps) {
 	const dispatch = useDispatch();
 	const users = useSelector(selectUsers);
 	const searchText: string = useSelector(({ usersPage }: RootStateOrAny) => usersPage.users.searchText);
@@ -117,24 +121,49 @@ function UserList() {
 		dispatch(removeUsers(toDelete));
 	};
 
+	const theme = useTheme();
+	const smDown = useMediaQuery(theme.breakpoints.down('sm'));
+	const xsDown = useMediaQuery(theme.breakpoints.down('xs'));
+	let heightOffset = 120;
+
+	heightOffset = xsDown ? 172 : smDown ? 154 : 120;
+
+	const [height, setHeight] = useState(0);
+
+	useEffect(() => {
+		setHeight(container.current.contentRef.current.clientHeight - heightOffset);
+
+		const resizeListener = () => {
+			setHeight(container.current.contentRef.current.clientHeight - heightOffset);
+		};
+
+		// set resize listener
+		window.addEventListener('resize', resizeListener);
+
+		// clean up function
+		return () => {
+			// remove resize listener
+			window.removeEventListener('resize', resizeListener);
+		};
+	}, [container, heightOffset]);
+
 	return (
-		<div>
-			<DataTable
-				title="Users List"
-				columns={columns}
-				data={filteredData}
-				options={{
-					...DefaultOptions({
-						title: 'Users List',
-						rowCount: filteredData.length,
-						data: filteredData,
-						onDelete: handleDeleteSelected
-					})
-					// ...options,
-				}}
-				components={DefaultComponents}
-			/>
-		</div>
+		<DataTable
+			title="Users List"
+			columns={columns}
+			data={filteredData}
+			options={{
+				...DefaultOptions({
+					title: 'Users List',
+					rowCount: filteredData.length,
+					data: filteredData,
+					tableBodyHeight: height,
+					onDelete: handleDeleteSelected
+				})
+				// ...options,
+			}}
+			components={DefaultComponents}
+		/>
 	);
 }
 

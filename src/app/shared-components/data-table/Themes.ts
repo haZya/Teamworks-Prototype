@@ -7,11 +7,10 @@ export const DefaultMuiTheme = (theme: Theme): Theme =>
 			MUIDataTable: {
 				paper: {
 					'@media screen and (max-width: 599px)': {
-						borderRadius: 0,
-						marginBottom: 0
+						borderRadius: 0
 					},
-					borderRadius: 16,
-					marginBottom: 24
+					boxShadow: 'none',
+					borderRadius: 20
 				}
 			},
 			MUIDataTableToolbar: {
@@ -67,20 +66,20 @@ export const DefaultMuiTheme = (theme: Theme): Theme =>
 			},
 			MUIDataTableJumpToPage: {
 				root: {
-					'@media screen and (max-width: 699px)': {
+					'@media screen and (max-width: 959px)': {
 						padding: 0
 					}
 				}
 			},
 			MUIDataTablePagination: {
 				toolbar: {
-					'@media screen and (max-width: 699px)': {
+					'@media screen and (max-width: 959px)': {
 						marginTop: '-15px',
 						padding: 0
 					}
 				},
 				navContainer: {
-					'@media screen and (max-width: 699px)': {
+					'@media screen and (max-width: 959px)': {
 						display: 'grid'
 					}
 				}
@@ -116,6 +115,17 @@ export const DefaultMuiTheme = (theme: Theme): Theme =>
 						borderTop: `1px solid`,
 						borderColor: theme.palette.type === 'light' ? 'rgb(224, 224, 224)' : 'rgb(81, 81, 81)',
 						borderBottom: 0
+					}
+				}
+			},
+			MUIDataTableBodyRow: {
+				root: {
+					'&:last-child td': {
+						borderBottom: `1px solid`,
+						borderColor:
+							theme.palette.type === 'light'
+								? 'rgb(224, 224, 224)!important'
+								: 'rgb(81, 81, 81)!important'
 					}
 				}
 			}

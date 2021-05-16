@@ -8,16 +8,17 @@ interface IProps {
 	title: string;
 	rowCount?: number;
 	data?: any[];
-	expandable?: boolean;
+	tableBodyHeight?: string | number | undefined;
 	onDelete?: (deletedRowIds: string[] | number[]) => void;
 }
-const rowsPerPage = [5, 10, 20];
+const rowsPerPage = [5, 15, 30];
 
-const DefaultOptions = ({ title, rowCount, data, expandable, onDelete }: IProps): MUIDataTableOptions => {
+const DefaultOptions = ({ title, rowCount, data, tableBodyHeight, onDelete }: IProps): MUIDataTableOptions => {
 	const dispatch = useDispatch();
 
 	return {
 		elevation: 1,
+		tableBodyHeight: `${tableBodyHeight}px`,
 		customSearchRender: (searchText, handleSearch, hideSearch, options) => {
 			return (
 				<CustomSearchRender
