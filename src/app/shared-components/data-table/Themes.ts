@@ -14,6 +14,11 @@ export const DefaultMuiTheme = (theme: Theme): Theme =>
 				}
 			},
 			MUIDataTableToolbar: {
+				// root: {
+				// 	borderBottom: `1px solid`,
+				// 	borderColor:
+				// 		theme.palette.type === 'light' ? 'rgb(224, 224, 224)!important' : 'rgb(81, 81, 81)!important'
+				// },
 				icon: {
 					'&:hover': {
 						color: theme.palette.secondary.main
@@ -64,22 +69,31 @@ export const DefaultMuiTheme = (theme: Theme): Theme =>
 					color: theme.palette.secondary.main
 				}
 			},
+			MUIDataTableFooter: {
+				root: {
+					marginTop: 3
+				}
+			},
 			MUIDataTableJumpToPage: {
 				root: {
-					'@media screen and (max-width: 959px)': {
+					'@media screen and (max-width: 699px)': {
 						padding: 0
 					}
 				}
 			},
 			MUIDataTablePagination: {
+				root: {
+					'@media screen and (max-width: 699px)': {
+						marginTop: -18
+					}
+				},
 				toolbar: {
-					'@media screen and (max-width: 959px)': {
-						marginTop: '-15px',
+					'@media screen and (max-width: 699px)': {
 						padding: 0
 					}
 				},
 				navContainer: {
-					'@media screen and (max-width: 959px)': {
+					'@media screen and (max-width: 699px)': {
 						display: 'grid'
 					}
 				}

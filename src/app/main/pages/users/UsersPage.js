@@ -1,8 +1,8 @@
 import FusePageCarded from '@fuse/core/FusePageCarded';
 import { useDeepCompareEffect } from '@fuse/hooks';
-import { makeStyles } from '@material-ui/core';
+import { makeStyles, useMediaQuery, useTheme } from '@material-ui/core';
 import withReducer from 'app/store/withReducer';
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import LeftSidebarHeader from './LeftSidebarHeader';
@@ -42,13 +42,15 @@ const useStyles = makeStyles(theme => ({
 		height: 72,
 		minHeight: 72,
 		[theme.breakpoints.up('sm')]: {
-			height: 90,
-			minHeight: 90
+			marginTop: -24,
+			height: 114,
+			minHeight: 114
 		}
 	},
 	sidebarHeader: {
-		height: 182,
-		minHeight: 182,
+		marginTop: -24,
+		height: 204,
+		minHeight: 204,
 		[theme.breakpoints.down('md')]: {
 			display: 'none'
 		}
@@ -70,17 +72,43 @@ function UsersPage(props) {
 		dispatch(getUserData());
 	}, [dispatch, routeParams]);
 
+	const theme = useTheme();
+	const xsmDown = useMediaQuery(theme.breakpoints.down(700));
+	const xsDown = useMediaQuery(theme.breakpoints.down('xs'));
+	const minHeightThreshold = 283; // This number is proportional to the sidebar height
+	let heightOffset = 120;
+
+	heightOffset = xsDown ? 172 : xsmDown ? 154 : 120;
+	const [height, setHeight] = useState(undefined);
+
+	useEffect(() => {
+		setHeight(pageLayout.current.contentRef.current.clientHeight - heightOffset);
+
+		const resizeListener = () => {
+			setHeight(pageLayout.current.contentRef.current.clientHeight - heightOffset);
+		};
+
+		// set resize listener
+		window.addEventListener('resize', resizeListener);
+
+		// clean up function
+		return () => {
+			// remove resize listener
+			window.removeEventListener('resize', resizeListener);
+		};
+	}, [pageLayout, heightOffset]);
+
 	return (
 		<>
 			<FusePageCarded
 				classes={classes}
 				header={<UsersPageHeader pageLayout={pageLayout} />}
-				content={<UserList container={pageLayout} />}
+				content={<UserList tableBodyHeight={height} minHeightThreshold={minHeightThreshold} />}
 				leftSidebarHeader={<LeftSidebarHeader />}
 				leftSidebarContent={<UsersPageSidebar />}
 				sidebarInner
 				ref={pageLayout}
-				innerScroll
+				innerScroll={height > minHeightThreshold}
 			/>
 			<UserDialog />
 		</>

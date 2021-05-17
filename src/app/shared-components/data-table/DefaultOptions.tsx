@@ -9,16 +9,27 @@ interface IProps {
 	rowCount?: number;
 	data?: any[];
 	tableBodyHeight?: string | number | undefined;
+	minHeightThreshold?: number;
 	onDelete?: (deletedRowIds: string[] | number[]) => void;
 }
 const rowsPerPage = [5, 15, 30];
 
-const DefaultOptions = ({ title, rowCount, data, tableBodyHeight, onDelete }: IProps): MUIDataTableOptions => {
+const DefaultOptions = ({
+	title,
+	rowCount,
+	data,
+	tableBodyHeight,
+	minHeightThreshold,
+	onDelete
+}: IProps): MUIDataTableOptions => {
 	const dispatch = useDispatch();
 
 	return {
 		elevation: 1,
-		tableBodyHeight: `${tableBodyHeight}px`,
+		tableBodyHeight:
+			tableBodyHeight && minHeightThreshold && tableBodyHeight > minHeightThreshold
+				? `${tableBodyHeight}px`
+				: undefined,
 		customSearchRender: (searchText, handleSearch, hideSearch, options) => {
 			return (
 				<CustomSearchRender
