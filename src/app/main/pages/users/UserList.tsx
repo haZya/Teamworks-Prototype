@@ -6,6 +6,7 @@ import DefaultComponents from 'app/shared-components/data-table/CustomComponents
 import DataTable from 'app/shared-components/data-table/DataTable';
 import DefaultColumnOptions from 'app/shared-components/data-table/DefaultColumnOptions';
 import DefaultOptions from 'app/shared-components/data-table/DefaultOptions';
+import IUser from 'models/User';
 import { useEffect, useMemo, useState } from 'react';
 import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
 import { removeUsers, selectUsers } from './store/usersSlice';
@@ -33,7 +34,7 @@ function UserList({ tableBodyHeight, minHeightThreshold }: IProps) {
 	const users = useSelector(selectUsers);
 	const searchText: string = useSelector(({ usersPage }: RootStateOrAny) => usersPage.users.searchText);
 	const currentUserr = useSelector(({ usersPage }: RootStateOrAny) => usersPage.currentUser);
-	const [filteredData, setFilteredData] = useState([]);
+	const [filteredData, setFilteredData] = useState<IUser[]>([]);
 	const classes = useStyles();
 
 	useEffect(() => {

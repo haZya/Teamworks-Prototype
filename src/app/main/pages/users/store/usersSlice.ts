@@ -4,9 +4,9 @@ import IUser from 'models/User';
 import { RootStateOrAny } from 'react-redux';
 import { getUserData } from './currentUserSlice';
 
-export const getUsers = createAsyncThunk(
+export const getUsers = createAsyncThunk<{ data: IUser[]; routeParams: object }, object, { state: RootStateOrAny }>(
 	'usersPage/users/getUsers',
-	async (routeParams: object, { getState }: RootStateOrAny) => {
+	async (routeParams, { getState }) => {
 		routeParams = routeParams || getState().usersPage.users.routeParams;
 		const response = await axios.get('/api/users', {
 			params: routeParams
@@ -17,7 +17,7 @@ export const getUsers = createAsyncThunk(
 	}
 );
 
-export const addUser = createAsyncThunk('usersPage/users/addUser', async (user: IUser, { dispatch, getState }) => {
+export const addUser = createAsyncThunk<IUser, IUser>('usersPage/users/addUser', async (user, { dispatch }) => {
 	const response = await axios.post('/api/add-user', { user });
 	const data: IUser = await response.data;
 
@@ -26,39 +26,36 @@ export const addUser = createAsyncThunk('usersPage/users/addUser', async (user: 
 	return data;
 });
 
-export const updateUser = createAsyncThunk(
-	'usersPage/users/updateUser',
-	async (user: IUser, { dispatch, getState }) => {
-		const response = await axios.post('/api/update-user', { user });
-		const data: IUser = await response.data;
+export const updateUser = createAsyncThunk<IUser, IUser>('usersPage/users/updateUser', async (user, { dispatch }) => {
+	const response = await axios.post('/api/update-user', { user });
+	const data: IUser = await response.data;
 
-		dispatch(getUsers({}));
+	dispatch(getUsers({}));
 
-		return data;
-	}
-);
+	return data;
+});
 
-export const removeUser = createAsyncThunk(
+export const removeUser = createAsyncThunk<string | number, string | number>(
 	'usersPage/users/removeUser',
-	async (userId: string | number, { dispatch, getState }) => {
+	async userId => {
 		await axios.post('/api/remove-user', { userId });
 
 		return userId;
 	}
 );
 
-export const removeUsers = createAsyncThunk(
+export const removeUsers = createAsyncThunk<string[] | number[], string[] | number[]>(
 	'usersPage/users/removeusers',
-	async (userIds: string[] | number[], { dispatch, getState }) => {
+	async userIds => {
 		await axios.post('/api/remove-users', { userIds });
 
 		return userIds;
 	}
 );
 
-export const toggleStarredUser = createAsyncThunk(
+export const toggleStarredUser = createAsyncThunk<IUser, string[] | number[]>(
 	'usersPage/users/toggleStarredUser',
-	async (userId: string[] | number[], { dispatch, getState }) => {
+	async (userId, { dispatch }) => {
 		const response = await axios.post('/api/toggle-starred-user', { userId });
 		const data: IUser = await response.data;
 
@@ -70,9 +67,9 @@ export const toggleStarredUser = createAsyncThunk(
 	}
 );
 
-export const toggleStarredUsers = createAsyncThunk(
+export const toggleStarredUsers = createAsyncThunk<IUser[], string[] | number[]>(
 	'usersPage/users/toggleStarredUser',
-	async (userIds: string[] | number[], { dispatch, getState }) => {
+	async (userIds, { dispatch }) => {
 		const response = await axios.post('/api/toggle-starred-users', { userIds });
 		const data: IUser[] = await response.data;
 
@@ -84,9 +81,9 @@ export const toggleStarredUsers = createAsyncThunk(
 	}
 );
 
-export const setUsersStarred = createAsyncThunk(
+export const setUsersStarred = createAsyncThunk<IUser, string[] | number[]>(
 	'usersPage/users/setUsersStarred',
-	async (userIds: string[] | number[], { dispatch, getState }) => {
+	async (userIds, { dispatch }) => {
 		const response = await axios.post('/api/set-users-starred', { userIds });
 		const data: IUser = await response.data;
 
@@ -98,9 +95,9 @@ export const setUsersStarred = createAsyncThunk(
 	}
 );
 
-export const setUsersUnstarred = createAsyncThunk(
+export const setUsersUnstarred = createAsyncThunk<IUser[], string[] | number[]>(
 	'usersPage/users/setUsersUnstarred',
-	async (userIds: string[] | number[], { dispatch, getState }) => {
+	async (userIds, { dispatch }) => {
 		const response = await axios.post('/api/set-users-unstarred', { userIds });
 		const data: IUser[] = await response.data;
 

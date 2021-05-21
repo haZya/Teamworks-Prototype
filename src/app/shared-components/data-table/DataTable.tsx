@@ -1,7 +1,9 @@
-import { Grow, MuiThemeProvider, Theme, useTheme } from '@material-ui/core';
+import { Grow, MuiThemeProvider, Theme } from '@material-ui/core';
+import { selectMainTheme } from 'app/store/fuse/settingsSlice';
 import MUIDataTable from 'mui-datatables';
 import { MUIDataTableColumnDef, MUIDataTableOptions, MUIDataTableProps } from 'mui-datatables/index';
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { DefaultMuiTheme } from './Themes';
 
 interface IProps {
@@ -14,7 +16,7 @@ interface IProps {
 }
 
 const DataTable: React.FC<IProps> = ({ title, columns, data, options, components, theme }) => {
-	const mainTheme = useTheme();
+	const mainTheme = useSelector(selectMainTheme);
 
 	if (!theme) {
 		theme = DefaultMuiTheme(mainTheme);

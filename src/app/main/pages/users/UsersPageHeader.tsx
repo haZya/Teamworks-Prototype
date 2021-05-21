@@ -3,13 +3,31 @@ import Icon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
 import Input from '@material-ui/core/Input';
 import Paper from '@material-ui/core/Paper';
-import { ThemeProvider } from '@material-ui/core/styles';
+import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { selectMainTheme } from 'app/store/fuse/settingsSlice';
 import { motion } from 'framer-motion';
 import { MutableRefObject } from 'react';
 import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
 import { setUsersSearchText } from './store/usersSlice';
+
+const useStyles = makeStyles(theme => ({
+	headerIcon: {
+		position: 'absolute',
+		top: -64,
+		left: 0,
+		opacity: 0.04,
+		pointerEvents: 'none',
+		fontSize: '80vw',
+		width: '80vw',
+		height: '80vw',
+		[theme.breakpoints.up('sm')]: {
+			fontSize: 364,
+			width: 364,
+			height: 244
+		}
+	}
+}));
 
 interface IProps {
 	pageLayout: MutableRefObject<any>;
@@ -18,10 +36,12 @@ interface IProps {
 function UsersPageHeader({ pageLayout }: IProps) {
 	const dispatch = useDispatch();
 	const searchText: string = useSelector(({ usersPage }: RootStateOrAny) => usersPage.users.searchText);
+
+	const classes = useStyles();
 	const mainTheme = useSelector(selectMainTheme);
 
 	return (
-		<div className="flex flex-1 items-center justify-between p-4 sm:p-24">
+		<div className="flex flex-1 items-center justify-between w-full">
 			<Hidden lgUp>
 				<div className="flex flex-shrink items-center sm:w-224">
 					<IconButton
@@ -40,7 +60,7 @@ function UsersPageHeader({ pageLayout }: IProps) {
 							animate={{ scale: 1, transition: { delay: 0.2 } }}
 							className="text-24 md:text-32"
 						>
-							account_box
+							people_alt
 						</Icon>
 						<motion.span initial={{ x: -20 }} animate={{ x: 0, transition: { delay: 0.2 } }}>
 							<Typography className="hidden sm:flex text-16 md:text-24 mx-12 font-semibold">
@@ -51,7 +71,7 @@ function UsersPageHeader({ pageLayout }: IProps) {
 				</div>
 			</Hidden>
 
-			<div className="flex flex-1 items-center justify-center px-8 sm:px-12">
+			<div className="flex flex-1 items-center justify-center px-8 sm:px-12 ml-4">
 				<ThemeProvider theme={mainTheme}>
 					<motion.div
 						initial={{ y: -20, opacity: 0 }}
@@ -76,6 +96,7 @@ function UsersPageHeader({ pageLayout }: IProps) {
 					</motion.div>
 				</ThemeProvider>
 			</div>
+			<Icon className={classes.headerIcon}>people_alt</Icon>
 		</div>
 	);
 }

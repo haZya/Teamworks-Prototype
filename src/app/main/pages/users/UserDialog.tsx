@@ -53,7 +53,7 @@ function UserDialog() {
 	const dispatch = useDispatch();
 	const userDialog: IUserDialog = useSelector(({ usersPage }: RootStateOrAny) => usersPage.users.userDialog);
 
-	const { control, watch, reset, handleSubmit, formState, getValues } = useForm({
+	const { control, watch, reset, handleSubmit, formState } = useForm({
 		mode: 'onChange',
 		defaultValues,
 		resolver: yupResolver(schema)

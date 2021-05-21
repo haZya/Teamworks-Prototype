@@ -84,7 +84,7 @@ function UsersPageSidebar() {
 	const classes = useStyles();
 
 	return (
-		<div className="p-0 lg:p-24 lg:ltr:pr-4 lg:rtl:pl-4 h-full lg:h-auto">
+		<div className="p-0 lg:p-24 lg:ltr:pr-12 lg:rtl:pl-12 h-full lg:h-auto">
 			<motion.div
 				className="h-full lg:h-auto"
 				initial={{ y: 20, opacity: 0 }}

@@ -12,7 +12,7 @@ const navigationConfig = [
 		title: 'Teamworks',
 		translate: 'Teamworks',
 		type: 'item',
-		icon: 'groupwork',
+		icon: 'group_work',
 		url: '/teamworks'
 	},
 	{
@@ -20,7 +20,7 @@ const navigationConfig = [
 		title: 'Users',
 		translate: 'Users',
 		type: 'item',
-		icon: 'account_box',
+		icon: 'people_alt',
 		url: '/users'
 	}
 ];

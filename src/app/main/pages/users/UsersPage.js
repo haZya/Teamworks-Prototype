@@ -25,18 +25,24 @@ const useStyles = makeStyles(theme => ({
 		borderRadius: 20,
 		[theme.breakpoints.down('xs')]: {
 			borderRadius: '20px 20px 0 0'
+		},
+		[theme.breakpoints.up('lg')]: {
+			marginLeft: 12
 		}
 	},
 	content: {
+		zIndex: 5,
 		borderRadius: 20,
 		[theme.breakpoints.down('xs')]: {
 			borderRadius: '20px 20px 0 0'
 		}
 	},
+	sidebarWrapper: {
+		zIndex: '5!important'
+	},
 	leftSidebar: {
-		width: 256,
-		border: 0,
-		marginRight: 20
+		width: 276,
+		border: 0
 	},
 	header: {
 		height: 72,
@@ -56,7 +62,7 @@ const useStyles = makeStyles(theme => ({
 		}
 	},
 	topBg: {
-		height: '180px'
+		height: 180
 	}
 }));
 

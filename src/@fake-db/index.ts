@@ -1,4 +1,3 @@
-import './db/academy-db';
 import './db/analytics-dashboard-db';
 import './db/auth-db';
 import './db/calendar-db';
@@ -16,6 +15,7 @@ import './db/project-dashboard-db';
 import './db/quick-panel-db';
 import './db/scrumboard-db';
 import './db/search-db';
+import './db/teamworks-db';
 import './db/todo-db';
 import './db/users-db';
 import mock from './mock';
