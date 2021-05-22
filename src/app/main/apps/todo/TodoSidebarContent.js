@@ -8,10 +8,13 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 import { makeStyles } from '@material-ui/core/styles';
 import { motion } from 'framer-motion';
 import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router';
 import { selectFilters } from './store/filtersSlice';
 import { selectFolders } from './store/foldersSlice';
 import { selectLabels } from './store/labelsSlice';
 import { openNewTodoDialog } from './store/todosSlice';
+
+const pathToRegexp = require('path-to-regexp');
 
 const useStyles = makeStyles(theme => ({
 	listItem: {
@@ -45,11 +48,15 @@ const useStyles = makeStyles(theme => ({
 
 function TodoSidebarContent(props) {
 	const dispatch = useDispatch();
-	const labels = useSelector(selectLabels);
 	const folders = useSelector(selectFolders);
 	const filters = useSelector(selectFilters);
+	const labels = useSelector(selectLabels);
 
 	const classes = useStyles(props);
+	const routeParams = useParams();
+	const toPathFolder = pathToRegexp.compile('/teamworks/:teamworkId/:teamworkHandle/:tab/:folderHandle');
+	const toPathFilter = pathToRegexp.compile('/teamworks/:teamworkId/:teamworkHandle/:tab/filter/:filterHandle');
+	const toPathLabel = pathToRegexp.compile('/teamworks/:teamworkId/:teamworkHandle/:tab/label/:labelHandle');
 
 	return (
 		<motion.div
@@ -77,7 +84,7 @@ function TodoSidebarContent(props) {
 							<ListItem
 								button
 								component={NavLinkAdapter}
-								to={`/apps/todo/${folder.handle}`}
+								to={toPathFolder({ ...routeParams, folderHandle: folder.handle })}
 								key={folder.id}
 								activeClassName="active"
 								className={classes.listItem}
@@ -100,7 +107,7 @@ function TodoSidebarContent(props) {
 							<ListItem
 								button
 								component={NavLinkAdapter}
-								to={`/apps/todo/filter/${filter.handle}`}
+								to={toPathFilter({ ...routeParams, filterHandle: filter.handle })}
 								activeClassName="active"
 								className={classes.listItem}
 								key={filter.id}
@@ -123,7 +130,7 @@ function TodoSidebarContent(props) {
 							<ListItem
 								button
 								component={NavLinkAdapter}
-								to={`/apps/todo/label/${label.handle}`}
+								to={toPathLabel({ ...routeParams, labelHandle: label.handle })}
 								key={label.id}
 								className={classes.listItem}
 							>

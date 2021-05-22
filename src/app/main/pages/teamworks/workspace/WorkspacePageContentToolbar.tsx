@@ -8,11 +8,11 @@ const WorkspacePageContentToolbar = () => {
 
 	const history = useHistory();
 	const routeParams = useParams();
-	const { tab }: any = routeParams;
+	const { tab, boardId }: any = routeParams;
 
 	return (
 		<Tabs
-			value={tab}
+			value={tab || (boardId ? 'tasks' : false)}
 			onChange={(_event, value) => history.push(toPath({ ...routeParams, tab: value }))}
 			indicatorColor="secondary"
 			textColor="inherit"

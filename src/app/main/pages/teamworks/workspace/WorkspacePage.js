@@ -6,6 +6,7 @@ import ChatApp from 'app/main/apps/chat/ChatApp';
 import FileManagerApp from 'app/main/apps/file-manager/FileManagerApp';
 import MailApp from 'app/main/apps/mail/MailApp';
 import NotesApp from 'app/main/apps/notes/NotesApp';
+import Board from 'app/main/apps/scrumboard/board/Board';
 import Boards from 'app/main/apps/scrumboard/boards/Boards';
 import TodoApp from 'app/main/apps/todo/TodoApp';
 import withReducer from 'app/store/withReducer';
@@ -85,6 +86,7 @@ function WorkspacePage(props) {
 					{tab === 'calendar' && <CalendarApp />}
 					{tab === 'files' && <FileManagerApp />}
 					{tab === 'tasks' && <Boards />}
+					{routeParams.boardId && <Board />}
 					{tab === 'project' && <h1>Project</h1>}
 					{tab === 'to-do' && <TodoApp />}
 					{tab === 'notes' && <NotesApp />}

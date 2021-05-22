@@ -17,7 +17,6 @@ function MailDetails(props) {
 	const dispatch = useDispatch();
 	const mail = useSelector(({ mailApp }) => mailApp.mail);
 	const labels = useSelector(selectLabelsEntities);
-	const mailId = useSelector(({ mailApp }) => mailApp.mails.clickedMailId);
 
 	const routeParams = useParams();
 	const [showDetails, setShowDetails] = useState(false);

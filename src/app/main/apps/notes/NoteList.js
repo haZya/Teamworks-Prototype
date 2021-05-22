@@ -17,23 +17,23 @@ function NoteList(props) {
 	useEffect(() => {
 		function filterData() {
 			const { params } = props.match;
-			const { id, labelId } = params;
+			const { folderHandle, id } = params;
 
 			let data = notes;
 
-			if (labelId) {
-				data = data.filter(note => note.labels.includes(labelId) && !note.archive);
+			if (id) {
+				data = data.filter(note => note.labels.includes(id) && !note.archive);
 			}
 
-			if (!id) {
+			if (!folderHandle) {
 				data = data.filter(note => !note.archive);
 			}
 
-			if (id === 'archive') {
+			if (folderHandle === 'archive') {
 				data = data.filter(note => note.archive);
 			}
 
-			if (id === 'reminders') {
+			if (folderHandle === 'reminders') {
 				data = data.filter(note => Boolean(note.reminder) && !note.archive);
 			}
 

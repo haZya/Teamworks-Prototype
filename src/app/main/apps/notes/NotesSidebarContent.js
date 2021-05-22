@@ -10,7 +10,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router';
 import { openLabelsDialog, selectLabels } from './store/labelsSlice';
+
+const pathToRegexp = require('path-to-regexp');
 
 const useStyles = makeStyles(theme => ({
 	paper: {
@@ -49,6 +52,9 @@ function NotesSidebarContent(props) {
 	const labels = useSelector(selectLabels);
 
 	const classes = useStyles(props);
+	const routeParams = useParams();
+	const toPathFolder = pathToRegexp.compile('/teamworks/:teamworkId/:teamworkHandle/:tab/:folderHandle');
+	const toPathLabel = pathToRegexp.compile('/teamworks/:teamworkId/:teamworkHandle/:tab/label/:labelHandle/:id');
 
 	return (
 		<div className="p-0 lg:p-24 lg:ltr:pr-4 lg:rtl:pl-4">
@@ -62,7 +68,7 @@ function NotesSidebarContent(props) {
 					<ListItem
 						button
 						component={NavLinkAdapter}
-						to="/apps/notes"
+						to={toPathFolder({ ...routeParams, folderHandle: 'all' })}
 						exact
 						activeClassName="active"
 						className={classes.listItem}
@@ -75,7 +81,7 @@ function NotesSidebarContent(props) {
 					<ListItem
 						button
 						component={NavLinkAdapter}
-						to="/apps/notes/reminders"
+						to={toPathFolder({ ...routeParams, folderHandle: 'reminders' })}
 						exact
 						activeClassName="active"
 						className={classes.listItem}
@@ -94,7 +100,7 @@ function NotesSidebarContent(props) {
 							key={label.id}
 							button
 							component={NavLinkAdapter}
-							to={`/apps/notes/labels/${label.handle}/${label.id}`}
+							to={toPathLabel({ ...routeParams, labelHandle: label.handle, id: label.id })}
 							exact
 							activeClassName="active"
 							className={classes.listItem}
@@ -117,7 +123,7 @@ function NotesSidebarContent(props) {
 					<ListItem
 						button
 						component={NavLinkAdapter}
-						to="/apps/notes/archive"
+						to={toPathFolder({ ...routeParams, folderHandle: 'archive' })}
 						activeClassName="active"
 						className={classes.listItem}
 					>

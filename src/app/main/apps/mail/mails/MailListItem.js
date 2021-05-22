@@ -54,7 +54,7 @@ const MailListItem = props => {
 				props.history.push(
 					toPath({
 						...routeParams,
-						mailId: props.mail.id
+						id: props.mail.id
 					})
 				)
 			}

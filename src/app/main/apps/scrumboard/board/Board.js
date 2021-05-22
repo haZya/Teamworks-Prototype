@@ -1,3 +1,4 @@
+import { useDeepCompareEffect } from '@fuse/hooks';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import Hidden from '@material-ui/core/Hidden';
@@ -11,15 +12,16 @@ import clsx from 'clsx';
 import { useRef, useState } from 'react';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, withRouter, useParams } from 'react-router-dom';
-import { useDeepCompareEffect } from '@fuse/hooks';
+import { Link, useParams, withRouter } from 'react-router-dom';
 import reducer from '../store';
-import { reorderCard, reorderList, resetBoard, getBoard } from '../store/boardSlice';
+import { getBoard, reorderCard, reorderList, resetBoard } from '../store/boardSlice';
 import BoardAddList from './BoardAddList';
 import BoardList from './BoardList';
 import BoardTitle from './BoardTitle';
 import BoardCardDialog from './dialogs/card/BoardCardDialog';
 import BoardSettingsSidebar from './sidebars/settings/BoardSettingsSidebar';
+
+const pathToRegexp = require('path-to-regexp');
 
 const useStyles = makeStyles(theme => ({
 	'@global': {
@@ -31,6 +33,8 @@ const useStyles = makeStyles(theme => ({
 
 function Board(props) {
 	const classes = useStyles(props);
+
+	const toPath = pathToRegexp.compile('/teamworks/:teamworkId/:teamworkHandle/:tab');
 
 	const dispatch = useDispatch();
 	const board = useSelector(({ scrumboardApp }) => scrumboardApp.board);
@@ -83,14 +87,19 @@ function Board(props) {
 			<AppBar position="static" color="primary" elevation={0}>
 				<Toolbar className="flex items-center justify-between px-4 sm:px-24 h-48 sm:h-64 sm:h-96 container">
 					<Hidden xsDown>
-						<Button to="/apps/scrumboard/boards/" component={Link} variant="contained" color="secondary">
+						<Button
+							to={toPath({ ...routeParams, tab: 'tasks' })}
+							component={Link}
+							variant="contained"
+							color="secondary"
+						>
 							<Icon>assessment</Icon>
 							<span className="px-8">Boards</span>
 						</Button>
 					</Hidden>
 
 					<Hidden smUp>
-						<IconButton color="inherit" to="/apps/scrumboard/boards/" component={Link}>
+						<IconButton color="inherit" to={toPath({ ...routeParams, tab: 'tasks' })} component={Link}>
 							<Icon>assessment</Icon>
 						</IconButton>
 					</Hidden>

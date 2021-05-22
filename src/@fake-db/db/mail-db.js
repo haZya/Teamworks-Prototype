@@ -486,7 +486,7 @@ const mailDB = {
 
 mock.onGet('/api/mail-app/mail').reply(config => {
 	const { params } = config;
-	const response = mailDB.mails.find(mail => mail.id === params.mailId);
+	const response = mailDB.mails.find(mail => mail.id === params.id);
 	return [200, response];
 });
 

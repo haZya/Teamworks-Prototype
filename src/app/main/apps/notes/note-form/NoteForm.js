@@ -1,6 +1,5 @@
 import FuseScrollbars from '@fuse/core/FuseScrollbars';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Controller, useForm } from 'react-hook-form';
 import _ from '@lodash';
 import Button from '@material-ui/core/Button';
 import Fab from '@material-ui/core/Fab';
@@ -12,10 +11,11 @@ import Typography from '@material-ui/core/Typography';
 import NoteModel from 'app/main/apps/notes/model/NoteModel';
 import NoteLabel from 'app/main/apps/notes/NoteLabel';
 import NoteReminderLabel from 'app/main/apps/notes/NoteReminderLabel';
-import { useState, useEffect } from 'react';
-import { withRouter, useParams } from 'react-router-dom';
-import * as yup from 'yup';
 import format from 'date-fns/format';
+import { useEffect, useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { useParams, withRouter } from 'react-router-dom';
+import * as yup from 'yup';
 import NoteFormList from './checklist/NoteFormList';
 import NoteFormLabelMenu from './NoteFormLabelMenu';
 import NoteFormReminder from './NoteFormReminder';
@@ -43,7 +43,7 @@ function NoteForm(props) {
 		{},
 		NoteModel(),
 		props.note,
-		routeParams.labelId ? { labels: [routeParams.labelId] } : null,
+		routeParams.id ? { labels: [routeParams.id] } : null,
 		routeParams.id === 'archive' ? { archive: true } : null
 	);
 	const { formState, handleSubmit, getValues, reset, watch, setValue, control } = useForm({

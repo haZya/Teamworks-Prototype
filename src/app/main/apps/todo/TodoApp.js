@@ -1,13 +1,13 @@
 import FusePageCarded from '@fuse/core/FusePageCarded';
+import { useDeepCompareEffect } from '@fuse/hooks';
 import withReducer from 'app/store/withReducer';
 import { useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
-import { useDeepCompareEffect } from '@fuse/hooks';
+import { useHistory, useParams } from 'react-router-dom';
 import reducer from './store';
-import { getLabels } from './store/labelsSlice';
 import { getFilters } from './store/filtersSlice';
 import { getFolders } from './store/foldersSlice';
+import { getLabels } from './store/labelsSlice';
 import { getTodos } from './store/todosSlice';
 import TodoDialog from './TodoDialog';
 import TodoHeader from './TodoHeader';
@@ -16,11 +16,22 @@ import TodoSidebarContent from './TodoSidebarContent';
 import TodoSidebarHeader from './TodoSidebarHeader';
 import TodoToolbar from './TodoToolbar';
 
+const pathToRegexp = require('path-to-regexp');
+
 function TodoApp(props) {
 	const dispatch = useDispatch();
 
+	const toPath = pathToRegexp.compile('/teamworks/:teamworkId/:teamworkHandle/:tab/:folderHandle?');
+
 	const pageLayout = useRef(null);
 	const routeParams = useParams();
+	const history = useHistory();
+
+	useEffect(() => {
+		if (!routeParams.folderHandle && !routeParams.filterHandle && !routeParams.labelHandle) {
+			history.push(toPath({ ...routeParams, folderHandle: 'all' }));
+		}
+	}, [history, routeParams, toPath]);
 
 	useEffect(() => {
 		dispatch(getFilters());

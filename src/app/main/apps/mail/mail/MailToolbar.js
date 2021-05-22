@@ -17,7 +17,7 @@ function MailToolbar(props) {
 
 	const routeParams = useParams();
 	const matchParams = { ...routeParams };
-	delete matchParams.mailId;
+	delete matchParams.id;
 	const deselectUrl = toPath(matchParams);
 
 	if (!mail) {

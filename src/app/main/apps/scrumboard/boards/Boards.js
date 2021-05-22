@@ -7,9 +7,11 @@ import clsx from 'clsx';
 import { motion } from 'framer-motion';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import reducer from '../store';
 import { getBoards, newBoard, resetBoards, selectBoards } from '../store/boardsSlice';
+
+const pathToRegexp = require('path-to-regexp');
 
 const useStyles = makeStyles(theme => ({
 	root: {},
@@ -27,6 +29,8 @@ function Boards(props) {
 	const boards = useSelector(selectBoards);
 
 	const classes = useStyles(props);
+	const routeParams = useParams();
+	const toPath = pathToRegexp.compile('/teamworks/:teamworkId/:teamworkHandle/:tab/:boardId/:boardUri?');
 
 	useEffect(() => {
 		dispatch(getBoards());
@@ -66,7 +70,7 @@ function Boards(props) {
 					{boards.map(board => (
 						<motion.div variants={item} className="w-224 h-224 p-16" key={board.id}>
 							<Paper
-								to={`/teamworks/15459251a6d6b397565/basics-of-angular/${board.id}/${board.uri}`}
+								to={toPath({ ...routeParams, boardId: board.id, boardUri: board.uri })}
 								className={clsx(
 									classes.board,
 									'flex flex-col items-center justify-center w-full h-full rounded-16 py-24 shadow hover:shadow-lg'

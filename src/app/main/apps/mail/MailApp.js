@@ -2,7 +2,7 @@ import FusePageCarded from '@fuse/core/FusePageCarded';
 import withReducer from 'app/store/withReducer';
 import { useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
-import { useHistory, useLocation, useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import MailDetails from './mail/MailDetails';
 import MailToolbar from './mail/MailToolbar';
 import MailAppHeader from './MailAppHeader';
@@ -25,13 +25,12 @@ function MailApp(props) {
 	const pageLayout = useRef(null);
 	const routeParams = useParams();
 	const history = useHistory();
-	const location = useLocation();
 
 	useEffect(() => {
 		if (!routeParams.folderHandle && !routeParams.filterHandle && !routeParams.labelHandle) {
 			history.push(toPath({ ...routeParams, folderHandle: 'inbox' }));
 		}
-	}, [history, location.pathname, routeParams, toPath]);
+	}, [history, routeParams, toPath]);
 
 	useEffect(() => {
 		dispatch(getFilters());
@@ -47,8 +46,8 @@ function MailApp(props) {
 				header: 'items-center min-h-72 h-72 sm:h-136 sm:min-h-136'
 			}}
 			header={<MailAppHeader pageLayout={pageLayout} />}
-			contentToolbar={routeParams.mailId ? <MailToolbar /> : <MailsToolbar />}
-			content={routeParams.mailId ? <MailDetails /> : <MailList />}
+			contentToolbar={routeParams.id ? <MailToolbar /> : <MailsToolbar />}
+			content={routeParams.id ? <MailDetails /> : <MailList />}
 			leftSidebarHeader={<MailAppSidebarHeader />}
 			leftSidebarContent={<MailAppSidebarContent />}
 			innerScroll

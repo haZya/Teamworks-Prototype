@@ -2,6 +2,7 @@ import FusePageSimple from '@fuse/core/FusePageSimple';
 import withReducer from 'app/store/withReducer';
 import { useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
+import { useHistory, useParams } from 'react-router';
 import LabelsDialog from './dialogs/labels/LabelsDialog';
 import NoteDialog from './dialogs/note/NoteDialog';
 import NewNote from './NewNote';
@@ -12,15 +13,31 @@ import reducer from './store';
 import { getLabels } from './store/labelsSlice';
 import { getNotes } from './store/notesSlice';
 
+const pathToRegexp = require('path-to-regexp');
+
 function NotesApp(props) {
 	const dispatch = useDispatch();
 
+	const toPath = pathToRegexp.compile('/teamworks/:teamworkId/:teamworkHandle/:tab/:folderHandle?');
+
 	const pageLayout = useRef(null);
+	const routeParams = useParams();
+	const history = useHistory();
+
+	useEffect(() => {
+		if (!routeParams.folderHandle && !routeParams.filterHandle && !routeParams.labelHandle) {
+			history.push(toPath({ ...routeParams, folderHandle: 'all' }));
+		}
+	}, [history, routeParams, toPath]);
 
 	useEffect(() => {
 		dispatch(getNotes());
 		dispatch(getLabels());
 	}, [dispatch]);
+
+	// useDeepCompareEffect(() => {
+	// 	dispatch(getNotes(routeParams));
+	// }, [dispatch, routeParams]);
 
 	return (
 		<>

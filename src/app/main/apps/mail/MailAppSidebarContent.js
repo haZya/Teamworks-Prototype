@@ -47,17 +47,14 @@ const useStyles = makeStyles(theme => ({
 
 function MailAppSidebarContent(props) {
 	const folders = useSelector(selectFolders);
-	const labels = useSelector(selectLabels);
 	const filters = useSelector(selectFilters);
+	const labels = useSelector(selectLabels);
 
 	const classes = useStyles();
 	const routeParams = useParams();
-	const toPathFolder = pathToRegexp.compile('/teamworks/:teamworkId/:teamworkHandle/:tab/:folderHandle');
-	const toPathFilter = pathToRegexp.compile('/teamworks/:teamworkId/:teamworkHandle/:tab/filter/:filterHandle');
-	const toPathLabel = pathToRegexp.compile('/teamworks/:teamworkId/:teamworkHandle/:tab/label/:labelHandle');
-
-	const matchParams = { ...routeParams };
-	delete matchParams.folderHandle;
+	const toPathFolder = pathToRegexp.compile('/teamworks/:teamworkId/:teamworkHandle/email/:folderHandle');
+	const toPathFilter = pathToRegexp.compile('/teamworks/:teamworkId/:teamworkHandle/email/filter/:filterHandle');
+	const toPathLabel = pathToRegexp.compile('/teamworks/:teamworkId/:teamworkHandle/email/label/:labelHandle');
 
 	return (
 		<motion.div
