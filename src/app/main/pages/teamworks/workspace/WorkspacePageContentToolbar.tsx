@@ -1,15 +1,19 @@
 import { Divider, Tab, Tabs } from '@material-ui/core';
-import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
-import { setCurrentTab } from '../store/teamworkSlice';
+import { useHistory, useParams } from 'react-router';
+
+const pathToRegexp = require('path-to-regexp');
 
 const WorkspacePageContentToolbar = () => {
-	const dispatch = useDispatch();
-	const currentTab = useSelector(({ teamworksPage }: RootStateOrAny) => teamworksPage.teamwork.currentTab);
+	const toPath = pathToRegexp.compile('/teamworks/:teamworkId/:teamworkHandle/:tab?');
+
+	const history = useHistory();
+	const routeParams = useParams();
+	const { tab }: any = routeParams;
 
 	return (
 		<Tabs
-			value={currentTab}
-			onChange={(_event, value) => dispatch(setCurrentTab(value))}
+			value={tab}
+			onChange={(_event, value) => history.push(toPath({ ...routeParams, tab: value }))}
 			indicatorColor="secondary"
 			textColor="inherit"
 			variant="scrollable"
@@ -20,16 +24,26 @@ const WorkspacePageContentToolbar = () => {
 				children: <Divider className="w-full h-full rounded-full opacity-50" />
 			}}
 		>
-			<Tab className="text-14 font-semibold min-h-40 min-w-64 mx-4" disableRipple label="Home" />
-			<Tab className="text-14 font-semibold min-h-40 min-w-64 mx-4" disableRipple label="Team" />
-			<Tab className="text-14 font-semibold min-h-40 min-w-64 mx-4" disableRipple label="Email" />
-			<Tab className="text-14 font-semibold min-h-40 min-w-64 mx-4" disableRipple label="Chat" />
-			<Tab className="text-14 font-semibold min-h-40 min-w-64 mx-4" disableRipple label="Calendar" />
-			<Tab className="text-14 font-semibold min-h-40 min-w-64 mx-4" disableRipple label="Files" />
-			<Tab className="text-14 font-semibold min-h-40 min-w-64 mx-4" disableRipple label="Tasks" />
-			<Tab className="text-14 font-semibold min-h-40 min-w-64 mx-4" disableRipple label="Project" />
-			<Tab className="text-14 font-semibold min-h-40 min-w-64 mx-4" disableRipple label="To-Do" />
-			<Tab className="text-14 font-semibold min-h-40 min-w-64 mx-4" disableRipple label="Notes" />
+			<Tab className="text-14 font-semibold min-h-40 min-w-64 mx-4" disableRipple label="Home" value="home" />
+			<Tab className="text-14 font-semibold min-h-40 min-w-64 mx-4" disableRipple label="Team" value="team" />
+			<Tab className="text-14 font-semibold min-h-40 min-w-64 mx-4" disableRipple label="Email" value="email" />
+			<Tab className="text-14 font-semibold min-h-40 min-w-64 mx-4" disableRipple label="Chat" value="chat" />
+			<Tab
+				className="text-14 font-semibold min-h-40 min-w-64 mx-4"
+				disableRipple
+				label="Calendar"
+				value="calendar"
+			/>
+			<Tab className="text-14 font-semibold min-h-40 min-w-64 mx-4" disableRipple label="Files" value="files" />
+			<Tab className="text-14 font-semibold min-h-40 min-w-64 mx-4" disableRipple label="Tasks" value="tasks" />
+			<Tab
+				className="text-14 font-semibold min-h-40 min-w-64 mx-4"
+				disableRipple
+				label="Project"
+				value="project"
+			/>
+			<Tab className="text-14 font-semibold min-h-40 min-w-64 mx-4" disableRipple label="To-Do" value="to-do" />
+			<Tab className="text-14 font-semibold min-h-40 min-w-64 mx-4" disableRipple label="Notes" value="notes" />
 		</Tabs>
 	);
 };

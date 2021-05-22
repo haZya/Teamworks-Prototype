@@ -1,4 +1,5 @@
 import { yupResolver } from '@hookform/resolvers/yup';
+import _ from '@lodash';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
@@ -9,12 +10,10 @@ import IconButton from '@material-ui/core/IconButton';
 import TextField from '@material-ui/core/TextField';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useForm, Controller } from 'react-hook-form';
-import * as yup from 'yup';
-import _ from '@lodash';
 import WYSIWYGEditor from 'app/shared-components/WYSIWYGEditor';
+import { useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import * as yup from 'yup';
 import MailAttachment from './MailAttachment';
 
 /**
@@ -41,8 +40,6 @@ function MailCompose() {
 
 	const { isValid, dirtyFields, errors } = formState;
 
-	const { t } = useTranslation('mailApp');
-
 	function handleOpenDialog() {
 		setOpenDialog(true);
 	}
@@ -63,7 +60,7 @@ function MailCompose() {
 	return (
 		<div className="p-24 pb-8">
 			<Button variant="contained" color="secondary" className="w-full" onClick={handleOpenDialog}>
-				{t('COMPOSE')}
+				Compose
 			</Button>
 
 			<Dialog open={openDialog} onClose={handleCloseDialog} aria-labelledby="form-dialog-title">

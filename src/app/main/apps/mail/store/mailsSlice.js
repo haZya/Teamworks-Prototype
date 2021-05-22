@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk, createEntityAdapter } from '@reduxjs/toolkit';
+import { createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 export const getMails = createAsyncThunk('mailApp/mails/getMails', async (routeParams, { getState }) => {
@@ -92,12 +92,7 @@ const mailsSlice = createSlice({
 	}
 });
 
-export const {
-	setMailsSearchText,
-	selectAllMails,
-	deselectAllMails,
-	selectMailsByParameter,
-	toggleInSelectedMails
-} = mailsSlice.actions;
+export const { setMailsSearchText, selectAllMails, deselectAllMails, selectMailsByParameter, toggleInSelectedMails } =
+	mailsSlice.actions;
 
 export default mailsSlice.reducer;

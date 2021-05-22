@@ -1,12 +1,11 @@
+import { useDeepCompareEffect } from '@fuse/hooks';
 import FuseUtils from '@fuse/utils';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
-import { withRouter, useParams } from 'react-router-dom';
-import { useDeepCompareEffect } from '@fuse/hooks';
+import { useParams, withRouter } from 'react-router-dom';
 import { getMails, selectMails } from '../store/mailsSlice';
 import MailListItem from './MailListItem';
 
@@ -17,7 +16,6 @@ function MailList(props) {
 
 	const routeParams = useParams();
 	const [filteredData, setFilteredData] = useState(null);
-	const { t } = useTranslation('mailApp');
 
 	useDeepCompareEffect(() => {
 		dispatch(getMails(routeParams));
@@ -48,7 +46,7 @@ function MailList(props) {
 				className="flex flex-1 items-center justify-center h-full"
 			>
 				<Typography color="textSecondary" variant="h5">
-					{t('NO_MESSAGES')}
+					There are no messages!
 				</Typography>
 			</motion.div>
 		);

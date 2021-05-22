@@ -6,10 +6,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import clsx from 'clsx';
 import { useDispatch, useSelector } from 'react-redux';
-import { withRouter, useParams } from 'react-router-dom';
+import { useParams, withRouter } from 'react-router-dom';
 import MailChip from '../MailChip';
-import { toggleInSelectedMails } from '../store/mailsSlice';
 import { selectLabelsEntities } from '../store/labelsSlice';
+import { toggleInSelectedMails } from '../store/mailsSlice';
 
 const pathToRegexp = require('path-to-regexp');
 

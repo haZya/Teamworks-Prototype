@@ -6,12 +6,17 @@ const TeamworksPageConfig = {
 	},
 	routes: [
 		{
-			path: '/teamworks/:teamworkId/:teamworkHandle/:boardId/:boardUri?',
-			component: lazy(() => import('../../apps/scrumboard/board/Board'))
+			path: [
+				'/teamworks/:teamworkId/:teamworkHandle/:tab/label/:labelHandle/:mailId?',
+				'/teamworks/:teamworkId/:teamworkHandle/:tab/filter/:filterHandle/:mailId?',
+				'/teamworks/:teamworkId/:teamworkHandle/:tab/:folderHandle/:mailId?',
+				'/teamworks/:teamworkId/:teamworkHandle/:tab?'
+			],
+			component: lazy(() => import('./workspace/WorkspacePage'))
 		},
 		{
-			path: '/teamworks/:teamworkId/:teamworkHandle?',
-			component: lazy(() => import('./workspace/WorkspacePage'))
+			path: '/teamworks/:teamworkId/:teamworkHandle/:boardId/:boardUri?',
+			component: lazy(() => import('../../apps/scrumboard/board/Board'))
 		},
 		{
 			path: '/teamworks',

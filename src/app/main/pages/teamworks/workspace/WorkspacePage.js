@@ -51,11 +51,11 @@ const useStyles = makeStyles(theme => ({
 function WorkspacePage(props) {
 	const dispatch = useDispatch();
 	const course = useSelector(({ teamworksPage }) => teamworksPage.teamwork);
-	const currentTab = useSelector(({ teamworksPage }) => teamworksPage.teamwork.currentTab);
 
 	const classes = useStyles();
 	const routeParams = useParams();
 	const pageLayout = useRef(null);
+	const { tab } = routeParams;
 
 	useDeepCompareEffect(() => {
 		/**
@@ -72,21 +72,22 @@ function WorkspacePage(props) {
 				content: 'flex flex-col flex-auto overflow-hidden rounded-b-20',
 				header: classes.header,
 				sidebar: 'border-0',
+				rightSidebar: 'w-256',
 				topBg: classes.topBg
 			}}
 			header={<WorkspacePageHeader />}
 			content={
 				<>
-					{currentTab === 0 && <h1>Home</h1>}
-					{currentTab === 1 && <h1>Team</h1>}
-					{currentTab === 2 && <MailApp />}
-					{currentTab === 3 && <ChatApp />}
-					{currentTab === 4 && <CalendarApp />}
-					{currentTab === 5 && <FileManagerApp />}
-					{currentTab === 6 && <Boards />}
-					{currentTab === 7 && <h1>Project</h1>}
-					{currentTab === 8 && <TodoApp />}
-					{currentTab === 9 && <NotesApp />}
+					{tab === 'home' && <h1>Home</h1>}
+					{tab === 'team' && <h1>Team</h1>}
+					{tab === 'email' && <MailApp />}
+					{tab === 'chat' && <ChatApp />}
+					{tab === 'calendar' && <CalendarApp />}
+					{tab === 'files' && <FileManagerApp />}
+					{tab === 'tasks' && <Boards />}
+					{tab === 'project' && <h1>Project</h1>}
+					{tab === 'to-do' && <TodoApp />}
+					{tab === 'notes' && <NotesApp />}
 				</>
 			}
 			contentToolbar={<WorkspacePageContentToolbar />}

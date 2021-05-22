@@ -5,8 +5,6 @@ import Typography from '@material-ui/core/Typography';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 
-import { useTranslation } from 'react-i18next';
-
 const accounts = {
 	creapond: 'johndoe@creapond.com',
 	withinpixels: 'johndoe@withinpixels.com'
@@ -14,7 +12,6 @@ const accounts = {
 
 function MailAppSidebarHeader(props) {
 	const [selectedAccount, setSelectedCount] = useState('creapond');
-	const { t } = useTranslation('mailApp');
 
 	function handleAccountChange(ev) {
 		setSelectedCount(ev.target.value);
@@ -38,7 +35,7 @@ function MailAppSidebarHeader(props) {
 					delay={300}
 					className="text-16 md:text-24 mx-12 font-semibold"
 				>
-					{t('APP_TITLE')}
+					Mailbox
 				</Typography>
 			</div>
 

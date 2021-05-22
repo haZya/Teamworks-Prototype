@@ -1,4 +1,4 @@
-import { createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { showMessage } from 'app/store/fuse/messageSlice';
 import axios from 'axios';
 import { RootStateOrAny } from 'react-redux';
@@ -26,24 +26,10 @@ export const updateTeamwork = createAsyncThunk<any, any, { state: RootStateOrAny
 	}
 );
 
-const teamworkAdapter = createEntityAdapter({});
-
-export interface IInitialState {
-	currentTab: number;
-}
-
-const initialtState: IInitialState = {
-	currentTab: 0
-};
-
 const teamworkSlice = createSlice({
 	name: 'teamworksPage/teamwork',
-	initialState: teamworkAdapter.getInitialState(initialtState),
-	reducers: {
-		setCurrentTab: (state, action) => {
-			state.currentTab = action.payload;
-		}
-	},
+	initialState: {},
+	reducers: {},
 	extraReducers: {
 		[getTeamwork.fulfilled.type]: (state: RootStateOrAny, action) => action.payload,
 		[updateTeamwork.fulfilled.type]: (state: RootStateOrAny, action) => ({
@@ -52,7 +38,5 @@ const teamworkSlice = createSlice({
 		})
 	}
 });
-
-export const { setCurrentTab } = teamworkSlice.actions;
 
 export default teamworkSlice.reducer;

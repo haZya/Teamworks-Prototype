@@ -3,7 +3,7 @@ import IconButton from '@material-ui/core/IconButton';
 import { useTheme } from '@material-ui/core/styles';
 import { motion } from 'framer-motion';
 import { useDispatch, useSelector } from 'react-redux';
-import { withRouter, useParams } from 'react-router-dom';
+import { useParams, withRouter } from 'react-router-dom';
 import { updateMail } from '../store/mailSlice';
 
 const pathToRegexp = require('path-to-regexp');

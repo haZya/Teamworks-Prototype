@@ -6,12 +6,14 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import { makeStyles } from '@material-ui/core/styles';
 import { motion } from 'framer-motion';
-import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
+import { useParams } from 'react-router';
 import MailCompose from './MailCompose';
 import { selectFilters } from './store/filtersSlice';
 import { selectFolders } from './store/foldersSlice';
 import { selectLabels } from './store/labelsSlice';
+
+const pathToRegexp = require('path-to-regexp');
 
 const useStyles = makeStyles(theme => ({
 	listItem: {
@@ -49,7 +51,13 @@ function MailAppSidebarContent(props) {
 	const filters = useSelector(selectFilters);
 
 	const classes = useStyles();
-	const { t } = useTranslation('mailApp');
+	const routeParams = useParams();
+	const toPathFolder = pathToRegexp.compile('/teamworks/:teamworkId/:teamworkHandle/:tab/:folderHandle');
+	const toPathFilter = pathToRegexp.compile('/teamworks/:teamworkId/:teamworkHandle/:tab/filter/:filterHandle');
+	const toPathLabel = pathToRegexp.compile('/teamworks/:teamworkId/:teamworkHandle/:tab/label/:labelHandle');
+
+	const matchParams = { ...routeParams };
+	delete matchParams.folderHandle;
 
 	return (
 		<motion.div
@@ -62,7 +70,7 @@ function MailAppSidebarContent(props) {
 			<div className="px-12">
 				<List>
 					<ListSubheader className={classes.listSubheader} disableSticky>
-						{t('FOLDERS')}
+						Folders
 					</ListSubheader>
 
 					{folders.length > 0 &&
@@ -70,7 +78,7 @@ function MailAppSidebarContent(props) {
 							<ListItem
 								button
 								component={NavLinkAdapter}
-								to={`/apps/mail/${folder.handle}`}
+								to={toPathFolder({ ...routeParams, folderHandle: folder.handle })}
 								key={folder.id}
 								activeClassName="active"
 								className={classes.listItem}
@@ -78,17 +86,14 @@ function MailAppSidebarContent(props) {
 								<Icon className="list-item-icon" color="action">
 									{folder.icon}
 								</Icon>
-								<ListItemText
-									primary={folder.translate ? t(folder.translate) : folder.title}
-									disableTypography
-								/>
+								<ListItemText primary={folder.title} disableTypography />
 							</ListItem>
 						))}
 				</List>
 
 				<List>
 					<ListSubheader className={classes.listSubheader} disableSticky>
-						{t('FILTERS')}
+						Filters
 					</ListSubheader>
 
 					{filters.length > 0 &&
@@ -96,7 +101,7 @@ function MailAppSidebarContent(props) {
 							<ListItem
 								button
 								component={NavLinkAdapter}
-								to={`/apps/mail/filter/${filter.handle}`}
+								to={toPathFilter({ ...routeParams, filterHandle: filter.handle })}
 								activeClassName="active"
 								className={classes.listItem}
 								key={filter.id}
@@ -104,17 +109,14 @@ function MailAppSidebarContent(props) {
 								<Icon className="list-item-icon" color="action">
 									{filter.icon}
 								</Icon>
-								<ListItemText
-									primary={filter.translate ? t(filter.translate) : filter.title}
-									disableTypography
-								/>
+								<ListItemText primary={filter.title} disableTypography />
 							</ListItem>
 						))}
 				</List>
 
 				<List>
 					<ListSubheader className={classes.listSubheader} disableSticky>
-						{t('LABELS')}
+						Labels
 					</ListSubheader>
 
 					{labels &&
@@ -122,7 +124,7 @@ function MailAppSidebarContent(props) {
 							<ListItem
 								button
 								component={NavLinkAdapter}
-								to={`/apps/mail/label/${label.handle}`}
+								to={toPathLabel({ ...routeParams, labelHandle: label.handle })}
 								key={label.id}
 								className={classes.listItem}
 							>

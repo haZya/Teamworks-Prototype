@@ -1,3 +1,4 @@
+import { useDeepCompareEffect } from '@fuse/hooks';
 import _ from '@lodash';
 import Avatar from '@material-ui/core/Avatar';
 import Divider from '@material-ui/core/Divider';
@@ -7,8 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { withRouter, useParams } from 'react-router-dom';
-import { useDeepCompareEffect } from '@fuse/hooks';
+import { useParams, withRouter } from 'react-router-dom';
 import MailChip from '../MailChip';
 import { selectLabelsEntities } from '../store/labelsSlice';
 import { getMail } from '../store/mailSlice';
@@ -17,6 +17,7 @@ function MailDetails(props) {
 	const dispatch = useDispatch();
 	const mail = useSelector(({ mailApp }) => mailApp.mail);
 	const labels = useSelector(selectLabelsEntities);
+	const mailId = useSelector(({ mailApp }) => mailApp.mails.clickedMailId);
 
 	const routeParams = useParams();
 	const [showDetails, setShowDetails] = useState(false);

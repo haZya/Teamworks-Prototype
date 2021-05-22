@@ -4,16 +4,14 @@ import IconButton from '@material-ui/core/IconButton';
 import Input from '@material-ui/core/Input';
 import Paper from '@material-ui/core/Paper';
 import { ThemeProvider } from '@material-ui/core/styles';
-import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
 import { selectMainTheme } from 'app/store/fuse/settingsSlice';
+import { useDispatch, useSelector } from 'react-redux';
 import { setMailsSearchText } from './store/mailsSlice';
 
 function MailAppHeader(props) {
 	const dispatch = useDispatch();
 	const searchText = useSelector(({ mailApp }) => mailApp.mails.searchText);
 	const mainTheme = useSelector(selectMainTheme);
-	const { t } = useTranslation('mailApp');
 
 	return (
 		<ThemeProvider theme={mainTheme}>
@@ -31,7 +29,7 @@ function MailAppHeader(props) {
 					<Icon color="action">search</Icon>
 
 					<Input
-						placeholder={t('SEARCH_PLACEHOLDER')}
+						placeholder="Search for an e-mail or contact"
 						className="px-16"
 						disableUnderline
 						fullWidth
