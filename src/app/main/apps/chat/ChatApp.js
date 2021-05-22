@@ -50,6 +50,7 @@ const useStyles = makeStyles(theme => ({
 		backgroundColor: theme.palette.background.default
 	},
 	topBg: {
+		zIndex: 1,
 		position: 'absolute',
 		left: 0,
 		right: 0,
@@ -76,9 +77,11 @@ const useStyles = makeStyles(theme => ({
 		},
 		[theme.breakpoints.down('xs')]: {
 			padding: 12
-		}
+		},
+		background: fade(theme.palette.background.paper, 0.6)
 	},
 	contentCard: {
+		zIndex: 2,
 		display: 'flex',
 		position: 'relative',
 		flex: '1 1 100%',

@@ -10,6 +10,7 @@ import Board from 'app/main/apps/scrumboard/board/Board';
 import Boards from 'app/main/apps/scrumboard/boards/Boards';
 import TodoApp from 'app/main/apps/todo/TodoApp';
 import withReducer from 'app/store/withReducer';
+import clsx from 'clsx';
 import { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -29,20 +30,8 @@ const useStyles = makeStyles(theme => ({
 		}
 	},
 	contentCard: {
-		borderRadius: 20,
-		[theme.breakpoints.down('xs')]: {
-			borderRadius: '20px 20px 0 0'
-		},
-		[theme.breakpoints.up('lg')]: {
-			marginLeft: 12
-		}
-	},
-	content: {
-		zIndex: 5,
-		borderRadius: 20,
-		[theme.breakpoints.down('xs')]: {
-			borderRadius: '20px 20px 0 0'
-		}
+		borderBottom: 0,
+		border: theme.palette.type === 'dark' && `2px solid ${theme.palette.primary.main}`
 	},
 	topBg: {
 		height: 180
@@ -68,9 +57,9 @@ function WorkspacePage(props) {
 	return (
 		<FusePageCarded
 			classes={{
-				contentWrapper: 'p-0 pt-12 sm:p-12 sm:pb-24',
-				contentCard: classes.contentCard,
-				content: 'flex flex-col flex-auto overflow-hidden rounded-b-20',
+				contentWrapper: 'p-0 pt-12 sm:px-12',
+				contentCard: clsx(classes.contentCard, 'lg:ml-12'),
+				content: 'flex flex-col flex-auto overflow-hidden',
 				header: classes.header,
 				sidebar: 'border-0',
 				rightSidebar: 'w-256',

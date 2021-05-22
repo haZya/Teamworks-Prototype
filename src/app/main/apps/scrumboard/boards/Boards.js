@@ -1,6 +1,6 @@
 import Icon from '@material-ui/core/Icon';
 import Paper from '@material-ui/core/Paper';
-import { makeStyles } from '@material-ui/core/styles';
+import { darken, makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import withReducer from 'app/store/withReducer';
 import clsx from 'clsx';
@@ -14,12 +14,14 @@ import { getBoards, newBoard, resetBoards, selectBoards } from '../store/boardsS
 const pathToRegexp = require('path-to-regexp');
 
 const useStyles = makeStyles(theme => ({
-	root: {},
+	root: { background: darken(theme.palette.background.paper, 0.02) },
 	board: {
 		cursor: 'pointer',
 		transitionProperty: 'box-shadow border-color',
 		transitionDuration: theme.transitions.duration.short,
-		transitionTimingFunction: theme.transitions.easing.easeInOut
+		transitionTimingFunction: theme.transitions.easing.easeInOut,
+		background:
+			theme.palette.type === 'dark' ? darken(theme.palette.background.paper, 0.2) : theme.palette.background.paper
 	},
 	newBoard: {}
 }));
