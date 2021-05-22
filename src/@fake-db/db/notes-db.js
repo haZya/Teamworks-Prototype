@@ -50,7 +50,7 @@ const notesDB = {
 		{
 			id: '5739d1fbf4e68a871a3c9ab8',
 			title: 'Gift Ideas',
-			description: "Young sister's birthday is coming",
+			description: "John's birthday is coming",
 			archive: false,
 			image: '',
 			time: '2018-04-21T02:33:11.587Z',
@@ -209,7 +209,7 @@ const notesDB = {
 				{
 					id: '1',
 					checked: false,
-					text: 'Wash clothes'
+					text: 'Clean the office'
 				},
 				{
 					id: '2',
@@ -244,7 +244,7 @@ const notesDB = {
 		{
 			id: '5739d1fb2fe509295e0847b5',
 			title: '',
-			description: 'Lunch with parents',
+			description: 'Lunch with team',
 			archive: false,
 			image: '',
 			time: '2018-01-17T00:40:05.587Z',
@@ -256,8 +256,8 @@ const notesDB = {
 	labels: [
 		{
 			id: '5725a6802d10e277a0f35739',
-			name: 'Family',
-			handle: 'family'
+			name: 'Team',
+			handle: 'team'
 		},
 		{
 			id: '5725a6809fdd915739187ed5',
@@ -276,13 +276,13 @@ const notesDB = {
 		},
 		{
 			id: '5725a6806acf030f9341e925',
-			name: 'Personal',
-			handle: 'personal'
+			name: 'Important',
+			handle: 'important'
 		},
 		{
 			id: '5725a6806acf030f9341e932',
-			name: 'Friends',
-			handle: 'friends'
+			name: 'Issue',
+			handle: 'issue'
 		}
 	]
 };
