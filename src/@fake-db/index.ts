@@ -15,6 +15,7 @@ import './db/project-dashboard-db';
 import './db/quick-panel-db';
 import './db/scrumboard-db';
 import './db/search-db';
+import './db/team-db';
 import './db/teamworks-db';
 import './db/todo-db';
 import './db/users-db';

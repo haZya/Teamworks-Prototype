@@ -8,17 +8,20 @@ import MailApp from 'app/main/apps/mail/MailApp';
 import NotesApp from 'app/main/apps/notes/NotesApp';
 import Board from 'app/main/apps/scrumboard/board/Board';
 import Boards from 'app/main/apps/scrumboard/boards/Boards';
+import TeamApp from 'app/main/apps/team/TeamApp';
 import TodoApp from 'app/main/apps/todo/TodoApp';
 import withReducer from 'app/store/withReducer';
 import clsx from 'clsx';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import reducer from '../store';
 import { getTeamwork } from '../store/teamworkSlice';
 import WorkspacePageContentToolbar from './WorkspacePageContentToolbar';
 import WorkspacePageHeader from './WorkspacePageHeader';
 import WorkspacePageRightSidebar from './WorkspacePageRightSidebar';
+
+const pathToRegexp = require('path-to-regexp');
 
 const useStyles = makeStyles(theme => ({
 	header: {
@@ -42,10 +45,19 @@ function WorkspacePage(props) {
 	const dispatch = useDispatch();
 	const course = useSelector(({ teamworksPage }) => teamworksPage.teamwork);
 
+	const toPath = pathToRegexp.compile('/teamworks/:teamworkId/:teamworkHandle/:tab/:folderHandle?');
+
 	const classes = useStyles();
 	const routeParams = useParams();
+	const history = useHistory();
 	const pageLayout = useRef(null);
-	const { tab } = routeParams;
+	const { tab, boardId } = routeParams;
+
+	useEffect(() => {
+		if (!routeParams.tab && !routeParams.boardId) {
+			history.push(toPath({ ...routeParams, tab: 'home' }));
+		}
+	}, [history, routeParams, toPath]);
 
 	useDeepCompareEffect(() => {
 		/**
@@ -69,7 +81,7 @@ function WorkspacePage(props) {
 			content={
 				<>
 					{tab === 'home' && <h1>Home</h1>}
-					{tab === 'team' && <h1>Team</h1>}
+					{tab === 'team' && <TeamApp />}
 					{tab === 'email' && <MailApp />}
 					{tab === 'chat' && <ChatApp />}
 					{tab === 'calendar' && <CalendarApp />}
