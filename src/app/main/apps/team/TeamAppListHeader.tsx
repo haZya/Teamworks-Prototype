@@ -1,5 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import _ from '@lodash';
+import { Tooltip } from '@material-ui/core';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Icon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
@@ -83,7 +84,7 @@ function TeamAppListHeader({ list, handleProps }: IProps) {
 	}
 
 	return (
-		<div {...handleProps} className="border-b-1">
+		<div {...handleProps}>
 			<div className="flex items-center justify-between h-48 sm:h-64 px-8">
 				<div className="flex items-center min-w-0 px-12">
 					{formOpen ? (
@@ -122,14 +123,15 @@ function TeamAppListHeader({ list, handleProps }: IProps) {
 					)}
 				</div>
 				<>
-					<IconButton
-						aria-owns={anchorEl ? 'actions-menu' : undefined}
-						aria-haspopup="true"
-						onClick={handleMenuClick}
-						size="small"
-					>
-						<Icon className="text-20">more_vert</Icon>
-					</IconButton>
+					<Tooltip title="Options">
+						<IconButton
+							aria-owns={anchorEl ? 'actions-menu' : undefined}
+							aria-haspopup="true"
+							onClick={handleMenuClick}
+						>
+							<Icon className="text-20">more_vert</Icon>
+						</IconButton>
+					</Tooltip>
 					<Menu id="actions-menu" anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleMenuClose}>
 						<MenuItem onClick={handleOpenForm}>
 							<ListItemIcon className="min-w-40">

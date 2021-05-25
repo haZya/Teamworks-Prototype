@@ -15,6 +15,7 @@ import clsx from 'clsx';
 import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
+import Error404Page from '../../errors/404/Error404Page';
 import reducer from '../store';
 import { getTeamwork } from '../store/teamworkSlice';
 import WorkspacePageContentToolbar from './WorkspacePageContentToolbar';
@@ -43,7 +44,7 @@ const useStyles = makeStyles(theme => ({
 
 function WorkspacePage(props) {
 	const dispatch = useDispatch();
-	const course = useSelector(({ teamworksPage }) => teamworksPage.teamwork);
+	const teamwork = useSelector(({ teamworksPage }) => teamworksPage.teamwork);
 
 	const toPath = pathToRegexp.compile('/teamworks/:teamworkId/:teamworkHandle/:tab/:folderHandle?');
 
@@ -63,7 +64,7 @@ function WorkspacePage(props) {
 		/**
 		 * Get the Teamwork Data
 		 */
-		dispatch(getTeamwork(routeParams));
+		dispatch(getTeamwork({ teamworksId: routeParams.teamworkId }));
 	}, [dispatch, routeParams]);
 
 	return (
@@ -80,7 +81,7 @@ function WorkspacePage(props) {
 			header={<WorkspacePageHeader />}
 			content={
 				<>
-					{tab === 'home' && <h1>Home</h1>}
+					{tab === 'home' && <Error404Page />}
 					{tab === 'team' && <TeamApp />}
 					{tab === 'email' && <MailApp />}
 					{tab === 'chat' && <ChatApp />}
@@ -88,7 +89,7 @@ function WorkspacePage(props) {
 					{tab === 'files' && <FileManagerApp />}
 					{tab === 'tasks' && <Boards />}
 					{routeParams.boardId && <Board />}
-					{tab === 'project' && <h1>Project</h1>}
+					{tab === 'project' && <Error404Page />}
 					{tab === 'to-do' && <TodoApp />}
 					{tab === 'notes' && <NotesApp />}
 				</>

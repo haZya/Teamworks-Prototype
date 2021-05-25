@@ -15,10 +15,10 @@ export const getLists = createAsyncThunk<ITeamList[]>('teamApp/getLists', async 
 
 export const reorderList = createAsyncThunk<ITeamList[], DropResult, { state: RootStateOrAny }>(
 	'teamApp/reorderLists',
-	async (result, { dispatch, getState }) => {
+	async ({ source, destination }, { dispatch, getState }) => {
 		const { lists }: { lists: ITeamList[] } = getState().teamApp.team;
 
-		const ordered = reorder(_.merge([], lists), result.source.index, result.destination?.index || 0);
+		const ordered = reorder(_.merge([], lists), source.index, destination?.index || 0);
 
 		const response = await axios.post('/api/team-app/lists/order', {
 			lists: ordered
@@ -41,35 +41,32 @@ export const reorderList = createAsyncThunk<ITeamList[], DropResult, { state: Ro
 	}
 );
 
-// export const reorderCard = createAsyncThunk(
-// 	'scrumboardApp/board/reorderCard',
-// 	async ({ source, destination }, { dispatch, getState }) => {
-// 		const { board } = getState().scrumboardApp;
-// 		const { lists } = board;
+export const reorderTeam = createAsyncThunk<any, string[], { state: RootStateOrAny }>(
+	'teamApp/item/reorderTeam',
+	async (ordered, { dispatch, getState }) => {
+		const teamworkId = getState().teamworksPage.teamwork.id;
 
-// 		const ordered = reorderQuoteMap(_.merge([], lists), source, destination);
+		const response = await axios.post('/api/teamworks/team/order', {
+			teamworkId,
+			team: ordered
+		});
 
-// 		const response = await axios.post('/api/scrumboard-app/card/order', {
-// 			boardId: board.id,
-// 			lists: ordered
-// 		});
+		const data = await response.data;
 
-// 		const data = await response.data;
+		dispatch(
+			showMessage({
+				message: 'List Updated',
+				autoHideDuration: 2000,
+				anchorOrigin: {
+					vertical: 'top',
+					horizontal: 'right'
+				}
+			})
+		);
 
-// 		dispatch(
-// 			showMessage({
-// 				message: 'Card Order Saved',
-// 				autoHideDuration: 2000,
-// 				anchorOrigin: {
-// 					vertical: 'top',
-// 					horizontal: 'right'
-// 				}
-// 			})
-// 		);
-
-// 		return data;
-// 	}
-// );
+		return data;
+	}
+);
 
 export const renameList = createAsyncThunk<
 	{ listId: string; listTitle: string },
@@ -106,8 +103,8 @@ const teamSlice = createSlice({
 		[reorderList.fulfilled.type]: (state, action) => {
 			state.lists = action.payload;
 		},
-		// [reorderCard.fulfilled.type]: (state, action) => {
-		// 	state.lists = action.payload;
+		// [reorderTeam.fulfilled.type]: (state, action) => {
+		// 	state.team = action.payload;
 		// },
 		[renameList.fulfilled.type]: (state, action) => {
 			const { listId, listTitle } = action.payload;

@@ -1,7 +1,5 @@
 import { useDebounce } from '@fuse/hooks';
 import _ from '@lodash';
-import { DateTimePicker } from '@material-ui/pickers';
-import clsx from 'clsx';
 import AppBar from '@material-ui/core/AppBar';
 import Avatar from '@material-ui/core/Avatar';
 import Chip from '@material-ui/core/Chip';
@@ -16,11 +14,13 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
 import { Autocomplete } from '@material-ui/lab';
+import { DateTimePicker } from '@material-ui/pickers';
+import clsx from 'clsx';
+import format from 'date-fns/format';
 import fromUnixTime from 'date-fns/fromUnixTime';
 import getUnixTime from 'date-fns/getUnixTime';
-import format from 'date-fns/format';
-import { Controller, useForm } from 'react-hook-form';
 import { useEffect } from 'react';
+import { Controller, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { closeCardDialog, removeCard, updateCard } from '../../../store/cardSlice';
 import CardActivity from './activity/CardActivity';
@@ -59,6 +59,10 @@ function BoardCardForm(props) {
 	useEffect(() => {
 		register('idAttachmentCover');
 	}, [register]);
+
+	function removeCover() {}
+
+	function removeAttachment(id) {}
 
 	if (!card) {
 		return null;
@@ -319,8 +323,8 @@ function BoardCardForm(props) {
 									item={item}
 									card={cardForm}
 									// makeCover={makeCover}
-									// removeCover={removeCover}
-									// removeAttachment={removeAttachment}
+									removeCover={removeCover}
+									removeAttachment={removeAttachment}
 									key={item.id}
 								/>
 							))}

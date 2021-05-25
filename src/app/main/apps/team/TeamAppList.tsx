@@ -1,15 +1,17 @@
+import { Divider } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import { makeStyles } from '@material-ui/core/styles';
-import { darken } from '@material-ui/core/styles/colorManipulator';
 import clsx from 'clsx';
 import ITeamList from 'models/Team';
+import IUser from 'models/User';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
 import TeamAppListHeader from './TeamAppListHeader';
+import TeamAppListItem from './TeamAppListItem';
 
 const useStyles = makeStyles(theme => ({
 	list: {
-		backgroundColor: darken(theme.palette.background.paper, theme.palette.type === 'light' ? 0.02 : 0.25),
+		// backgroundColor: darken(theme.palette.background.paper, theme.palette.type === 'light' ? 0.02 : 0.25),
 		transitionProperty: 'box-shadow',
 		transitionDuration: theme.transitions.duration.short.toString(),
 		transitionTimingFunction: theme.transitions.easing.easeInOut
@@ -19,10 +21,12 @@ const useStyles = makeStyles(theme => ({
 interface IProps {
 	list: ITeamList;
 	index: number;
-	width: number;
+	width: string | number;
+	height: string | number;
+	listItems: IUser[];
 }
 
-const TeamAppList = ({ list, index, width }: IProps) => {
+const TeamAppList = ({ list, index, width, height, listItems }: IProps) => {
 	const classes = useStyles();
 
 	return (
@@ -33,25 +37,21 @@ const TeamAppList = ({ list, index, width }: IProps) => {
 						className={clsx(
 							classes.list,
 							snapshot.isDragging ? 'shadow-lg' : 'shadow',
-							'mx-8 sm:mx-12 my-8 sm:my-12 max-h-full flex flex-col rounded-20'
+							'mx-0 md:mx-12 flex flex-col rounded-20'
 						)}
 						square
-						style={{ width }}
+						style={{ width, height }}
 					>
 						<TeamAppListHeader list={list} handleProps={provided.dragHandleProps} />
+						<Divider />
 
 						<CardContent className="flex flex-col flex-1 flex-auto h-full min-h-0 w-full p-0 overflow-auto">
 							<Droppable droppableId={list.id} type="card" direction="vertical">
 								{_provided => (
 									<div ref={_provided.innerRef} className="flex flex-col w-full h-full p-16">
-										{/* {list.idCards.map((cardId, index) => (
-												<BoardCard
-													key={cardId}
-													cardId={cardId}
-													index={index}
-													list={props.list}
-												/>
-											))} */}
+										{listItems.map((item, i) => (
+											<TeamAppListItem key={item.id} index={i} user={item} />
+										))}
 										{_provided.placeholder}
 									</div>
 								)}

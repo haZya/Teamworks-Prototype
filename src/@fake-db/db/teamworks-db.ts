@@ -39,7 +39,13 @@ const teamworksDB = {
 			length: 30,
 			totalSteps: 11,
 			activeStep: 0,
-			updated: 'Jun 28, 2017'
+			updated: 'May 18, 2021 ',
+			team: [
+				'5725a680cd7efa56a45aea5d',
+				'5725a68018c663044be49cbf',
+				'5725a6809413bf8a0a5272b1',
+				'5725a6803d87f1b77e17b62b'
+			]
 		},
 		{
 			id: '154588a0864d2881124',
@@ -50,7 +56,8 @@ const teamworksDB = {
 			length: 60,
 			totalSteps: 11,
 			activeStep: 3,
-			updated: 'Nov 01, 2017'
+			updated: 'Nov 01, 2017',
+			team: ['5725a680e7eb988a58ddf303', '5725a6806acf030f9341e925', '5725a68034cb3968e1f79eac']
 		},
 		{
 			id: '15453ba60d3baa5daaf',
@@ -61,7 +68,8 @@ const teamworksDB = {
 			length: 120,
 			totalSteps: 11,
 			activeStep: 11,
-			updated: 'Jun 28, 2017'
+			updated: 'May 18, 2021 ',
+			team: ['5725a6801146cce777df2a08', '5725a680653c265f5c79b5a9']
 		},
 		{
 			id: '15453a06c08fb021776',
@@ -72,7 +80,13 @@ const teamworksDB = {
 			length: 45,
 			totalSteps: 11,
 			activeStep: 2,
-			updated: 'Jun 28, 2017'
+			updated: 'May 18, 2021 ',
+			team: [
+				'5725a6801146cce777df2a08',
+				'5725a680bbcec3cc32a8488a',
+				'5725a680bc670af746c435e2',
+				'5725a68009e20d0a9e9acf2a'
+			]
 		},
 		{
 			id: '15427f4c1b7f3953234',
@@ -83,7 +97,13 @@ const teamworksDB = {
 			length: 30,
 			totalSteps: 11,
 			activeStep: 11,
-			updated: 'Jun 28, 2017'
+			updated: 'May 18, 2021 ',
+			team: [
+				'5725a680ae1ae9a3c960d487',
+				'5725a6801146cce777df2a08',
+				'5725a68034cb3968e1f79eac',
+				'5725a6801146cce777df2a08'
+			]
 		},
 		{
 			id: '1542d75d929a603125',
@@ -94,7 +114,8 @@ const teamworksDB = {
 			length: 120,
 			totalSteps: 11,
 			activeStep: 8,
-			updated: 'Jun 28, 2017'
+			updated: 'May 18, 2021 ',
+			team: ['5725a680653c265f5c79b5a9', '5725a680606588342058356d', '5725a680bbcec3cc32a8488a']
 		},
 		{
 			id: '1543ee3a5b43e0f9f45',
@@ -105,7 +126,8 @@ const teamworksDB = {
 			length: 30,
 			totalSteps: 11,
 			activeStep: 0,
-			updated: 'Jun 28, 2017'
+			updated: 'May 18, 2021 ',
+			team: ['5725a680bbcec3cc32a8488a', '5725a680e87cb319bd9bd673', '5725a6802d10e277a0f35775']
 		},
 		{
 			id: '1543cc4515df3146112',
@@ -116,7 +138,8 @@ const teamworksDB = {
 			length: 45,
 			totalSteps: 11,
 			activeStep: 7,
-			updated: 'Jun 28, 2017'
+			updated: 'May 18, 2021 ',
+			team: []
 		},
 		{
 			id: '154398a4770d7aaf9a2',
@@ -127,7 +150,8 @@ const teamworksDB = {
 			length: 90,
 			totalSteps: 11,
 			activeStep: 5,
-			updated: 'Jun 28, 2017'
+			updated: 'May 18, 2021 ',
+			team: ['5725a6801146cce777df2a08', '5725a680e87cb319bd9bd673']
 		},
 		{
 			id: '15438351f87dcd68567',
@@ -138,7 +162,13 @@ const teamworksDB = {
 			length: 90,
 			totalSteps: 11,
 			activeStep: 0,
-			updated: 'Jun 28, 2017'
+			updated: 'May 18, 2021 ',
+			team: [
+				'5725a680bbcec3cc32a8488a',
+				'5725a680653c265f5c79b5a9',
+				'5725a6808a178bfd034d6ecf',
+				'5725a6801146cce777df2a08'
+			]
 		},
 		{
 			id: '1544e43dcdae6ebf876',
@@ -149,7 +179,13 @@ const teamworksDB = {
 			length: 90,
 			totalSteps: 11,
 			activeStep: 0,
-			updated: 'Jun 28, 2017'
+			updated: 'May 18, 2021 ',
+			team: [
+				'5725a680bbcec3cc32a8488a',
+				'5725a680653c265f5c79b5a9',
+				'5725a6808a178bfd034d6ecf',
+				'5725a6801146cce777df2a08'
+			]
 		},
 		{
 			id: '1541ca7af66da284177',
@@ -160,7 +196,13 @@ const teamworksDB = {
 			length: 45,
 			totalSteps: 11,
 			activeStep: 0,
-			updated: 'Jun 28, 2017'
+			updated: 'May 18, 2021 ',
+			team: [
+				'5725a680bbcec3cc32a8488a',
+				'5725a680653c265f5c79b5a9',
+				'5725a6808a178bfd034d6ecf',
+				'5725a6801146cce777df2a08'
+			]
 		},
 		{
 			id: '154297167e781781745',
@@ -171,7 +213,8 @@ const teamworksDB = {
 			length: 60,
 			totalSteps: 11,
 			activeStep: 3,
-			updated: 'Jun 28, 2017'
+			updated: 'May 18, 2021 ',
+			team: []
 		},
 		{
 			id: '154537435d5b32bf11a',
@@ -182,7 +225,8 @@ const teamworksDB = {
 			length: 45,
 			totalSteps: 11,
 			activeStep: 0,
-			updated: 'Jun 28, 2017'
+			updated: 'May 18, 2021 ',
+			team: []
 		},
 		{
 			id: '154204e45a59b168453',
@@ -193,7 +237,8 @@ const teamworksDB = {
 			length: 45,
 			totalSteps: 11,
 			activeStep: 1,
-			updated: 'Jun 28, 2017'
+			updated: 'May 18, 2021 ',
+			team: []
 		},
 		{
 			id: '1541dd1e05dfc439216',
@@ -204,7 +249,8 @@ const teamworksDB = {
 			length: 30,
 			totalSteps: 11,
 			activeStep: 0,
-			updated: 'Jun 28, 2017'
+			updated: 'May 18, 2021 ',
+			team: []
 		},
 		{
 			id: '1532dfc67e704e48515',
@@ -215,7 +261,8 @@ const teamworksDB = {
 			length: 60,
 			totalSteps: 11,
 			activeStep: 0,
-			updated: 'Jun 28, 2017'
+			updated: 'May 18, 2021 ',
+			team: []
 		},
 		{
 			id: '1542e43dfaae6ebf226',
@@ -226,7 +273,8 @@ const teamworksDB = {
 			length: 90,
 			totalSteps: 11,
 			activeStep: 11,
-			updated: 'Jun 28, 2017'
+			updated: 'May 18, 2021 ',
+			team: []
 		}
 	]
 };
@@ -275,4 +323,11 @@ mock.onPost('/api/teamworks/update').reply(request => {
 	});
 
 	return [200, data];
+});
+
+mock.onPost('/api/teamworks/team/order').reply(request => {
+	const { teamworkId, team } = JSON.parse(request.data);
+	const teamwork = _.find(teamworksDB.teamworks, { id: teamworkId });
+	_.assign(teamwork, { team });
+	return [200, team];
 });

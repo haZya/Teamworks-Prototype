@@ -38,7 +38,7 @@ function UserList({ tableBodyHeight, minHeightThreshold }: IProps) {
 	const classes = useStyles();
 
 	useEffect(() => {
-		function getFilteredArray(entities: any[], _searchText: string) {
+		function getFilteredArray(entities: IUser[], _searchText: string) {
 			if (_searchText.length === 0) {
 				return entities;
 			}
