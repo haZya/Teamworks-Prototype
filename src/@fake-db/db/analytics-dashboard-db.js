@@ -140,13 +140,13 @@ const analyticsDashboardAppDB = {
 				},
 				tooltip: {
 					followCursor: true,
-					theme       : 'dark',
+					theme: 'dark',
 					fixed: {
 						enabled: false,
 						position: 'topRight',
 						offsetX: 0,
-						offsetY: 0,
-					},
+						offsetY: 0
+					}
 				}
 			}
 		},
@@ -160,21 +160,8 @@ const analyticsDashboardAppDB = {
 				{
 					name: 'Impression',
 					data: [
-						67000,
-						54000,
-						82000,
-						57000,
-						72000,
-						57000,
-						87000,
-						72000,
-						89000,
-						98700,
-						112000,
-						136000,
-						110000,
-						149000,
-						98000
+						67000, 54000, 82000, 57000, 72000, 57000, 87000, 72000, 89000, 98700, 112000, 136000, 110000,
+						149000, 98000
 					]
 				}
 			],
@@ -211,13 +198,13 @@ const analyticsDashboardAppDB = {
 				},
 				tooltip: {
 					followCursor: true,
-					theme       : 'dark',
+					theme: 'dark',
 					fixed: {
 						enabled: false,
 						position: 'topRight',
 						offsetX: 0,
-						offsetY: 0,
-					},
+						offsetY: 0
+					}
 				}
 			}
 		},
@@ -250,13 +237,13 @@ const analyticsDashboardAppDB = {
 				},
 				tooltip: {
 					followCursor: true,
-					theme       : 'dark',
+					theme: 'dark',
 					fixed: {
 						enabled: false,
 						position: 'topRight',
 						offsetX: 0,
-						offsetY: 0,
-					},
+						offsetY: 0
+					}
 				}
 			}
 		},
@@ -353,13 +340,13 @@ const analyticsDashboardAppDB = {
 				},
 				tooltip: {
 					followCursor: true,
-					theme       : 'dark',
+					theme: 'dark',
 					fixed: {
 						enabled: false,
 						position: 'topRight',
 						offsetX: 0,
-						offsetY: 0,
-					},
+						offsetY: 0
+					}
 				}
 			}
 		},
@@ -644,13 +631,13 @@ const analyticsDashboardAppDB = {
 				},
 				tooltip: {
 					followCursor: true,
-					theme       : 'dark',
+					theme: 'dark',
 					fixed: {
 						enabled: false,
 						position: 'topRight',
 						offsetX: 0,
-						offsetY: 0,
-					},
+						offsetY: 0
+					}
 				}
 			},
 			today: '12,540',
@@ -664,27 +651,27 @@ const analyticsDashboardAppDB = {
 			rows: [
 				{
 					title: 'Holiday Travel',
-					clicks: 3621,
-					conversion: 90
+					clicks: 21,
+					conversion: 10
 				},
 				{
 					title: 'Get Away Deals',
-					clicks: 703,
+					clicks: 13,
 					conversion: 7
 				},
 				{
 					title: 'Airfare',
-					clicks: 532,
+					clicks: 2,
 					conversion: 0
 				},
 				{
 					title: 'Vacation',
-					clicks: 201,
+					clicks: 20,
 					conversion: 8
 				},
 				{
 					title: 'Hotels',
-					clicks: 94,
+					clicks: 9,
 					conversion: 4
 				}
 			]

@@ -10,6 +10,7 @@ import Board from 'app/main/apps/scrumboard/board/Board';
 import Boards from 'app/main/apps/scrumboard/boards/Boards';
 import TeamApp from 'app/main/apps/team/TeamApp';
 import TodoApp from 'app/main/apps/todo/TodoApp';
+import HomeApp from 'app/main/apps/workspace-home/HomeApp';
 import withReducer from 'app/store/withReducer';
 import clsx from 'clsx';
 import { useEffect, useRef } from 'react';
@@ -36,6 +37,10 @@ const useStyles = makeStyles(theme => ({
 	contentCard: {
 		borderBottom: 0,
 		border: theme.palette.type === 'dark' && `2px solid ${theme.palette.primary.main}`
+	},
+	sidebarHeader: {
+		height: 180,
+		minHeight: 180
 	},
 	topBg: {
 		height: 180
@@ -75,13 +80,14 @@ function WorkspacePage(props) {
 				content: 'flex flex-col flex-auto overflow-hidden',
 				header: classes.header,
 				sidebar: 'border-0',
-				rightSidebar: 'w-256',
+				rightSidebar: 'w-320',
+				sidebarHeader: classes.sidebarHeader,
 				topBg: classes.topBg
 			}}
 			header={<WorkspacePageHeader />}
 			content={
 				<>
-					{tab === 'home' && <Error404Page />}
+					{tab === 'home' && <HomeApp />}
 					{tab === 'team' && <TeamApp />}
 					{tab === 'email' && <MailApp />}
 					{tab === 'chat' && <ChatApp />}
