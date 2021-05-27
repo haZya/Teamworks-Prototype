@@ -28,6 +28,10 @@ const useStyles = makeStyles(theme => ({
 				width: '100%',
 				margin: '0 auto'
 			}
+		},
+		minHeight: 734,
+		[theme.breakpoints.up('md')]: {
+			minHeight: 768
 		}
 	}
 }));
@@ -54,7 +58,7 @@ function Layout1(props) {
 						<SettingsPanel />
 					</div>
 
-					<div className="flex flex-col flex-auto min-h-0 relative z-10">
+					<div className="flex flex-col flex-auto min-h-640 relative z-10">
 						<FuseDialog />
 
 						<FuseSuspense>{renderRoutes(routes)}</FuseSuspense>

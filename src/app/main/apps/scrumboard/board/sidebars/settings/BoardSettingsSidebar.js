@@ -8,11 +8,22 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Switch from '@material-ui/core/Switch';
 import Toolbar from '@material-ui/core/Toolbar';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteBoard, copyBoard, changeBoardSettings } from '../../../store/boardSlice';
+import { useParams } from 'react-router-dom';
+import { changeBoardSettings, copyBoard, deleteBoard } from '../../../store/boardSlice';
+
+const pathToRegexp = require('path-to-regexp');
 
 function BoardSettingsSidebar(props) {
 	const dispatch = useDispatch();
 	const board = useSelector(({ scrumboardApp }) => scrumboardApp.board);
+
+	const toPath = pathToRegexp.compile('/teamworks/:teamworkId/:teamworkHandle/tasks');
+
+	const routeParams = useParams();
+	const matchParams = { ...routeParams };
+	delete matchParams.boardUri;
+	delete matchParams.boardId;
+	const boardUrl = toPath(matchParams);
 
 	return (
 		<div>
@@ -55,14 +66,14 @@ function BoardSettingsSidebar(props) {
 					</ListItemSecondaryAction>
 				</ListItem>
 
-				<ListItem button onClick={() => dispatch(copyBoard(board))}>
+				<ListItem button onClick={() => dispatch(copyBoard({ board, boardUrl }))}>
 					<ListItemIcon className="min-w-40">
 						<Icon>file_copy</Icon>
 					</ListItemIcon>
 					<ListItemText primary="Copy Board" />
 				</ListItem>
 
-				<ListItem button onClick={() => dispatch(deleteBoard(board.id))}>
+				<ListItem button onClick={() => dispatch(deleteBoard({ boardId: board.id, boardUrl }))}>
 					<ListItemIcon className="min-w-40">
 						<Icon>delete</Icon>
 					</ListItemIcon>

@@ -103,7 +103,7 @@ function WorkspacePage(props) {
 			contentToolbar={<WorkspacePageContentToolbar />}
 			rightSidebarHeader={<></>}
 			rightSidebarContent={<WorkspacePageRightSidebar />}
-			innerScroll
+			// innerScroll
 			ref={pageLayout}
 		/>
 	);

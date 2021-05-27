@@ -75,7 +75,7 @@ const TeamAppList = ({ list, index, width, height, listItems }: IProps) => {
 										animate="show"
 										variants={container}
 										ref={_provided.innerRef}
-										className="flex flex-col w-full h-full p-16"
+										className="flex flex-col w-full h-full px-16 pt-12"
 									>
 										{listItems.map((listItem, i) => (
 											<TeamAppListItem key={listItem.id} index={i} user={listItem} />

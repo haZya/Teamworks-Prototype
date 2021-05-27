@@ -1,14 +1,14 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
 import FuseUtils from '@fuse/utils';
 import history from '@history';
 import _ from '@lodash';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { showMessage } from 'app/store/fuse/messageSlice';
+import axios from 'axios';
 import CardModel from '../model/CardModel';
 import ListModel from '../model/ListModel';
-import reorder, { reorderQuoteMap } from './reorder';
 import { newBoard } from './boardsSlice';
 import { removeCard, updateCard } from './cardSlice';
+import reorder, { reorderQuoteMap } from './reorder';
 
 export const getBoard = createAsyncThunk('scrumboardApp/board/getBoard', async (params, { dispatch }) => {
 	try {
@@ -170,13 +170,13 @@ export const changeBoardSettings = createAsyncThunk(
 
 export const deleteBoard = createAsyncThunk(
 	'scrumboardApp/board/deleteBoard',
-	async (boardId, { dispatch, getState }) => {
+	async ({ boardId, boardUrl }, { dispatch, getState }) => {
 		const response = await axios.post('/api/scrumboard-app/board/delete', {
 			boardId
 		});
 
 		history.push({
-			pathname: '/apps/scrumboard/boards'
+			pathname: boardUrl
 		});
 
 		const data = await response.data;
@@ -185,17 +185,20 @@ export const deleteBoard = createAsyncThunk(
 	}
 );
 
-export const copyBoard = createAsyncThunk('scrumboardApp/board/copyBoard', async (board, { dispatch, getState }) => {
-	const newBoardData = _.merge({}, board, {
-		id: FuseUtils.generateGUID(),
-		name: `${board.name} (Copied)`,
-		uri: `${board.uri}-copied`
-	});
+export const copyBoard = createAsyncThunk(
+	'scrumboardApp/board/copyBoard',
+	async ({ board, boardUrl }, { dispatch, getState }) => {
+		const newBoardData = _.merge({}, board, {
+			id: FuseUtils.generateGUID(),
+			name: `${board.name} (Copied)`,
+			uri: `${board.uri}-copied`
+		});
 
-	dispatch(newBoard(newBoardData));
+		dispatch(newBoard({ board: newBoardData, boardUrl }));
 
-	return newBoardData;
-});
+		return newBoardData;
+	}
+);
 
 export const renameBoard = createAsyncThunk(
 	'scrumboardApp/board/renameBoard',

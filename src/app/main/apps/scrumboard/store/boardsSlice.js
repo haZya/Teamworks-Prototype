@@ -1,6 +1,6 @@
-import { createSlice, createAsyncThunk, createEntityAdapter } from '@reduxjs/toolkit';
-import axios from 'axios';
 import history from '@history';
+import { createAsyncThunk, createEntityAdapter, createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
 import BoardModel from '../model/BoardModel';
 
 export const getBoards = createAsyncThunk('scrumboardApp/boards/getBoards', async () => {
@@ -10,12 +10,12 @@ export const getBoards = createAsyncThunk('scrumboardApp/boards/getBoards', asyn
 	return data;
 });
 
-export const newBoard = createAsyncThunk('scrumboardApp/boards/newBoard', async (board, { dispatch }) => {
+export const newBoard = createAsyncThunk('scrumboardApp/boards/newBoard', async ({ board, boardUrl }, { dispatch }) => {
 	const response = await axios.post('/api/scrumboard-app/board/new', { board: board || BoardModel() });
 	const data = await response.data;
 
 	history.push({
-		pathname: `/apps/scrumboard/boards/${data.id}/${data.handle}`
+		pathname: `${boardUrl}/${data.id}/${data.handle}`
 	});
 
 	return data;

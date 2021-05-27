@@ -81,7 +81,7 @@ function UsersPage(props) {
 	const theme = useTheme();
 	const xsmDown = useMediaQuery(theme.breakpoints.down(700));
 	const xsDown = useMediaQuery(theme.breakpoints.down('xs'));
-	const minHeightThreshold = 283; // This number is proportional to the sidebar height
+	const minHeightThreshold = 382;
 	let heightOffset = 120;
 
 	heightOffset = xsDown ? 172 : xsmDown ? 154 : 120;
