@@ -15,7 +15,7 @@ const config = {
 		},
 		footer: {
 			display: false,
-			style: 'fixed'
+			style: 'static'
 		},
 		leftSidePanel: {
 			display: true

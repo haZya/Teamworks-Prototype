@@ -3,11 +3,33 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
+import { motion } from 'framer-motion';
 import ITeamList from 'models/Team';
 import IUser from 'models/User';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
 import TeamAppListHeader from './TeamAppListHeader';
 import TeamAppListItem from './TeamAppListItem';
+
+const item = {
+	hidden: {
+		opacity: 0,
+		y: 20
+	},
+	show: {
+		opacity: 1,
+		y: 0
+	}
+};
+
+const container = {
+	hidden: { opacity: 1 },
+	show: {
+		opacity: 1,
+		transition: {
+			staggerChildren: 0.1
+		}
+	}
+};
 
 const useStyles = makeStyles(theme => ({
 	list: {
@@ -48,12 +70,18 @@ const TeamAppList = ({ list, index, width, height, listItems }: IProps) => {
 						<CardContent className="flex flex-col flex-1 flex-auto h-full min-h-0 w-full p-0 overflow-auto">
 							<Droppable droppableId={list.id} type="card" direction="vertical">
 								{_provided => (
-									<div ref={_provided.innerRef} className="flex flex-col w-full h-full p-16">
-										{listItems.map((item, i) => (
-											<TeamAppListItem key={item.id} index={i} user={item} />
+									<motion.div
+										initial="hidden"
+										animate="show"
+										variants={container}
+										ref={_provided.innerRef}
+										className="flex flex-col w-full h-full p-16"
+									>
+										{listItems.map((listItem, i) => (
+											<TeamAppListItem key={listItem.id} index={i} user={listItem} />
 										))}
 										{_provided.placeholder}
-									</div>
+									</motion.div>
 								)}
 							</Droppable>
 						</CardContent>
