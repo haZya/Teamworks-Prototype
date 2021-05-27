@@ -45,7 +45,7 @@ function TeamAppListHeader({ list, handleProps }: IProps) {
 		resolver: yupResolver(schema)
 	});
 
-	const { isValid, dirtyFields, errors } = formState;
+	const { isValid, dirtyFields } = formState;
 
 	useEffect(() => {
 		if (!formOpen) {

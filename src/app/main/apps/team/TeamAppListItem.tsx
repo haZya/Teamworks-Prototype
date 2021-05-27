@@ -16,7 +16,7 @@ const useStyles = makeStyles(theme => ({
 		fontSize: 14
 	},
 	jobTitle: {
-		color: theme.palette.primary.light
+		color: theme.palette.text.hint
 	}
 }));
 

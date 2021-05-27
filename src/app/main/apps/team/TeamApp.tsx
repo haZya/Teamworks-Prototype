@@ -16,7 +16,6 @@ import reorder from './store/reorder';
 import { getLists, reorderList, reorderTeam, resetLists } from './store/teamSlice';
 import TeamAppList from './TeamAppList';
 
-const drawerWidth = 400;
 const headerHeight = 200;
 
 const useStyles = makeStyles(theme => ({
@@ -76,15 +75,6 @@ const useStyles = makeStyles(theme => ({
 		minHeight: 0,
 		overflow: 'auto'
 	},
-	drawerPaper: {
-		width: drawerWidth,
-		maxWidth: '100%',
-		overflow: 'hidden',
-		height: '100%',
-		[theme.breakpoints.up('md')]: {
-			position: 'relative'
-		}
-	},
 	contentWrapper: {
 		display: 'flex',
 		flexDirection: 'column',
@@ -101,7 +91,7 @@ const useStyles = makeStyles(theme => ({
 		minHeight: 0
 	},
 	transferIcon: {
-		color: theme.palette.type === 'light' ? theme.palette.primary.light : theme.palette.background.paper,
+		color: theme.palette.type === 'light' ? theme.palette.grey[600] : theme.palette.background.paper,
 		transform: 'rotate(90deg)',
 		[theme.breakpoints.down('xs')]: {
 			transform: 'rotate(0deg)'
@@ -238,12 +228,7 @@ const TeamApp = () => {
 				const srcIndex = team.indexOf(src.id);
 				const destIndex = team.indexOf(dest.id);
 
-				// newTeam = Object.assign([], team);
-				// newTeam[srcIndex] = dest.id;
-				// newTeam[destIndex] = src.id;
-
 				newTeam = reorder(team, srcIndex, destIndex);
-
 				dispatch(reorderTeam(newTeam));
 				dispatch(getTeamwork({ teamworksId: routeParams.teamworkId }));
 			}

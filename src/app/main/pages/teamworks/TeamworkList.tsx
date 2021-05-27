@@ -1,6 +1,7 @@
 import _ from '@lodash';
 import { FormControl, InputLabel, MenuItem, OutlinedInput, Select, Typography } from '@material-ui/core';
 import { motion } from 'framer-motion';
+import ITeamwork, { ICategory } from 'models/Teamwork';
 import { useEffect, useMemo, useState } from 'react';
 import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
 import { getCategories, selectCategories } from './store/categoriesSlice';
@@ -9,11 +10,11 @@ import TeamworkTile from './TeamworkTile';
 
 function TeamworkList() {
 	const dispatch = useDispatch();
-	const teamworks: any[] = useSelector(selectTeamworks);
-	const categories: any[] = useSelector(selectCategories);
+	const teamworks: ITeamwork[] = useSelector(selectTeamworks);
+	const categories: ICategory[] = useSelector(selectCategories);
 	const searchText: string = useSelector(({ teamworksPage }: RootStateOrAny) => teamworksPage.teamworks.searchText);
 
-	const [filteredData, setFilteredData] = useState<any[]>([]);
+	const [filteredData, setFilteredData] = useState<ITeamwork[]>([]);
 	const [selectedCategory, setSelectedCategory] = useState('all');
 
 	useEffect(() => {

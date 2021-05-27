@@ -88,11 +88,12 @@ function UsersPage(props) {
 	const [height, setHeight] = useState(undefined);
 
 	useEffect(() => {
-		setHeight(pageLayout.current.contentRef.current.clientHeight - heightOffset);
-
 		const resizeListener = () => {
 			setHeight(pageLayout.current.contentRef.current.clientHeight - heightOffset);
 		};
+
+		// Set initial size
+		resizeListener();
 
 		// set resize listener
 		window.addEventListener('resize', resizeListener);

@@ -1,8 +1,14 @@
 import _ from '@lodash';
 import { amber, blue, blueGrey, green } from '@material-ui/core/colors';
+import ITeamwork, { ICategory } from 'models/Teamwork';
 import mock from '../mock';
 
-const teamworksDB = {
+interface ITamworksDB {
+	categories: ICategory[];
+	teamworks: ITeamwork[];
+}
+
+const teamworksDB: ITamworksDB = {
 	categories: [
 		{
 			id: 0,
@@ -156,7 +162,7 @@ const teamworksDB = {
 		{
 			id: '15438351f87dcd68567',
 			title: 'Building Beautiful UIs with Flutter',
-			your: 'building-beautiful-uis-with-flutter',
+			slug: 'building-beautiful-uis-with-flutter',
 			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
 			category: 'web',
 			length: 90,

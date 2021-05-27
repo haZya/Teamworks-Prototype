@@ -1,9 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { showMessage } from 'app/store/fuse/messageSlice';
 import axios from 'axios';
+import ITeamwork from 'models/Teamwork';
 import { RootStateOrAny } from 'react-redux';
 
-export const getTeamwork = createAsyncThunk<any, { teamworksId: string | number }>(
+export const getTeamwork = createAsyncThunk<ITeamwork, { teamworksId: string | number }>(
 	'teamworksPage/teamworks/getTeamwork',
 	async params => {
 		const response = await axios.get('/api/teamworks/teamwork', { params });
@@ -12,12 +13,12 @@ export const getTeamwork = createAsyncThunk<any, { teamworksId: string | number 
 	}
 );
 
-export const updateTeamwork = createAsyncThunk<any, any, { state: RootStateOrAny }>(
+export const updateTeamwork = createAsyncThunk<ITeamwork, ITeamwork, { state: RootStateOrAny }>(
 	'teamworksPage/teamworks/updateTeamwork',
 	async (_data, { getState, dispatch }) => {
-		const { id } = getState().teamworksPage.teamwork;
+		const { id }: ITeamwork = getState().teamworksPage.teamwork;
 
-		const response = await axios.post('/api/teamworks/update', { id, ..._data });
+		const response = await axios.post('/api/teamworks/update', { id, _data });
 		const data = await response.data;
 
 		dispatch(showMessage({ message: 'Teamwork Saved' }));
