@@ -1,10 +1,11 @@
 import _ from '@lodash';
 import { amber, blue, blueGrey, green } from '@material-ui/core/colors';
-import ITeamwork, { ICategory } from 'models/Teamwork';
+import ITeamwork, { ICategory, IPriority } from 'models/Teamwork';
 import mock from '../mock';
 
 interface ITamworksDB {
 	categories: ICategory[];
+	priorities: IPriority[];
 	teamworks: ITeamwork[];
 }
 
@@ -35,6 +36,23 @@ const teamworksDB: ITamworksDB = {
 			color: green[500]
 		}
 	],
+	priorities: [
+		{
+			id: 0,
+			value: 'high',
+			label: 'High'
+		},
+		{
+			id: 1,
+			value: 'medium',
+			label: 'Medium'
+		},
+		{
+			id: 2,
+			value: 'low',
+			label: 'Low'
+		}
+	],
 	teamworks: [
 		{
 			id: '15459251a6d6b397565',
@@ -42,10 +60,9 @@ const teamworksDB: ITamworksDB = {
 			slug: 'basics-of-angular',
 			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
 			category: 'web',
-			length: 30,
-			totalSteps: 11,
-			activeStep: 0,
-			updated: 'May 18, 2021 ',
+			priority: 'medium',
+			startDate: 'May 18, 2021',
+			dueDate: 'Jun 28, 2021',
 			team: [
 				'5725a680cd7efa56a45aea5d',
 				'5725a68018c663044be49cbf',
@@ -59,10 +76,9 @@ const teamworksDB: ITamworksDB = {
 			slug: 'basics-of-typeScript',
 			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
 			category: 'web',
-			length: 60,
-			totalSteps: 11,
-			activeStep: 3,
-			updated: 'Nov 01, 2017',
+			priority: 'low',
+			startDate: 'Sep 01, 2021',
+			dueDate: 'Nov 18, 2021',
 			team: ['5725a680e7eb988a58ddf303', '5725a6806acf030f9341e925', '5725a68034cb3968e1f79eac']
 		},
 		{
@@ -71,10 +87,9 @@ const teamworksDB: ITamworksDB = {
 			slug: 'android-n-quick-settings',
 			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
 			category: 'android',
-			length: 120,
-			totalSteps: 11,
-			activeStep: 11,
-			updated: 'May 18, 2021 ',
+			priority: 'medium',
+			startDate: 'May 18, 2021',
+			dueDate: 'Jun 18, 2021',
 			team: ['5725a6801146cce777df2a08', '5725a680653c265f5c79b5a9']
 		},
 		{
@@ -83,10 +98,9 @@ const teamworksDB: ITamworksDB = {
 			slug: 'keep-sensitive-data-safe-and-private',
 			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
 			category: 'android',
-			length: 45,
-			totalSteps: 11,
-			activeStep: 2,
-			updated: 'May 18, 2021 ',
+			priority: 'high',
+			startDate: 'Apr 18, 2021',
+			dueDate: 'Jun 8, 2021',
 			team: [
 				'5725a6801146cce777df2a08',
 				'5725a680bbcec3cc32a8488a',
@@ -100,10 +114,9 @@ const teamworksDB: ITamworksDB = {
 			slug: 'building-a-grpc-service-with-java',
 			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
 			category: 'cloud',
-			length: 30,
-			totalSteps: 11,
-			activeStep: 11,
-			updated: 'May 18, 2021 ',
+			priority: 'high',
+			startDate: 'May 7, 2021',
+			dueDate: 'Jul 10, 2021',
 			team: [
 				'5725a680ae1ae9a3c960d487',
 				'5725a6801146cce777df2a08',
@@ -117,10 +130,9 @@ const teamworksDB: ITamworksDB = {
 			slug: 'build-a-pwa-using-workbox',
 			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
 			category: 'web',
-			length: 120,
-			totalSteps: 11,
-			activeStep: 8,
-			updated: 'May 18, 2021 ',
+			priority: 'low',
+			startDate: 'Jul 14, 2021',
+			dueDate: 'Aug 18, 2021',
 			team: ['5725a680653c265f5c79b5a9', '5725a680606588342058356d', '5725a680bbcec3cc32a8488a']
 		},
 		{
@@ -129,10 +141,9 @@ const teamworksDB: ITamworksDB = {
 			slug: 'build-an-app-for-the-google-assistant-with-firebase-and-dialogflow',
 			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
 			category: 'firebase',
-			length: 30,
-			totalSteps: 11,
-			activeStep: 0,
-			updated: 'May 18, 2021 ',
+			priority: 'medium',
+			startDate: 'May 14, 2021',
+			dueDate: 'May 26, 2021',
 			team: ['5725a680bbcec3cc32a8488a', '5725a680e87cb319bd9bd673', '5725a6802d10e277a0f35775']
 		},
 		{
@@ -141,10 +152,9 @@ const teamworksDB: ITamworksDB = {
 			slug: 'cloud-functions-for-firebase',
 			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
 			category: 'firebase',
-			length: 45,
-			totalSteps: 11,
-			activeStep: 7,
-			updated: 'May 18, 2021 ',
+			priority: 'low',
+			startDate: 'Jul 18, 2021',
+			dueDate: 'Nov 30, 2021',
 			team: []
 		},
 		{
@@ -153,10 +163,9 @@ const teamworksDB: ITamworksDB = {
 			slug: 'manage-your-pivotal-cloud-foundry-apps-using-apigee-Edge',
 			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
 			category: 'cloud',
-			length: 90,
-			totalSteps: 11,
-			activeStep: 5,
-			updated: 'May 18, 2021 ',
+			priority: 'low',
+			startDate: 'Apr 4, 2021',
+			dueDate: 'Jul 8, 2021',
 			team: ['5725a6801146cce777df2a08', '5725a680e87cb319bd9bd673']
 		},
 		{
@@ -165,10 +174,9 @@ const teamworksDB: ITamworksDB = {
 			slug: 'building-beautiful-uis-with-flutter',
 			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
 			category: 'web',
-			length: 90,
-			totalSteps: 11,
-			activeStep: 0,
-			updated: 'May 18, 2021 ',
+			priority: 'high',
+			startDate: 'Mar 12, 2021',
+			dueDate: 'May 20, 2021',
 			team: [
 				'5725a680bbcec3cc32a8488a',
 				'5725a680653c265f5c79b5a9',
@@ -182,10 +190,9 @@ const teamworksDB: ITamworksDB = {
 			slug: 'cloud-firestore',
 			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
 			category: 'firebase',
-			length: 90,
-			totalSteps: 11,
-			activeStep: 0,
-			updated: 'May 18, 2021 ',
+			priority: 'medium',
+			startDate: 'Apr 18, 2021',
+			dueDate: 'May 18, 2021',
 			team: [
 				'5725a680bbcec3cc32a8488a',
 				'5725a680653c265f5c79b5a9',
@@ -199,10 +206,9 @@ const teamworksDB: ITamworksDB = {
 			slug: 'customize-network-topology-with-subnetworks',
 			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
 			category: 'web',
-			length: 45,
-			totalSteps: 11,
-			activeStep: 0,
-			updated: 'May 18, 2021 ',
+			priority: 'medium',
+			startDate: 'Jun 22, 2021',
+			dueDate: 'Jul 14, 2021',
 			team: [
 				'5725a680bbcec3cc32a8488a',
 				'5725a680653c265f5c79b5a9',
@@ -216,10 +222,9 @@ const teamworksDB: ITamworksDB = {
 			slug: 'looking-at-campaign-finance-with-bigquery',
 			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
 			category: 'cloud',
-			length: 60,
-			totalSteps: 11,
-			activeStep: 3,
-			updated: 'May 18, 2021 ',
+			priority: 'medium',
+			startDate: 'Aug 1, 2021',
+			dueDate: 'Nov 1, 2021',
 			team: []
 		},
 		{
@@ -228,10 +233,9 @@ const teamworksDB: ITamworksDB = {
 			slug: 'firebase-android',
 			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
 			category: 'android',
-			length: 45,
-			totalSteps: 11,
-			activeStep: 0,
-			updated: 'May 18, 2021 ',
+			priority: 'low',
+			startDate: 'Jul 24, 2021',
+			dueDate: 'Sep 18, 2021',
 			team: []
 		},
 		{
@@ -240,10 +244,9 @@ const teamworksDB: ITamworksDB = {
 			slug: 'simulating-a-thread-network-using-openthread',
 			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
 			category: 'web',
-			length: 45,
-			totalSteps: 11,
-			activeStep: 1,
-			updated: 'May 18, 2021 ',
+			priority: 'medium',
+			startDate: 'May 31, 2021',
+			dueDate: 'Jul 31, 2021',
 			team: []
 		},
 		{
@@ -252,10 +255,9 @@ const teamworksDB: ITamworksDB = {
 			slug: 'your-first-progressive-web-app',
 			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
 			category: 'web',
-			length: 30,
-			totalSteps: 11,
-			activeStep: 0,
-			updated: 'May 18, 2021 ',
+			priority: 'high',
+			startDate: 'May 16, 2021',
+			dueDate: 'May 30, 2021',
 			team: []
 		},
 		{
@@ -264,10 +266,9 @@ const teamworksDB: ITamworksDB = {
 			slug: 'launch-cloud-datalab',
 			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
 			category: 'cloud',
-			length: 60,
-			totalSteps: 11,
-			activeStep: 0,
-			updated: 'May 18, 2021 ',
+			priority: 'high',
+			startDate: 'Jun 13, 2021',
+			dueDate: 'Aug 28, 2021',
 			team: []
 		},
 		{
@@ -276,10 +277,9 @@ const teamworksDB: ITamworksDB = {
 			slug: 'personalize-your-ios-app-with-firebase-user-management',
 			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
 			category: 'firebase',
-			length: 90,
-			totalSteps: 11,
-			activeStep: 11,
-			updated: 'May 18, 2021 ',
+			priority: 'low',
+			startDate: 'May 27, 2021',
+			dueDate: 'Jun 7, 2021',
 			team: []
 		}
 	]
@@ -287,6 +287,10 @@ const teamworksDB: ITamworksDB = {
 
 mock.onGet('/api/teamworks/categories').reply(() => {
 	return [200, teamworksDB.categories];
+});
+
+mock.onGet('/api/teamworks/priorities').reply(() => {
+	return [200, teamworksDB.priorities];
 });
 
 mock.onGet('/api/teamworks').reply(() => {

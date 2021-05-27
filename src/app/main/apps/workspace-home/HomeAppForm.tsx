@@ -1,5 +1,8 @@
 import Category from './controls/Category';
 import Description from './controls/Description';
+import DueDate from './controls/DueDate';
+import Priority from './controls/Priority';
+import StartDate from './controls/StartDate';
 import Title from './controls/Title';
 
 const HomeAppForm = () => {
@@ -9,6 +12,9 @@ const HomeAppForm = () => {
 				<Title />
 				<Description />
 				<Category />
+				<Priority />
+				<StartDate />
+				<DueDate />
 			</div>
 		</div>
 	);

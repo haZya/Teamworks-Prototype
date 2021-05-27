@@ -5,16 +5,21 @@ export interface ICategory {
 	color: string;
 }
 
+export interface IPriority {
+	id: number;
+	value: string;
+	label: string;
+}
+
 interface ITeamwork {
 	id: string;
 	title: string;
 	slug: string;
 	description: string;
 	category: string;
-	length: number;
-	totalSteps: number;
-	activeStep: number;
-	updated: string;
+	priority: string;
+	startDate: string;
+	dueDate: string;
 	team: string[];
 }
 

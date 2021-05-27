@@ -11,7 +11,7 @@ import {
 	Select,
 	Typography
 } from '@material-ui/core';
-import { getCategories, selectCategories } from 'app/main/pages/teamworks/store/categoriesSlice';
+import { getPriorities, selectPriorities } from 'app/main/pages/teamworks/store/prioritiesSlice';
 import clsx from 'clsx';
 import ITeamwork from 'models/Teamwork';
 import { ChangeEvent, MouseEvent, useEffect, useState } from 'react';
@@ -23,7 +23,7 @@ import * as yup from 'yup';
  * Form Validation Schema
  */
 const schema = yup.object().shape({
-	category: yup.string().required('You must select a category')
+	priority: yup.string().required('You must select a priority')
 });
 
 const useStyles = makeStyles(theme => ({
@@ -32,19 +32,19 @@ const useStyles = makeStyles(theme => ({
 	}
 }));
 
-const Category = () => {
+const Priority = () => {
 	const dispatch = useDispatch();
-	const categories = useSelector(selectCategories);
-	const { category }: ITeamwork = useSelector(({ teamworksPage }: RootStateOrAny) => teamworksPage.teamwork);
+	const priorities = useSelector(selectPriorities);
+	const { priority }: ITeamwork = useSelector(({ teamworksPage }: RootStateOrAny) => teamworksPage.teamwork);
 
 	useDeepCompareEffect(() => {
-		dispatch(getCategories());
+		dispatch(getPriorities());
 	}, [dispatch]);
 
 	const { control, reset } = useForm({
 		mode: 'onChange',
 		defaultValues: {
-			category
+			priority
 		},
 		resolver: yupResolver(schema)
 	});
@@ -54,9 +54,9 @@ const Category = () => {
 
 	useEffect(() => {
 		reset({
-			category
+			priority
 		});
-	}, [formOpen, reset, category]);
+	}, [formOpen, reset, priority]);
 
 	function handleFormOpen(ev: MouseEvent<any>) {
 		ev.stopPropagation();
@@ -69,6 +69,8 @@ const Category = () => {
 
 	function onSubmit(result: string) {
 		// dispatch(renameList({ listId: list.id, listTitle: title }));
+		console.log(result);
+
 		handleFormClose();
 	}
 
@@ -76,32 +78,32 @@ const Category = () => {
 		<div className="w-full py-12">
 			{formOpen ? (
 				<FormControl className="flex w-full sm:w-320" variant="outlined">
-					<InputLabel htmlFor="category-label-placeholder"> Category </InputLabel>
+					<InputLabel htmlFor="priority-label-placeholder"> Priority </InputLabel>
 					<Controller
-						name="category"
+						name="priority"
 						control={control}
 						render={({ field }) => (
 							<Select
 								{...field}
-								label="Category"
-								placeholder="Select a category.."
+								label="Priority"
+								placeholder="Select a priority.."
 								autoFocus
 								onChange={(e: ChangeEvent<any>) => onSubmit(e.target.value)}
 								onBlur={handleFormClose}
 								input={
 									<OutlinedInput
-										labelWidth={'category'.length * 9}
-										name="category"
-										id="category-label-placeholder"
+										labelWidth={'priority'.length * 9}
+										name="priority"
+										id="priority-label-placeholder"
 									/>
 								}
 							>
 								<MenuItem value="all">
 									<em> All </em>
 								</MenuItem>
-								{categories.map(c => (
-									<MenuItem key={c.id} value={c.value}>
-										{c.label}
+								{priorities.map(p => (
+									<MenuItem key={p.id} value={p.value}>
+										{p.label}
 									</MenuItem>
 								))}
 							</Select>
@@ -114,14 +116,14 @@ const Category = () => {
 						className={clsx(classes.label, 'text-12 sm:text-14 font-medium cursor-pointer leading-3')}
 						onClick={handleFormOpen}
 					>
-						Category
+						Priority
 					</Typography>
 					<div className="flex items-center">
 						<Typography
 							className="text-16 sm:text-18 font-medium cursor-pointer py-10"
 							onClick={handleFormOpen}
 						>
-							{categories.find(c => c.value === category)?.label}
+							{priorities.find(p => p.value === priority)?.label}
 						</Typography>
 						<IconButton className="p-10" size="small" onClick={handleFormOpen}>
 							<Icon>edit</Icon>
@@ -133,4 +135,4 @@ const Category = () => {
 	);
 };
 
-export default Category;
+export default Priority;

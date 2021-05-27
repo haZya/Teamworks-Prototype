@@ -68,11 +68,14 @@ function MailList(props) {
 	return (
 		<List className="p-0">
 			<motion.div variants={container} initial="hidden" animate="show" v>
-				{filteredData.map(mail => (
-					<motion.div variants={item} key={mail.id}>
-						<MailListItem mail={mail} />
-					</motion.div>
-				))}
+				{filteredData.map(
+					mail =>
+						mail.from && (
+							<motion.div variants={item} key={mail.id}>
+								<MailListItem mail={mail} />
+							</motion.div>
+						)
+				)}
 			</motion.div>
 		</List>
 	);
