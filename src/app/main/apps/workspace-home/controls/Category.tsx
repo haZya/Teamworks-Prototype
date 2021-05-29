@@ -103,9 +103,6 @@ const Category = () => {
 									/>
 								}
 							>
-								<MenuItem value="all">
-									<em> All </em>
-								</MenuItem>
 								{categories.map(c => (
 									<MenuItem key={c.id} value={c.value}>
 										{c.label}

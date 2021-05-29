@@ -67,7 +67,8 @@ const teamworksDB: ITamworksDB = {
 				'5725a680cd7efa56a45aea5d',
 				'5725a68018c663044be49cbf',
 				'5725a6809413bf8a0a5272b1',
-				'5725a6803d87f1b77e17b62b'
+				'5725a6803d87f1b77e17b62b',
+				'5725a680653c265f5c79b5a9'
 			]
 		},
 		{

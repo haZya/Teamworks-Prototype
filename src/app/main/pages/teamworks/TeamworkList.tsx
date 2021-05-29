@@ -105,7 +105,7 @@ function TeamworkList() {
 							animate="show"
 						>
 							{filteredData.map(teamwork => {
-								const category = categories.find(_cat => _cat.value === teamwork.category);
+								const category = categories.filter(_cat => _cat.value === teamwork.category)[0];
 								return <TeamworkTile key={teamwork.id} teamwork={teamwork} category={category} />;
 							})}
 						</motion.div>
