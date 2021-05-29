@@ -12,12 +12,15 @@ import {
 	Typography
 } from '@material-ui/core';
 import { getCategories, selectCategories } from 'app/main/pages/teamworks/store/categoriesSlice';
+import { updateTeamworkCategory } from 'app/main/pages/teamworks/store/teamworkSlice';
 import clsx from 'clsx';
+import { motion } from 'framer-motion';
 import ITeamwork from 'models/Teamwork';
 import { ChangeEvent, MouseEvent, useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
 import * as yup from 'yup';
+import { item } from '../anim';
 
 /**
  * Form Validation Schema
@@ -41,7 +44,7 @@ const Category = () => {
 		dispatch(getCategories());
 	}, [dispatch]);
 
-	const { control, reset } = useForm({
+	const { control, setValue, handleSubmit, reset } = useForm({
 		mode: 'onChange',
 		defaultValues: {
 			category
@@ -67,13 +70,13 @@ const Category = () => {
 		setFormOpen(false);
 	}
 
-	function onSubmit(result: string) {
-		// dispatch(renameList({ listId: list.id, listTitle: title }));
+	function onSubmit(result: { category: string }) {
+		dispatch(updateTeamworkCategory(result.category));
 		handleFormClose();
 	}
 
 	return (
-		<div className="w-full py-12">
+		<motion.div variants={item} className="w-full py-12">
 			{formOpen ? (
 				<FormControl className="flex w-full sm:w-320" variant="outlined">
 					<InputLabel htmlFor="category-label-placeholder"> Category </InputLabel>
@@ -86,11 +89,15 @@ const Category = () => {
 								label="Category"
 								placeholder="Select a category.."
 								autoFocus
-								onChange={(e: ChangeEvent<any>) => onSubmit(e.target.value)}
+								type="submit"
+								onChange={(e: ChangeEvent<any>) => {
+									setValue('category', e.target.value);
+									handleSubmit(onSubmit)();
+								}}
 								onBlur={handleFormClose}
 								input={
 									<OutlinedInput
-										labelWidth={'category'.length * 9}
+										labelWidth={'category'.length * 8}
 										name="category"
 										id="category-label-placeholder"
 									/>
@@ -129,7 +136,7 @@ const Category = () => {
 					</div>
 				</div>
 			)}
-		</div>
+		</motion.div>
 	);
 };
 

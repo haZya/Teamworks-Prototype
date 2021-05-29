@@ -41,7 +41,7 @@ export const reorderList = createAsyncThunk<ITeamList[], DropResult, { state: Ro
 	}
 );
 
-export const reorderTeam = createAsyncThunk<any, string[], { state: RootStateOrAny }>(
+export const reorderTeam = createAsyncThunk<string[], string[], { state: RootStateOrAny }>(
 	'teamApp/item/reorderTeam',
 	async (ordered, { dispatch, getState }) => {
 		const teamworkId = getState().teamworksPage.teamwork.id;
@@ -51,7 +51,7 @@ export const reorderTeam = createAsyncThunk<any, string[], { state: RootStateOrA
 			team: ordered
 		});
 
-		const data = await response.data;
+		const data: string[] = await response.data;
 
 		dispatch(
 			showMessage({
@@ -84,10 +84,12 @@ export const renameList = createAsyncThunk<
 
 interface IInitialState {
 	lists: ITeamList[];
+	team: string[];
 }
 
 const initialtState: IInitialState = {
-	lists: []
+	lists: [],
+	team: []
 };
 
 const teamSlice = createSlice({
@@ -96,6 +98,7 @@ const teamSlice = createSlice({
 	reducers: {
 		resetLists: state => {
 			state.lists = [];
+			state.team = [];
 		}
 	},
 	extraReducers: {
@@ -103,9 +106,9 @@ const teamSlice = createSlice({
 		[reorderList.fulfilled.type]: (state, action) => {
 			state.lists = action.payload;
 		},
-		// [reorderTeam.fulfilled.type]: (state, action) => {
-		// 	state.team = action.payload;
-		// },
+		[reorderTeam.fulfilled.type]: (state, action) => {
+			state.team = action.payload;
+		},
 		[renameList.fulfilled.type]: (state, action) => {
 			const { listId, listTitle } = action.payload;
 			state.lists = state.lists.map(list => {

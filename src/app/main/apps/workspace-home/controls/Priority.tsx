@@ -12,12 +12,15 @@ import {
 	Typography
 } from '@material-ui/core';
 import { getPriorities, selectPriorities } from 'app/main/pages/teamworks/store/prioritiesSlice';
+import { updateTeamworkPriority } from 'app/main/pages/teamworks/store/teamworkSlice';
 import clsx from 'clsx';
+import { motion } from 'framer-motion';
 import ITeamwork from 'models/Teamwork';
 import { ChangeEvent, MouseEvent, useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
 import * as yup from 'yup';
+import { item } from '../anim';
 
 /**
  * Form Validation Schema
@@ -41,7 +44,7 @@ const Priority = () => {
 		dispatch(getPriorities());
 	}, [dispatch]);
 
-	const { control, reset } = useForm({
+	const { control, setValue, handleSubmit, reset } = useForm({
 		mode: 'onChange',
 		defaultValues: {
 			priority
@@ -67,15 +70,13 @@ const Priority = () => {
 		setFormOpen(false);
 	}
 
-	function onSubmit(result: string) {
-		// dispatch(renameList({ listId: list.id, listTitle: title }));
-		console.log(result);
-
+	function onSubmit(result: { priority: string }) {
+		dispatch(updateTeamworkPriority(result.priority));
 		handleFormClose();
 	}
 
 	return (
-		<div className="w-full py-12">
+		<motion.div variants={item} className="w-full py-12">
 			{formOpen ? (
 				<FormControl className="flex w-full sm:w-320" variant="outlined">
 					<InputLabel htmlFor="priority-label-placeholder"> Priority </InputLabel>
@@ -88,19 +89,19 @@ const Priority = () => {
 								label="Priority"
 								placeholder="Select a priority.."
 								autoFocus
-								onChange={(e: ChangeEvent<any>) => onSubmit(e.target.value)}
+								onChange={(e: ChangeEvent<any>) => {
+									setValue('priority', e.target.value);
+									handleSubmit(onSubmit)();
+								}}
 								onBlur={handleFormClose}
 								input={
 									<OutlinedInput
-										labelWidth={'priority'.length * 9}
+										labelWidth={'priority'.length * 6}
 										name="priority"
 										id="priority-label-placeholder"
 									/>
 								}
 							>
-								<MenuItem value="all">
-									<em> All </em>
-								</MenuItem>
 								{priorities.map(p => (
 									<MenuItem key={p.id} value={p.value}>
 										{p.label}
@@ -131,7 +132,7 @@ const Priority = () => {
 					</div>
 				</div>
 			)}
-		</div>
+		</motion.div>
 	);
 };
 

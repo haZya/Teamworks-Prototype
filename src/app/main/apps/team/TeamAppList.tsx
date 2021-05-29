@@ -10,17 +10,6 @@ import { Draggable, Droppable } from 'react-beautiful-dnd';
 import TeamAppListHeader from './TeamAppListHeader';
 import TeamAppListItem from './TeamAppListItem';
 
-const item = {
-	hidden: {
-		opacity: 0,
-		y: 20
-	},
-	show: {
-		opacity: 1,
-		y: 0
-	}
-};
-
 const container = {
 	hidden: { opacity: 1 },
 	show: {

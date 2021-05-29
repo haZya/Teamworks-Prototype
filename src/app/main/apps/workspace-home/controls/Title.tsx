@@ -1,12 +1,15 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import _ from '@lodash';
 import { Icon, IconButton, InputAdornment, makeStyles, TextField, Typography } from '@material-ui/core';
+import { updateTeamworkTitle } from 'app/main/pages/teamworks/store/teamworkSlice';
 import clsx from 'clsx';
+import { motion } from 'framer-motion';
 import ITeamwork from 'models/Teamwork';
 import { MouseEvent, useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { RootStateOrAny, useSelector } from 'react-redux';
+import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
 import * as yup from 'yup';
+import { item } from '../anim';
 
 /**
  * Form Validation Schema
@@ -22,6 +25,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Title = () => {
+	const dispatch = useDispatch();
 	const { title }: ITeamwork = useSelector(({ teamworksPage }: RootStateOrAny) => teamworksPage.teamwork);
 
 	const { control, formState, handleSubmit, reset } = useForm({
@@ -52,12 +56,12 @@ const Title = () => {
 	}
 
 	function onSubmit(result: { title: string }) {
-		// dispatch(renameList({ listId: list.id, listTitle: title }));
+		dispatch(updateTeamworkTitle(result.title));
 		handleFormClose();
 	}
 
 	return (
-		<div className="w-full py-12">
+		<motion.div variants={item} className="w-full py-12">
 			{formOpen ? (
 				<form className="flex w-full" onSubmit={handleSubmit(onSubmit)}>
 					<Controller
@@ -79,7 +83,11 @@ const Title = () => {
 									},
 									endAdornment: (
 										<InputAdornment position="end">
-											<IconButton type="submit" disabled={_.isEmpty(dirtyFields) || !isValid}>
+											<IconButton
+												type="submit"
+												onMouseDown={e => e.preventDefault()}
+												disabled={_.isEmpty(dirtyFields) || !isValid}
+											>
 												<Icon>check</Icon>
 											</IconButton>
 										</InputAdornment>
@@ -110,7 +118,7 @@ const Title = () => {
 					</div>
 				</div>
 			)}
-		</div>
+		</motion.div>
 	);
 };
 

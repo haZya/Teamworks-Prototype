@@ -1,12 +1,15 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import _ from '@lodash';
 import { Icon, IconButton, makeStyles, TextareaAutosize, Typography } from '@material-ui/core';
+import { updateTeamworkDescription } from 'app/main/pages/teamworks/store/teamworkSlice';
 import clsx from 'clsx';
+import { motion } from 'framer-motion';
 import ITeamwork from 'models/Teamwork';
 import { MouseEvent, useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { RootStateOrAny, useSelector } from 'react-redux';
+import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
 import * as yup from 'yup';
+import { item } from '../anim';
 
 const useStyles = makeStyles(theme => ({
 	label: {
@@ -18,11 +21,6 @@ const useStyles = makeStyles(theme => ({
 		outline: `none`,
 		color: theme.palette.text.primary,
 		background: 'none'
-	},
-	textAreaIcon: {
-		position: 'absolute',
-		top: '52.5%',
-		right: 64
 	}
 }));
 
@@ -30,10 +28,11 @@ const useStyles = makeStyles(theme => ({
  * Form Validation Schema
  */
 const schema = yup.object().shape({
-	description: yup.string().length(150, 'The description is too long')
+	// description: yup.string().length(150, 'The description is too long')
 });
 
 const Description = () => {
+	const dispatch = useDispatch();
 	const { description }: ITeamwork = useSelector(({ teamworksPage }: RootStateOrAny) => teamworksPage.teamwork);
 
 	const { control, formState, handleSubmit, reset } = useForm({
@@ -64,12 +63,12 @@ const Description = () => {
 	}
 
 	function onSubmit(result: { description: string }) {
-		// dispatch(renameList({ listId: list.id, listTitle: title }));
+		dispatch(updateTeamworkDescription(result.description));
 		handleFormClose();
 	}
 
 	return (
-		<div className="w-full py-12">
+		<motion.div variants={item} className="w-full py-12">
 			{formOpen ? (
 				<form className="flex w-full" onSubmit={handleSubmit(onSubmit)}>
 					<Controller
@@ -91,8 +90,9 @@ const Description = () => {
 									}
 								/>
 								<IconButton
-									className={classes.textAreaIcon}
+									className="my-auto -ml-60"
 									type="submit"
+									onMouseDown={e => e.preventDefault()}
 									disabled={_.isEmpty(dirtyFields) || !isValid}
 								>
 									<Icon>check</Icon>
@@ -122,7 +122,7 @@ const Description = () => {
 					</div>
 				</div>
 			)}
-		</div>
+		</motion.div>
 	);
 };
 

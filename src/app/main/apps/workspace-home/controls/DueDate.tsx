@@ -2,12 +2,16 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import _ from '@lodash';
 import { Icon, IconButton, InputAdornment, makeStyles, Typography } from '@material-ui/core';
 import { DateTimePicker } from '@material-ui/pickers';
+import { updateTeamworkDueDate } from 'app/main/pages/teamworks/store/teamworkSlice';
 import clsx from 'clsx';
+import format from 'date-fns/format';
+import { motion } from 'framer-motion';
 import ITeamwork from 'models/Teamwork';
 import { MouseEvent, useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { RootStateOrAny, useSelector } from 'react-redux';
+import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
 import * as yup from 'yup';
+import { item } from '../anim';
 
 /**
  * Form Validation Schema
@@ -23,6 +27,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const DueDate = () => {
+	const dispatch = useDispatch();
 	const { startDate, dueDate }: ITeamwork = useSelector(
 		({ teamworksPage }: RootStateOrAny) => teamworksPage.teamwork
 	);
@@ -38,6 +43,7 @@ const DueDate = () => {
 	const { isValid, dirtyFields } = formState;
 	const classes = useStyles();
 	const [formOpen, setFormOpen] = useState(false);
+	const [pickerOpen, setPickerOpen] = useState(false);
 
 	useEffect(() => {
 		reset({
@@ -55,14 +61,14 @@ const DueDate = () => {
 	}
 
 	function onSubmit(result: { dueDate: string }) {
-		// dispatch(renameList({ listId: list.id, listDueDate: dueDate }));
+		const date = new Date(result.dueDate);
+		const dateFormatted = format(date, 'MMM dd, yyyy hh:mm a');
+		dispatch(updateTeamworkDueDate(dateFormatted));
 		handleFormClose();
 	}
 
-	const [pickerOpen, setPickerOpen] = useState(false);
-
 	return (
-		<div className="sm:max-w-320 py-12">
+		<motion.div variants={item} className="sm:max-w-320 py-12">
 			{formOpen ? (
 				<form className="flex" onSubmit={handleSubmit(onSubmit)}>
 					<Controller
@@ -74,7 +80,7 @@ const DueDate = () => {
 								label="Due Date"
 								placeholder="Give a due date.."
 								inputVariant="outlined"
-								format="yyyy/MM/dd hh:mm a"
+								format="MMM dd, yyyy hh:mm a"
 								minDate={startDate}
 								autoFocus
 								value={value}
@@ -88,7 +94,11 @@ const DueDate = () => {
 									},
 									endAdornment: (
 										<InputAdornment position="end">
-											<IconButton type="submit" disabled={_.isEmpty(dirtyFields) || !isValid}>
+											<IconButton
+												type="submit"
+												onMouseDown={e => e.preventDefault()}
+												disabled={_.isEmpty(dirtyFields) || !isValid}
+											>
 												<Icon>check</Icon>
 											</IconButton>
 										</InputAdornment>
@@ -111,7 +121,7 @@ const DueDate = () => {
 							className="text-16 sm:text-18 font-medium cursor-pointer py-10"
 							onClick={handleFormOpen}
 						>
-							{dueDate}
+							{dueDate && format(new Date(dueDate), 'MMM dd, yyyy hh:mm a')}
 						</Typography>
 						<IconButton className="p-10" size="small" onClick={handleFormOpen}>
 							<Icon>edit</Icon>
@@ -119,7 +129,7 @@ const DueDate = () => {
 					</div>
 				</div>
 			)}
-		</div>
+		</motion.div>
 	);
 };
 

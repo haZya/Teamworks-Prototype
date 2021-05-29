@@ -323,6 +323,48 @@ mock.onPost('/api/teamworks/save').reply(request => {
 	return [200, course];
 });
 
+mock.onPost('/api/teamworks/update/title').reply(request => {
+	const { id, title } = JSON.parse(request.data);
+	const teamwork = _.find(teamworksDB.teamworks, { id });
+	_.assign(teamwork, { title });
+	return [200, { title }];
+});
+
+mock.onPost('/api/teamworks/update/description').reply(request => {
+	const { id, description } = JSON.parse(request.data);
+	const teamwork = _.find(teamworksDB.teamworks, { id });
+	_.assign(teamwork, { description });
+	return [200, { description }];
+});
+
+mock.onPost('/api/teamworks/update/category').reply(request => {
+	const { id, category } = JSON.parse(request.data);
+	const teamwork = _.find(teamworksDB.teamworks, { id });
+	_.assign(teamwork, { category });
+	return [200, { category }];
+});
+
+mock.onPost('/api/teamworks/update/priority').reply(request => {
+	const { id, priority } = JSON.parse(request.data);
+	const teamwork = _.find(teamworksDB.teamworks, { id });
+	_.assign(teamwork, { priority });
+	return [200, { priority }];
+});
+
+mock.onPost('/api/teamworks/update/startDate').reply(request => {
+	const { id, startDate } = JSON.parse(request.data);
+	const teamwork = _.find(teamworksDB.teamworks, { id });
+	_.assign(teamwork, { startDate });
+	return [200, { startDate }];
+});
+
+mock.onPost('/api/teamworks/update/dueDate').reply(request => {
+	const { id, dueDate } = JSON.parse(request.data);
+	const teamwork = _.find(teamworksDB.teamworks, { id });
+	_.assign(teamwork, { dueDate });
+	return [200, { dueDate }];
+});
+
 mock.onPost('/api/teamworks/update').reply(request => {
 	const data = JSON.parse(request.data);
 	teamworksDB.teamworks = teamworksDB.teamworks.map(_teamwork => {
