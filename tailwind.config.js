@@ -1380,5 +1380,5 @@ module.exports = {
 		placeholderOpacity: false,
 		verticalAlign: false
 	},
-	plugins: [require('tailwindcss-dir')()]
+	plugins: [require('@tailwindcss/line-clamp'), require('tailwindcss-dir')()]
 };
