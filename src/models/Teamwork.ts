@@ -18,8 +18,8 @@ interface ITeamwork {
 	description: string;
 	category: string;
 	priority: string;
-	startDate: string;
-	dueDate: string;
+	startDate: Date;
+	dueDate: Date;
 	team: string[];
 }
 

@@ -8,13 +8,12 @@ import {
 	Divider,
 	Icon,
 	LinearProgress,
-	makeStyles,
 	Typography,
 	useTheme
 } from '@material-ui/core';
 import { AvatarGroup } from '@material-ui/lab';
 import { getUsers } from 'app/main/apps/team/store/itemSlice';
-import { differenceInMilliseconds, formatDistance } from 'date-fns';
+import { differenceInMilliseconds, format, formatDistance } from 'date-fns';
 import { motion } from 'framer-motion';
 import ITeamwork, { ICategory } from 'models/Teamwork';
 import IUser from 'models/User';
@@ -33,12 +32,6 @@ const item = {
 	}
 };
 
-const useStyles = makeStyles(theme => ({
-	description: {
-		color: theme.palette.text.hint
-	}
-}));
-
 interface IProps {
 	teamwork: ITeamwork;
 	category: ICategory;
@@ -46,7 +39,6 @@ interface IProps {
 
 const TeamworkTile = ({ teamwork, category }: IProps) => {
 	const theme = useTheme();
-	const classes = useStyles();
 
 	const dispatch = useDispatch();
 	const users: IUser[] = useSelector(({ teamworksPage }: RootStateOrAny) => teamworksPage.users);
@@ -117,14 +109,14 @@ const TeamworkTile = ({ teamwork, category }: IProps) => {
 						<div className="text-center text-13">
 							<Typography className="mt-8 font-medium">Start</Typography>
 							<Typography className="font-normal" color="textSecondary">
-								{teamwork.startDate}
+								{format(new Date(teamwork.startDate), 'MMM dd, yyyy hh:mm a')}
 							</Typography>
 						</div>
 
 						<div className="text-center text-13">
 							<Typography className="mt-8 font-medium">Due</Typography>
 							<Typography className="font-normal" color="textSecondary">
-								{teamwork.dueDate}
+								{format(new Date(teamwork.dueDate), 'MMM dd, yyyy hh:mm a')}
 							</Typography>
 						</div>
 

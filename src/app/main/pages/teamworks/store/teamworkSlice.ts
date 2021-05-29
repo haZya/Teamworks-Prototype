@@ -73,13 +73,13 @@ export const updateTeamworkPriority = createAsyncThunk<string, string, { state: 
 	}
 );
 
-export const updateTeamworkStartDate = createAsyncThunk<string, string, { state: RootStateOrAny }>(
+export const updateTeamworkStartDate = createAsyncThunk<Date, Date, { state: RootStateOrAny }>(
 	'teamworksPage/teamworks/updateTeamworkStartDate',
 	async (startDate, { getState, dispatch }) => {
 		const { id }: ITeamwork = getState().teamworksPage.teamwork;
 
 		const response = await axios.post('/api/teamworks/update/startDate', { id, startDate });
-		const data: string = await response.data;
+		const data: Date = await response.data;
 
 		dispatch(showMessage({ message: 'Teamwork Start Date Saved' }));
 		dispatch(getTeamwork({ teamworksId: id }));
@@ -88,13 +88,13 @@ export const updateTeamworkStartDate = createAsyncThunk<string, string, { state:
 	}
 );
 
-export const updateTeamworkDueDate = createAsyncThunk<string, string, { state: RootStateOrAny }>(
+export const updateTeamworkDueDate = createAsyncThunk<Date, Date, { state: RootStateOrAny }>(
 	'teamworksPage/teamworks/updateTeamworkDueDate',
 	async (dueDate, { getState, dispatch }) => {
 		const { id }: ITeamwork = getState().teamworksPage.teamwork;
 
 		const response = await axios.post('/api/teamworks/update/dueDate', { id, dueDate });
-		const data: string = await response.data;
+		const data: Date = await response.data;
 
 		dispatch(showMessage({ message: 'Teamwork Due Date Saved' }));
 		dispatch(getTeamwork({ teamworksId: id }));

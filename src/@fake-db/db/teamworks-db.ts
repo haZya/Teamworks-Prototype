@@ -61,8 +61,8 @@ const teamworksDB: ITamworksDB = {
 			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
 			category: 'web',
 			priority: 'medium',
-			startDate: 'May 18, 2021',
-			dueDate: 'Jun 28, 2021',
+			startDate: new Date('May 18, 2021'),
+			dueDate: new Date('Jun 28, 2021'),
 			team: [
 				'5725a680cd7efa56a45aea5d',
 				'5725a68018c663044be49cbf',
@@ -78,8 +78,8 @@ const teamworksDB: ITamworksDB = {
 			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
 			category: 'web',
 			priority: 'low',
-			startDate: 'Sep 01, 2021',
-			dueDate: 'Nov 18, 2021',
+			startDate: new Date('Sep 01, 2021'),
+			dueDate: new Date('Nov 18, 2021'),
 			team: ['5725a680e7eb988a58ddf303', '5725a6806acf030f9341e925', '5725a68034cb3968e1f79eac']
 		},
 		{
@@ -89,8 +89,8 @@ const teamworksDB: ITamworksDB = {
 			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
 			category: 'android',
 			priority: 'medium',
-			startDate: 'May 18, 2021',
-			dueDate: 'Jun 18, 2021',
+			startDate: new Date('May 18, 2021'),
+			dueDate: new Date('Jun 18, 2021'),
 			team: ['5725a6801146cce777df2a08', '5725a680653c265f5c79b5a9']
 		},
 		{
@@ -100,8 +100,8 @@ const teamworksDB: ITamworksDB = {
 			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
 			category: 'android',
 			priority: 'high',
-			startDate: 'Apr 18, 2021',
-			dueDate: 'Jun 8, 2021',
+			startDate: new Date('Apr 18, 2021'),
+			dueDate: new Date('Jun 8, 2021'),
 			team: [
 				'5725a6801146cce777df2a08',
 				'5725a680bbcec3cc32a8488a',
@@ -116,8 +116,8 @@ const teamworksDB: ITamworksDB = {
 			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
 			category: 'cloud',
 			priority: 'high',
-			startDate: 'May 7, 2021',
-			dueDate: 'Jul 10, 2021',
+			startDate: new Date('May 7, 2021'),
+			dueDate: new Date('Jul 10, 2021'),
 			team: [
 				'5725a680ae1ae9a3c960d487',
 				'5725a6801146cce777df2a08',
@@ -132,8 +132,8 @@ const teamworksDB: ITamworksDB = {
 			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
 			category: 'web',
 			priority: 'low',
-			startDate: 'Jul 14, 2021',
-			dueDate: 'Aug 18, 2021',
+			startDate: new Date('Jul 14, 2021'),
+			dueDate: new Date('Aug 18, 2021'),
 			team: ['5725a680653c265f5c79b5a9', '5725a680606588342058356d', '5725a680bbcec3cc32a8488a']
 		},
 		{
@@ -143,8 +143,8 @@ const teamworksDB: ITamworksDB = {
 			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
 			category: 'firebase',
 			priority: 'medium',
-			startDate: 'May 14, 2021',
-			dueDate: 'May 26, 2021',
+			startDate: new Date('May 14, 2021'),
+			dueDate: new Date('May 26, 2021'),
 			team: ['5725a680bbcec3cc32a8488a', '5725a680e87cb319bd9bd673', '5725a6802d10e277a0f35775']
 		},
 		{
@@ -154,8 +154,8 @@ const teamworksDB: ITamworksDB = {
 			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
 			category: 'firebase',
 			priority: 'low',
-			startDate: 'Jul 18, 2021',
-			dueDate: 'Nov 30, 2021',
+			startDate: new Date('Jul 18, 2021'),
+			dueDate: new Date('Nov 30, 2021'),
 			team: []
 		},
 		{
@@ -165,8 +165,8 @@ const teamworksDB: ITamworksDB = {
 			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
 			category: 'cloud',
 			priority: 'low',
-			startDate: 'Apr 4, 2021',
-			dueDate: 'Jul 8, 2021',
+			startDate: new Date('Apr 4, 2021'),
+			dueDate: new Date('Jul 8, 2021'),
 			team: ['5725a6801146cce777df2a08', '5725a680e87cb319bd9bd673']
 		},
 		{
@@ -176,8 +176,8 @@ const teamworksDB: ITamworksDB = {
 			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
 			category: 'web',
 			priority: 'high',
-			startDate: 'Mar 12, 2021',
-			dueDate: 'May 20, 2021',
+			startDate: new Date('Mar 12, 2021'),
+			dueDate: new Date('May 20, 2021'),
 			team: [
 				'5725a680bbcec3cc32a8488a',
 				'5725a680653c265f5c79b5a9',
@@ -192,8 +192,8 @@ const teamworksDB: ITamworksDB = {
 			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
 			category: 'firebase',
 			priority: 'medium',
-			startDate: 'Apr 18, 2021',
-			dueDate: 'May 18, 2021',
+			startDate: new Date('Apr 18, 2021'),
+			dueDate: new Date('May 18, 2021'),
 			team: [
 				'5725a680bbcec3cc32a8488a',
 				'5725a680653c265f5c79b5a9',
@@ -208,8 +208,8 @@ const teamworksDB: ITamworksDB = {
 			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
 			category: 'web',
 			priority: 'medium',
-			startDate: 'Jun 22, 2021',
-			dueDate: 'Jul 14, 2021',
+			startDate: new Date('Jun 22, 2021'),
+			dueDate: new Date('Jul 14, 2021'),
 			team: [
 				'5725a680bbcec3cc32a8488a',
 				'5725a680653c265f5c79b5a9',
@@ -224,8 +224,8 @@ const teamworksDB: ITamworksDB = {
 			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
 			category: 'cloud',
 			priority: 'medium',
-			startDate: 'Aug 1, 2021',
-			dueDate: 'Nov 1, 2021',
+			startDate: new Date('Aug 1, 2021'),
+			dueDate: new Date('Nov 1, 2021'),
 			team: []
 		},
 		{
@@ -235,8 +235,8 @@ const teamworksDB: ITamworksDB = {
 			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
 			category: 'android',
 			priority: 'low',
-			startDate: 'Jul 24, 2021',
-			dueDate: 'Sep 18, 2021',
+			startDate: new Date('Jul 24, 2021'),
+			dueDate: new Date('Sep 18, 2021'),
 			team: []
 		},
 		{
@@ -246,8 +246,8 @@ const teamworksDB: ITamworksDB = {
 			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
 			category: 'web',
 			priority: 'medium',
-			startDate: 'May 31, 2021',
-			dueDate: 'Jul 31, 2021',
+			startDate: new Date('May 31, 2021'),
+			dueDate: new Date('Jul 31, 2021'),
 			team: []
 		},
 		{
@@ -257,8 +257,8 @@ const teamworksDB: ITamworksDB = {
 			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
 			category: 'web',
 			priority: 'high',
-			startDate: 'May 16, 2021',
-			dueDate: 'May 30, 2021',
+			startDate: new Date('May 16, 2021'),
+			dueDate: new Date('May 30, 2021'),
 			team: []
 		},
 		{
@@ -268,8 +268,8 @@ const teamworksDB: ITamworksDB = {
 			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
 			category: 'cloud',
 			priority: 'high',
-			startDate: 'Jun 13, 2021',
-			dueDate: 'Aug 28, 2021',
+			startDate: new Date('Jun 13, 2021'),
+			dueDate: new Date('Aug 28, 2021'),
 			team: []
 		},
 		{
@@ -279,8 +279,8 @@ const teamworksDB: ITamworksDB = {
 			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
 			category: 'firebase',
 			priority: 'low',
-			startDate: 'May 27, 2021',
-			dueDate: 'Jun 7, 2021',
+			startDate: new Date('May 27, 2021'),
+			dueDate: new Date('Jun 7, 2021'),
 			team: []
 		}
 	]

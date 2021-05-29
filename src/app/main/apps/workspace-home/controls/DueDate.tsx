@@ -62,8 +62,7 @@ const DueDate = () => {
 
 	function onSubmit(result: { dueDate: string }) {
 		const date = new Date(result.dueDate);
-		const dateFormatted = format(date, 'MMM dd, yyyy hh:mm a');
-		dispatch(updateTeamworkDueDate(dateFormatted));
+		dispatch(updateTeamworkDueDate(date));
 		handleFormClose();
 	}
 

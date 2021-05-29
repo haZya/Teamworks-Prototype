@@ -62,8 +62,7 @@ const StartDate = () => {
 
 	function onSubmit(result: { startDate: string }) {
 		const date = new Date(result.startDate);
-		const dateFormatted = format(date, 'MMM dd, yyyy hh:mm a');
-		dispatch(updateTeamworkStartDate(dateFormatted));
+		dispatch(updateTeamworkStartDate(date));
 		handleFormClose();
 	}
 

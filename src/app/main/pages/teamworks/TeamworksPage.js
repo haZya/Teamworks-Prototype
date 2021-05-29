@@ -5,6 +5,7 @@ import withReducer from 'app/store/withReducer';
 import { useRef } from 'react';
 import reducer from './store';
 import TeamworkList from './TeamworkList';
+import TeamworksPageToolbar from './TeamworksPageContentToolbar';
 import TeamworksPageHeader from './TeamworksPageHeader';
 
 const useStyles = makeStyles(theme => ({
@@ -25,12 +26,14 @@ function TeamworksPage() {
 	return (
 		<FusePageSimple
 			classes={{
-				contentWrapper: 'px-12 py-24',
+				contentWrapper: 'px-12 pt-24',
 				leftSidebar: 'w-256 border-0',
+				toolbar: 'px-16 pt-128 pb-136 sm:py-64 md:py-0',
 				header: classes.header,
 				wrapper: 'min-h-0'
 			}}
 			header={<TeamworksPageHeader pageLayout={pageLayout} />}
+			contentToolbar={<TeamworksPageToolbar />}
 			content={<TeamworkList />}
 			leftSidebarContent={
 				<div className="p-24">

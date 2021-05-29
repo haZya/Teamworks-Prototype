@@ -1,30 +1,46 @@
 import _ from '@lodash';
-import { FormControl, InputLabel, MenuItem, OutlinedInput, Select, Typography } from '@material-ui/core';
+import { Typography } from '@material-ui/core';
+import { isAfter, isBefore } from 'date-fns';
 import { motion } from 'framer-motion';
 import ITeamwork, { ICategory } from 'models/Teamwork';
 import { useEffect, useMemo, useState } from 'react';
 import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
 import { getCategories, selectCategories } from './store/categoriesSlice';
-import { getTeamworks, selectTeamworks } from './store/teamworksSlice';
+import { getPriorities } from './store/prioritiesSlice';
+import { getTeamworks, IInitialState, selectTeamworks } from './store/teamworksSlice';
 import TeamworkTile from './TeamworkTile';
 
 function TeamworkList() {
 	const dispatch = useDispatch();
 	const teamworks: ITeamwork[] = useSelector(selectTeamworks);
 	const categories: ICategory[] = useSelector(selectCategories);
-	const searchText: string = useSelector(({ teamworksPage }: RootStateOrAny) => teamworksPage.teamworks.searchText);
+	const {
+		searchText,
+		orderBy,
+		orderDescending,
+		selectedCategory,
+		selectedStartDate,
+		selectedDueDate,
+		selectedPriority
+	}: IInitialState = useSelector(({ teamworksPage }: RootStateOrAny) => teamworksPage.teamworks);
 
 	const [filteredData, setFilteredData] = useState<ITeamwork[]>([]);
-	const [selectedCategory, setSelectedCategory] = useState('all');
 
 	useEffect(() => {
 		dispatch(getCategories());
+		dispatch(getPriorities());
 		dispatch(getTeamworks());
 	}, [dispatch]);
 
 	useEffect(() => {
 		function getFilteredArray() {
-			if (searchText.length === 0 && selectedCategory === 'all') {
+			if (
+				searchText.length === 0 &&
+				selectedCategory === 'all' &&
+				selectedStartDate === null &&
+				selectedDueDate === null &&
+				selectedPriority === 'all'
+			) {
 				return teamworks;
 			}
 
@@ -32,18 +48,35 @@ function TeamworkList() {
 				if (selectedCategory !== 'all' && item.category !== selectedCategory) {
 					return false;
 				}
+
+				if (selectedStartDate !== null && isBefore(new Date(item.startDate), new Date(selectedStartDate))) {
+					return false;
+				}
+
+				if (selectedDueDate !== null && isAfter(new Date(item.dueDate), new Date(selectedDueDate))) {
+					return false;
+				}
+
+				if (selectedPriority !== 'all' && item.priority !== selectedPriority) {
+					return false;
+				}
 				return item.title.toLowerCase().includes(searchText.toLowerCase());
 			});
 		}
 
 		if (teamworks) {
-			setFilteredData(getFilteredArray());
+			setFilteredData(_.orderBy(getFilteredArray(), [orderBy], [orderDescending ? 'desc' : 'asc']));
 		}
-	}, [teamworks, searchText, selectedCategory]);
-
-	function handleSelectedCategory(event: any) {
-		setSelectedCategory(event.target.value);
-	}
+	}, [
+		teamworks,
+		searchText,
+		orderBy,
+		orderDescending,
+		selectedCategory,
+		selectedStartDate,
+		selectedDueDate,
+		selectedPriority
+	]);
 
 	return (
 		<div className="flex flex-col flex-auto flex-shrink-0 w-full">
@@ -62,7 +95,7 @@ function TeamworkList() {
 						shrink: true
 					}}
 				/> */}
-				<FormControl className="flex w-full sm:w-320 mx-16" variant="outlined">
+				{/* <FormControl className="flex w-full sm:w-320 mx-16" variant="outlined">
 					<InputLabel htmlFor="category-label-placeholder"> Category </InputLabel>
 					<Select
 						value={selectedCategory}
@@ -84,7 +117,7 @@ function TeamworkList() {
 							</MenuItem>
 						))}
 					</Select>
-				</FormControl>
+				</FormControl> */}
 			</div>
 			{useMemo(() => {
 				const container = {
