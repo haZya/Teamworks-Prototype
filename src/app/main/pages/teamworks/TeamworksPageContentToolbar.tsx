@@ -1,9 +1,20 @@
-import { Icon, IconButton, InputLabel, OutlinedInput } from '@material-ui/core';
+import {
+	FormControlLabel,
+	Icon,
+	IconButton,
+	InputLabel,
+	OutlinedInput,
+	Switch,
+	useMediaQuery,
+	useTheme
+} from '@material-ui/core';
 import FormControl from '@material-ui/core/FormControl';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import { DateTimePicker } from '@material-ui/pickers';
 import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date';
+import clsx from 'clsx';
+import { motion } from 'framer-motion';
 import { ICategory, IPriority } from 'models/Teamwork';
 import { ChangeEvent } from 'react';
 import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
@@ -12,6 +23,7 @@ import { selectPriorities } from './store/prioritiesSlice';
 import {
 	changeOrder,
 	IInitialState,
+	setHideCompleted,
 	setSelectedCategory,
 	setSelectedDueDate,
 	setSelectedPriority,
@@ -29,7 +41,8 @@ function TeamworksPageToolbar() {
 		selectedCategory,
 		selectedStartDate,
 		selectedDueDate,
-		selectedPriority
+		selectedPriority,
+		hideCompleted
 	}: IInitialState = useSelector(({ teamworksPage }: RootStateOrAny) => teamworksPage.teamworks);
 
 	function handleOrderChange(ev: ChangeEvent<any>) {
@@ -52,9 +65,27 @@ function TeamworksPageToolbar() {
 		dispatch(setSelectedPriority(event.target.value));
 	}
 
+	const theme = useTheme();
+	const xssDown = useMediaQuery(theme.breakpoints.down(360));
+
 	return (
-		<div className="w-full">
+		<motion.div
+			initial={{ y: -20, opacity: 0 }}
+			animate={{ y: 0, opacity: 1, transition: { delay: 0.2 } }}
+			className="w-full"
+		>
 			<div className="flex w-full items-center justify-end py-8">
+				<FormControlLabel
+					className={clsx(xssDown ? 'hidden' : 'block', 'mr-24')}
+					control={
+						<Switch
+							name="hide-completed"
+							checked={hideCompleted}
+							onChange={() => dispatch(setHideCompleted())}
+						/>
+					}
+					label="Hide completed"
+				/>
 				<FormControl>
 					<Select value={orderBy} onChange={handleOrderChange} displayEmpty name="filter">
 						<MenuItem value="">
@@ -63,6 +94,7 @@ function TeamworksPageToolbar() {
 						<MenuItem value="startDate">Start Date</MenuItem>
 						<MenuItem value="dueDate">Due Date</MenuItem>
 						<MenuItem value="category">Category</MenuItem>
+						<MenuItem value="priority">Priority</MenuItem>
 						<MenuItem value="title">Title</MenuItem>
 					</Select>
 				</FormControl>
@@ -98,7 +130,6 @@ function TeamworksPageToolbar() {
 				</FormControl>
 				<FormControl>
 					<DateTimePicker
-						// className="w-full sm:w-1/4"
 						label="Start Date"
 						placeholder="Select a start date.."
 						inputVariant="outlined"
@@ -110,7 +141,6 @@ function TeamworksPageToolbar() {
 				</FormControl>
 				<FormControl>
 					<DateTimePicker
-						// className="w-full sm:w-1/4"
 						label="Due Date"
 						placeholder="Select a due date.."
 						inputVariant="outlined"
@@ -128,7 +158,7 @@ function TeamworksPageToolbar() {
 						input={
 							<OutlinedInput
 								margin="dense"
-								labelWidth={'priority'.length * 9}
+								labelWidth={'priority'.length * 6}
 								name="priority"
 								id="priority-label-placeholder"
 							/>
@@ -145,7 +175,7 @@ function TeamworksPageToolbar() {
 					</Select>
 				</FormControl>
 			</div>
-		</div>
+		</motion.div>
 	);
 }
 

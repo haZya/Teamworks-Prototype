@@ -1,6 +1,7 @@
 import { useDeepCompareEffect } from '@fuse/hooks';
 import FuseUtils from '@fuse/utils';
-import { fade, Icon, makeStyles, useMediaQuery, useTheme } from '@material-ui/core';
+import _ from '@lodash';
+import { darken, fade, Icon, lighten, makeStyles, useMediaQuery, useTheme } from '@material-ui/core';
 import { getTeamwork } from 'app/main/pages/teamworks/store/teamworkSlice';
 import withReducer from 'app/store/withReducer';
 import clsx from 'clsx';
@@ -70,8 +71,11 @@ const useStyles = makeStyles(theme => ({
 		position: 'relative',
 		flex: '1 1 100%',
 		flexDirection: 'row',
-		backgroundImage: 'url("/assets/images/patterns/rain-grey.png")',
-		backgroundColor: theme.palette.background.paper,
+		// backgroundImage: 'url("/assets/images/patterns/rain-grey.png")',
+		backgroundColor:
+			theme.palette.type === 'dark'
+				? lighten(theme.palette.background.paper, 0.05)
+				: darken(theme.palette.background.paper, 0.1),
 		minHeight: 0,
 		overflow: 'auto'
 	},
@@ -91,7 +95,7 @@ const useStyles = makeStyles(theme => ({
 		minHeight: 0
 	},
 	transferIcon: {
-		color: theme.palette.type === 'light' ? theme.palette.grey[600] : theme.palette.background.paper,
+		color: theme.palette.text.hint,
 		transform: 'rotate(90deg)',
 		[theme.breakpoints.down('xs')]: {
 			transform: 'rotate(0deg)'
@@ -128,13 +132,13 @@ const TeamApp = () => {
 	const [teamMembers, setTeamMembers] = useState<IUser[]>([]);
 
 	useEffect(() => {
-		if (availableUsers) {
+		if (!_.isEmpty(availableUsers)) {
 			setFilteredUserData(getFilteredArray(availableUsers, searchTextUsers));
 		}
 	}, [availableUsers, searchTextUsers]);
 
 	useEffect(() => {
-		if (users && team && teamMembers.length === 0) {
+		if (!_.isEmpty(users) && !_.isEmpty(team) && _.isEmpty(teamMembers)) {
 			const initialTeam = users.filter(u => team.includes(u.id));
 			const sortedTeam = initialTeam.sort((a, b) => team.indexOf(a.id) - team.indexOf(b.id));
 			setTeamMembers(sortedTeam);
@@ -142,7 +146,7 @@ const TeamApp = () => {
 	}, [users, team, teamMembers]);
 
 	useEffect(() => {
-		if (users && team && availableUsers.length === 0) {
+		if (!_.isEmpty(users) && team && _.isEmpty(availableUsers)) {
 			setAvailableUsers(users.filter(user => !team.includes(user.id)));
 		}
 	}, [users, team, availableUsers]);

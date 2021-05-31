@@ -120,7 +120,7 @@ const StartDate = () => {
 							className="text-16 sm:text-18 font-medium cursor-pointer py-10"
 							onClick={handleFormOpen}
 						>
-							{startDate && format(new Date(startDate), 'MMM dd, yyyy hh:mm a')}
+							{startDate ? format(new Date(startDate), 'MMM dd, yyyy hh:mm a') : 'None'}
 						</Typography>
 						<IconButton className="p-10" size="small" onClick={handleFormOpen}>
 							<Icon>edit</Icon>

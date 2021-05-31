@@ -1,5 +1,5 @@
 import _ from '@lodash';
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { showMessage } from 'app/store/fuse/messageSlice';
 import axios from 'axios';
 import ITeamList from 'models/Team';
@@ -102,14 +102,14 @@ const teamSlice = createSlice({
 		}
 	},
 	extraReducers: {
-		[getLists.fulfilled.type]: (state, action) => action.payload,
-		[reorderList.fulfilled.type]: (state, action) => {
+		[getLists.fulfilled.type]: (state, action: PayloadAction<ITeamList[]>) => action.payload,
+		[reorderList.fulfilled.type]: (state, action: PayloadAction<ITeamList[]>) => {
 			state.lists = action.payload;
 		},
-		[reorderTeam.fulfilled.type]: (state, action) => {
+		[reorderTeam.fulfilled.type]: (state, action: PayloadAction<string[]>) => {
 			state.team = action.payload;
 		},
-		[renameList.fulfilled.type]: (state, action) => {
+		[renameList.fulfilled.type]: (state, action: PayloadAction<{ listId: string; listTitle: string }>) => {
 			const { listId, listTitle } = action.payload;
 			state.lists = state.lists.map(list => {
 				if (list.id === listId) {

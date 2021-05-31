@@ -96,8 +96,8 @@ function Boards(props) {
 								classes.newBoard,
 								'flex flex-col items-center justify-center w-full h-full rounded-16 py-24 shadow hover:shadow-lg outline-none'
 							)}
-							onClick={() => dispatch(newBoard())}
-							onKeyDown={() => dispatch(newBoard())}
+							onClick={() => dispatch(newBoard({}))}
+							onKeyDown={() => dispatch(newBoard({}))}
 							role="button"
 							tabIndex={0}
 						>

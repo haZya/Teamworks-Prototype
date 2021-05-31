@@ -1,5 +1,7 @@
 import FuseUtils from '@fuse/utils';
+import { makeStyles } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
+import clsx from 'clsx';
 import { useEffect, useState } from 'react';
 import Masonry from 'react-masonry-css';
 import { useSelector } from 'react-redux';
@@ -7,11 +9,21 @@ import { withRouter } from 'react-router-dom';
 import NoteListItem from './NoteListItem';
 import { selectNotes } from './store/notesSlice';
 
+const useStyles = makeStyles(theme => ({
+	column: {
+		padding: 8,
+		[theme.breakpoints.down(481)]: {
+			padding: 0
+		}
+	}
+}));
+
 function NoteList(props) {
 	const notes = useSelector(selectNotes);
 	const variateDescSize = useSelector(({ notesApp }) => notesApp.notes.variateDescSize);
 	const searchText = useSelector(({ notesApp }) => notesApp.notes.searchText);
 
+	const classes = useStyles();
 	const [filteredData, setFilteredData] = useState(null);
 
 	useEffect(() => {
@@ -61,17 +73,17 @@ function NoteList(props) {
 		<div className="flex flex-wrap w-full">
 			<Masonry
 				breakpointCols={{
-					default: 6,
-					1920: 5,
-					1600: 4,
-					1366: 3,
+					default: 5,
+					1920: 4,
+					1600: 3,
+					1366: 2,
 					1280: 4,
 					960: 3,
-					600: 2,
+					640: 2,
 					480: 1
 				}}
 				className="my-masonry-grid flex w-full"
-				columnClassName="my-masonry-grid_column flex flex-col p-0 md:p-8"
+				columnClassName={clsx(classes.column, 'my-masonry-grid_column flex flex-col')}
 			>
 				{filteredData.map(note => (
 					<NoteListItem

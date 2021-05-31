@@ -1,11 +1,12 @@
 import _ from '@lodash';
-import { amber, blue, blueGrey, green } from '@material-ui/core/colors';
-import ITeamwork, { ICategory, IPriority } from 'models/Teamwork';
+import { amber, blue, blueGrey, green, purple, red } from '@material-ui/core/colors';
+import ITeamwork, { ICategory, IPriority, IStatus } from 'models/Teamwork';
 import mock from '../mock';
 
 interface ITamworksDB {
 	categories: ICategory[];
 	priorities: IPriority[];
+	statuses: IStatus[];
 	teamworks: ITeamwork[];
 }
 
@@ -13,44 +14,87 @@ const teamworksDB: ITamworksDB = {
 	categories: [
 		{
 			id: 0,
-			value: 'web',
-			label: 'Web',
-			color: blue[500]
+			value: 'none',
+			label: 'None',
+			color: blueGrey[500],
+			icon: 'error_outline'
 		},
 		{
 			id: 1,
-			value: 'firebase',
-			label: 'Firebase',
-			color: amber[500]
+			value: 'web',
+			label: 'Web',
+			color: blue[500],
+			icon: 'language'
 		},
 		{
 			id: 2,
-			value: 'cloud',
-			label: 'Cloud',
-			color: blueGrey[500]
+			value: 'firebase',
+			label: 'Firebase',
+			color: amber[500],
+			icon: 'whatshot'
 		},
 		{
 			id: 3,
+			value: 'cloud',
+			label: 'Cloud',
+			color: purple[500],
+			icon: 'cloud'
+		},
+		{
+			id: 4,
 			value: 'android',
 			label: 'Android',
-			color: green[500]
+			color: green[500],
+			icon: 'android'
 		}
 	],
 	priorities: [
 		{
 			id: 0,
-			value: 'high',
-			label: 'High'
+			value: '0_none',
+			label: 'None',
+			color: blueGrey[500]
 		},
 		{
 			id: 1,
-			value: 'medium',
-			label: 'Medium'
+			value: '1_high',
+			label: 'High',
+			color: red[500]
 		},
 		{
 			id: 2,
-			value: 'low',
-			label: 'Low'
+			value: '2_medium',
+			label: 'Medium',
+			color: amber[500]
+		},
+		{
+			id: 3,
+			value: '3_low',
+			label: 'Low',
+			color: green[500]
+		}
+	],
+	statuses: [
+		{
+			id: 0,
+			value: 'not-started',
+			label: 'Not Started',
+			color: green[500],
+			icon: 'pause'
+		},
+		{
+			id: 1,
+			value: 'in-progress',
+			label: 'In Progress',
+			color: blue[500],
+			icon: 'autorenew'
+		},
+		{
+			id: 2,
+			value: 'completed',
+			label: 'Completed',
+			color: red[500],
+			icon: 'done'
 		}
 	],
 	teamworks: [
@@ -60,7 +104,7 @@ const teamworksDB: ITamworksDB = {
 			slug: 'basics-of-angular',
 			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
 			category: 'web',
-			priority: 'medium',
+			priority: '2_medium',
 			startDate: new Date('May 18, 2021'),
 			dueDate: new Date('Jun 28, 2021'),
 			team: [
@@ -77,7 +121,7 @@ const teamworksDB: ITamworksDB = {
 			slug: 'basics-of-typeScript',
 			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
 			category: 'web',
-			priority: 'low',
+			priority: '3_low',
 			startDate: new Date('Sep 01, 2021'),
 			dueDate: new Date('Nov 18, 2021'),
 			team: ['5725a680e7eb988a58ddf303', '5725a6806acf030f9341e925', '5725a68034cb3968e1f79eac']
@@ -88,7 +132,7 @@ const teamworksDB: ITamworksDB = {
 			slug: 'android-n-quick-settings',
 			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
 			category: 'android',
-			priority: 'medium',
+			priority: '2_medium',
 			startDate: new Date('May 18, 2021'),
 			dueDate: new Date('Jun 18, 2021'),
 			team: ['5725a6801146cce777df2a08', '5725a680653c265f5c79b5a9']
@@ -99,7 +143,7 @@ const teamworksDB: ITamworksDB = {
 			slug: 'keep-sensitive-data-safe-and-private',
 			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
 			category: 'android',
-			priority: 'high',
+			priority: '1_high',
 			startDate: new Date('Apr 18, 2021'),
 			dueDate: new Date('Jun 8, 2021'),
 			team: [
@@ -115,7 +159,7 @@ const teamworksDB: ITamworksDB = {
 			slug: 'building-a-grpc-service-with-java',
 			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
 			category: 'cloud',
-			priority: 'high',
+			priority: '1_high',
 			startDate: new Date('May 7, 2021'),
 			dueDate: new Date('Jul 10, 2021'),
 			team: [
@@ -131,18 +175,18 @@ const teamworksDB: ITamworksDB = {
 			slug: 'build-a-pwa-using-workbox',
 			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
 			category: 'web',
-			priority: 'low',
+			priority: '3_low',
 			startDate: new Date('Jul 14, 2021'),
 			dueDate: new Date('Aug 18, 2021'),
 			team: ['5725a680653c265f5c79b5a9', '5725a680606588342058356d', '5725a680bbcec3cc32a8488a']
 		},
 		{
 			id: '1543ee3a5b43e0f9f45',
-			title: 'Build an App for the Google Assistant with Firebase and Dialogflow',
-			slug: 'build-an-app-for-the-google-assistant-with-firebase-and-dialogflow',
+			title: 'Build an App for the Google Assistant with Firebase and Dialogf3_low',
+			slug: 'build-an-app-for-the-google-assistant-with-firebase-and-dialogf3_low',
 			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
 			category: 'firebase',
-			priority: 'medium',
+			priority: '2_medium',
 			startDate: new Date('May 14, 2021'),
 			dueDate: new Date('May 26, 2021'),
 			team: ['5725a680bbcec3cc32a8488a', '5725a680e87cb319bd9bd673', '5725a6802d10e277a0f35775']
@@ -153,7 +197,7 @@ const teamworksDB: ITamworksDB = {
 			slug: 'cloud-functions-for-firebase',
 			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
 			category: 'firebase',
-			priority: 'low',
+			priority: '3_low',
 			startDate: new Date('Jul 18, 2021'),
 			dueDate: new Date('Nov 30, 2021'),
 			team: []
@@ -164,7 +208,7 @@ const teamworksDB: ITamworksDB = {
 			slug: 'manage-your-pivotal-cloud-foundry-apps-using-apigee-Edge',
 			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
 			category: 'cloud',
-			priority: 'low',
+			priority: '3_low',
 			startDate: new Date('Apr 4, 2021'),
 			dueDate: new Date('Jul 8, 2021'),
 			team: ['5725a6801146cce777df2a08', '5725a680e87cb319bd9bd673']
@@ -175,7 +219,7 @@ const teamworksDB: ITamworksDB = {
 			slug: 'building-beautiful-uis-with-flutter',
 			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
 			category: 'web',
-			priority: 'high',
+			priority: '1_high',
 			startDate: new Date('Mar 12, 2021'),
 			dueDate: new Date('May 20, 2021'),
 			team: [
@@ -191,7 +235,7 @@ const teamworksDB: ITamworksDB = {
 			slug: 'cloud-firestore',
 			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
 			category: 'firebase',
-			priority: 'medium',
+			priority: '2_medium',
 			startDate: new Date('Apr 18, 2021'),
 			dueDate: new Date('May 18, 2021'),
 			team: [
@@ -207,7 +251,7 @@ const teamworksDB: ITamworksDB = {
 			slug: 'customize-network-topology-with-subnetworks',
 			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
 			category: 'web',
-			priority: 'medium',
+			priority: '2_medium',
 			startDate: new Date('Jun 22, 2021'),
 			dueDate: new Date('Jul 14, 2021'),
 			team: [
@@ -223,7 +267,7 @@ const teamworksDB: ITamworksDB = {
 			slug: 'looking-at-campaign-finance-with-bigquery',
 			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
 			category: 'cloud',
-			priority: 'medium',
+			priority: '2_medium',
 			startDate: new Date('Aug 1, 2021'),
 			dueDate: new Date('Nov 1, 2021'),
 			team: []
@@ -234,7 +278,7 @@ const teamworksDB: ITamworksDB = {
 			slug: 'firebase-android',
 			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
 			category: 'android',
-			priority: 'low',
+			priority: '3_low',
 			startDate: new Date('Jul 24, 2021'),
 			dueDate: new Date('Sep 18, 2021'),
 			team: []
@@ -245,7 +289,7 @@ const teamworksDB: ITamworksDB = {
 			slug: 'simulating-a-thread-network-using-openthread',
 			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
 			category: 'web',
-			priority: 'medium',
+			priority: '2_medium',
 			startDate: new Date('May 31, 2021'),
 			dueDate: new Date('Jul 31, 2021'),
 			team: []
@@ -256,7 +300,7 @@ const teamworksDB: ITamworksDB = {
 			slug: 'your-first-progressive-web-app',
 			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
 			category: 'web',
-			priority: 'high',
+			priority: '1_high',
 			startDate: new Date('May 16, 2021'),
 			dueDate: new Date('May 30, 2021'),
 			team: []
@@ -267,7 +311,7 @@ const teamworksDB: ITamworksDB = {
 			slug: 'launch-cloud-datalab',
 			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
 			category: 'cloud',
-			priority: 'high',
+			priority: '1_high',
 			startDate: new Date('Jun 13, 2021'),
 			dueDate: new Date('Aug 28, 2021'),
 			team: []
@@ -278,7 +322,7 @@ const teamworksDB: ITamworksDB = {
 			slug: 'personalize-your-ios-app-with-firebase-user-management',
 			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
 			category: 'firebase',
-			priority: 'low',
+			priority: '3_low',
 			startDate: new Date('May 27, 2021'),
 			dueDate: new Date('Jun 7, 2021'),
 			team: []
@@ -294,6 +338,10 @@ mock.onGet('/api/teamworks/priorities').reply(() => {
 	return [200, teamworksDB.priorities];
 });
 
+mock.onGet('/api/teamworks/statuses').reply(() => {
+	return [200, teamworksDB.statuses];
+});
+
 mock.onGet('/api/teamworks').reply(() => {
 	return [200, teamworksDB.teamworks];
 });
@@ -306,28 +354,28 @@ mock.onGet('/api/teamworks/teamwork').reply(request => {
 
 mock.onPost('/api/teamworks/save').reply(request => {
 	const data = JSON.parse(request.data);
-	let course = null;
+	let teamwork = null;
 
 	teamworksDB.teamworks = teamworksDB.teamworks.map(_teamwork => {
 		if (_teamwork.id === data.id) {
-			course = data;
-			return course;
+			teamwork = data;
+			return teamwork;
 		}
 		return _teamwork;
 	});
 
-	if (!course) {
-		course = data;
-		teamworksDB.teamworks = [...teamworksDB.teamworks, course];
+	if (!teamwork) {
+		teamwork = data;
+		teamworksDB.teamworks.unshift(teamwork);
 	}
 
-	return [200, course];
+	return [200, teamwork];
 });
 
 mock.onPost('/api/teamworks/update/title').reply(request => {
-	const { id, title } = JSON.parse(request.data);
+	const { id, title }: { id: string; title: string } = JSON.parse(request.data);
 	const teamwork = _.find(teamworksDB.teamworks, { id });
-	_.assign(teamwork, { title });
+	_.assign(teamwork, { title, slug: title.toLowerCase().replace(/ /g, '-') });
 	return [200, { title }];
 });
 
@@ -376,6 +424,16 @@ mock.onPost('/api/teamworks/update').reply(request => {
 	});
 
 	return [200, data];
+});
+
+mock.onPost('/api/teamworks/remove').reply(request => {
+	const { id } = JSON.parse(request.data);
+
+	_.remove(teamworksDB.teamworks, {
+		id
+	});
+
+	return [200, id];
 });
 
 mock.onPost('/api/teamworks/team/order').reply(request => {

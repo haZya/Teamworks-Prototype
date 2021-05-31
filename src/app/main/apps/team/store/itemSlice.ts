@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 import IUser from 'models/User';
 
@@ -16,7 +16,7 @@ const itemSlice = createSlice({
 	initialState: null,
 	reducers: {},
 	extraReducers: {
-		[getUsers.fulfilled.type]: (state, action) => action.payload
+		[getUsers.fulfilled.type]: (state, action: PayloadAction<void>) => action.payload
 	}
 });
 

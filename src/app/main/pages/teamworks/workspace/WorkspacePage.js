@@ -1,5 +1,6 @@
 import FusePageCarded from '@fuse/core/FusePageCarded';
 import { useDeepCompareEffect } from '@fuse/hooks';
+import _ from '@lodash';
 import { makeStyles } from '@material-ui/core/styles';
 import CalendarApp from 'app/main/apps/calendar/CalendarApp';
 import ChatApp from 'app/main/apps/chat/ChatApp';
@@ -11,6 +12,7 @@ import Boards from 'app/main/apps/scrumboard/boards/Boards';
 import TeamApp from 'app/main/apps/team/TeamApp';
 import TodoApp from 'app/main/apps/todo/TodoApp';
 import HomeApp from 'app/main/apps/workspace-home/HomeApp';
+import { showMessage } from 'app/store/fuse/messageSlice';
 import withReducer from 'app/store/withReducer';
 import clsx from 'clsx';
 import { useEffect, useRef } from 'react';
@@ -65,12 +67,32 @@ function WorkspacePage(props) {
 		}
 	}, [history, routeParams, toPath]);
 
-	useDeepCompareEffect(() => {
+	let promise;
+
+	useDeepCompareEffect(async () => {
 		/**
 		 * Get the Teamwork Data
 		 */
-		dispatch(getTeamwork({ teamworksId: routeParams.teamworkId }));
+		promise = dispatch(getTeamwork({ teamworksId: routeParams.teamworkId }));
 	}, [dispatch, routeParams]);
+
+	useDeepCompareEffect(async () => {
+		const { payload } = await promise;
+
+		if (_.isEmpty(payload)) {
+			dispatch(
+				showMessage({
+					message: 'Requested teamwork do not exist.',
+					autoHideDuration: 2000,
+					anchorOrigin: {
+						vertical: 'top',
+						horizontal: 'right'
+					}
+				})
+			);
+			history.push('/teamworks');
+		}
+	}, [promise, history]);
 
 	return (
 		<FusePageCarded
@@ -94,7 +116,7 @@ function WorkspacePage(props) {
 					{tab === 'calendar' && <CalendarApp />}
 					{tab === 'files' && <FileManagerApp />}
 					{tab === 'tasks' && <Boards />}
-					{routeParams.boardId && <Board />}
+					{boardId && <Board />}
 					{tab === 'project' && <Error404Page />}
 					{tab === 'to-do' && <TodoApp />}
 					{tab === 'notes' && <NotesApp />}

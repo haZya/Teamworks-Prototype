@@ -1,4 +1,4 @@
-import { createAsyncThunk, createEntityAdapter, createSlice, EntityAdapter } from '@reduxjs/toolkit';
+import { createAsyncThunk, createEntityAdapter, createSlice, EntityAdapter, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 import IUser from 'models/User';
 import { RootStateOrAny } from 'react-redux';
@@ -145,7 +145,7 @@ const usersSlice = createSlice({
 	name: 'usersPage/users',
 	initialState: usersAdapter.getInitialState(initialtState),
 	reducers: {
-		setUsersSearchText: (state, action) => {
+		setUsersSearchText: (state, action: PayloadAction<string>) => {
 			state.searchText = action.payload;
 		},
 		openNewUserDialog: state => {
@@ -166,7 +166,7 @@ const usersSlice = createSlice({
 				data: {}
 			};
 		},
-		openEditUserDialog: (state, action) => {
+		openEditUserDialog: (state, action: PayloadAction<IUser>) => {
 			state.userDialog = {
 				type: 'edit',
 				props: {

@@ -1,4 +1,3 @@
-import { useDeepCompareEffect } from '@fuse/hooks';
 import {
 	Avatar,
 	Button,
@@ -8,18 +7,19 @@ import {
 	Divider,
 	Icon,
 	LinearProgress,
+	Tooltip,
 	Typography,
 	useTheme
 } from '@material-ui/core';
 import { AvatarGroup } from '@material-ui/lab';
-import { getUsers } from 'app/main/apps/team/store/itemSlice';
 import { differenceInMilliseconds, format, formatDistance } from 'date-fns';
 import { motion } from 'framer-motion';
 import ITeamwork, { ICategory } from 'models/Teamwork';
 import IUser from 'models/User';
 import { useEffect, useState } from 'react';
-import { RootStateOrAny, useDispatch, useSelector } from 'react-redux';
+import { RootStateOrAny, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { selectPriorities } from './store/prioritiesSlice';
 
 const item = {
 	hidden: {
@@ -40,13 +40,9 @@ interface IProps {
 const TeamworkTile = ({ teamwork, category }: IProps) => {
 	const theme = useTheme();
 
-	const dispatch = useDispatch();
+	const priorities = useSelector(selectPriorities);
 	const users: IUser[] = useSelector(({ teamworksPage }: RootStateOrAny) => teamworksPage.users);
 	const [team, setTeam] = useState<IUser[]>([]);
-
-	useDeepCompareEffect(() => {
-		dispatch(getUsers());
-	}, [dispatch]);
 
 	useEffect(() => {
 		if (users) {
@@ -55,18 +51,19 @@ const TeamworkTile = ({ teamwork, category }: IProps) => {
 	}, [users, teamwork.team]);
 
 	const dateNow = new Date();
+	const priority = priorities.find(p => p.value === teamwork.priority);
 
 	function getTimeLeft() {
-		const distance = formatDistance(new Date(teamwork.dueDate), dateNow, { addSuffix: true });
+		const distance = teamwork.dueDate && formatDistance(new Date(teamwork.dueDate), dateNow, { addSuffix: true });
 		return distance;
 	}
 
 	function getButtonStatus() {
-		if (new Date(teamwork.startDate) > dateNow) {
+		if (!teamwork.startDate || new Date(teamwork.startDate) > dateNow) {
 			return 'Start';
 		}
 
-		if (new Date(teamwork.dueDate) < dateNow) {
+		if (teamwork.dueDate && new Date(teamwork.dueDate) < dateNow) {
 			return 'Completed';
 		}
 
@@ -74,10 +71,17 @@ const TeamworkTile = ({ teamwork, category }: IProps) => {
 	}
 
 	function getProgress() {
-		const currentProgressInMs = differenceInMilliseconds(dateNow, new Date(teamwork.startDate));
-		const overallLengthInMs = differenceInMilliseconds(new Date(teamwork.dueDate), new Date(teamwork.startDate));
-		const progress = (currentProgressInMs / overallLengthInMs) * 100;
-		return progress > 100 ? 100 : progress < 0 ? 0 : progress;
+		if (teamwork.startDate && teamwork.dueDate) {
+			const currentProgressInMs = differenceInMilliseconds(dateNow, new Date(teamwork.startDate));
+			const overallLengthInMs = differenceInMilliseconds(
+				new Date(teamwork.dueDate),
+				new Date(teamwork.startDate)
+			);
+			const progress = (currentProgressInMs / overallLengthInMs) * 100;
+			return progress > 100 ? 100 : progress < 0 ? 0 : progress;
+		}
+
+		return 0;
 	}
 
 	return (
@@ -109,33 +113,41 @@ const TeamworkTile = ({ teamwork, category }: IProps) => {
 						<div className="text-center text-13">
 							<Typography className="mt-8 font-medium">Start</Typography>
 							<Typography className="font-normal" color="textSecondary">
-								{format(new Date(teamwork.startDate), 'MMM dd, yyyy hh:mm a')}
+								{teamwork.startDate
+									? format(new Date(teamwork.startDate), 'MMM dd, yyyy hh:mm a')
+									: 'None'}
 							</Typography>
 						</div>
 
 						<div className="text-center text-13">
 							<Typography className="mt-8 font-medium">Due</Typography>
 							<Typography className="font-normal" color="textSecondary">
-								{format(new Date(teamwork.dueDate), 'MMM dd, yyyy hh:mm a')}
+								{teamwork.dueDate ? format(new Date(teamwork.dueDate), 'MMM dd, yyyy hh:mm a') : 'None'}
 							</Typography>
 						</div>
 
 						<div className="text-center text-13">
 							<Typography className="mt-8 font-medium">Priority</Typography>
-							<Typography className="font-normal" color="textSecondary">
-								{teamwork.priority}
+							<Typography className="font-medium text-14" style={{ color: priority?.color }}>
+								{priority?.label}
 							</Typography>
 						</div>
 					</div>
-					<div className="mt-16 sm:pl-12 flex mr-auto">
+					<div className="mt-16 flex mx-auto sm:ml-12">
 						<div>
 							<Divider />
 							<Typography className="my-8 font-medium">Team:</Typography>
-							<AvatarGroup max={4}>
-								{team.map(t => (
-									<Avatar key={t.id} alt={t.name} src={t.avatar} />
-								))}
-							</AvatarGroup>
+							{team.length > 0 ? (
+								<AvatarGroup max={4}>
+									{team.map(t => (
+										<Tooltip key={t.id} title={t.name}>
+											<Avatar alt={t.name} src={t.avatar} />
+										</Tooltip>
+									))}
+								</AvatarGroup>
+							) : (
+								<Typography className="my-8 font-medium">No Team Members</Typography>
+							)}
 						</div>
 					</div>
 				</CardContent>

@@ -1,14 +1,29 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import history from '@history';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { showMessage } from 'app/store/fuse/messageSlice';
 import axios from 'axios';
 import ITeamwork from 'models/Teamwork';
 import { RootStateOrAny } from 'react-redux';
+import { getTeamworks } from './teamworksSlice';
 
 export const getTeamwork = createAsyncThunk<ITeamwork, { teamworksId: string | number }>(
 	'teamworksPage/teamworks/getTeamwork',
 	async params => {
 		const response = await axios.get('/api/teamworks/teamwork', { params });
-		const data = await response.data;
+		const data: ITeamwork = await response.data;
+		return data;
+	}
+);
+
+export const addTeamwork = createAsyncThunk<ITeamwork, ITeamwork, { state: RootStateOrAny }>(
+	'teamworksPage/teamworks/addTeamwork',
+	async (_data, { dispatch }) => {
+		const response = await axios.post('/api/teamworks/save', _data);
+		const data: ITeamwork = await response.data;
+
+		dispatch(showMessage({ message: 'Teamwork Saved' }));
+		dispatch(getTeamworks());
+
 		return data;
 	}
 );
@@ -109,9 +124,22 @@ export const updateTeamwork = createAsyncThunk<ITeamwork, ITeamwork, { state: Ro
 		const { id }: ITeamwork = getState().teamworksPage.teamwork;
 
 		const response = await axios.post('/api/teamworks/update', { id, _data });
-		const data = await response.data;
+		const data: ITeamwork = await response.data;
 
 		dispatch(showMessage({ message: 'Teamwork Saved' }));
+
+		return data;
+	}
+);
+
+export const removeTeamwork = createAsyncThunk<string, string>(
+	'teamworksPage/teamworks/removeTeamwork',
+	async (id, { dispatch }) => {
+		const response = await axios.post('/api/teamworks/remove', { id });
+		const data: string = await response.data;
+
+		dispatch(showMessage({ message: 'Teamwork Deleted' }));
+		history.push('/teamworks');
 
 		return data;
 	}
@@ -122,17 +150,22 @@ const teamworkSlice = createSlice({
 	initialState: {},
 	reducers: {},
 	extraReducers: {
-		[getTeamwork.fulfilled.type]: (state: RootStateOrAny, action) => action.payload,
-		[updateTeamworkTitle.fulfilled.type]: (state: RootStateOrAny, action) => action.payload,
-		[updateTeamworkDescription.fulfilled.type]: (state: RootStateOrAny, action) => action.payload,
-		[updateTeamworkCategory.fulfilled.type]: (state: RootStateOrAny, action) => action.payload,
-		[updateTeamworkPriority.fulfilled.type]: (state: RootStateOrAny, action) => action.payload,
-		[updateTeamworkStartDate.fulfilled.type]: (state: RootStateOrAny, action) => action.payload,
-		[updateTeamworkDueDate.fulfilled.type]: (state: RootStateOrAny, action) => action.payload,
-		[updateTeamwork.fulfilled.type]: (state: RootStateOrAny, action) => ({
+		[getTeamwork.fulfilled.type]: (state, action: PayloadAction<ITeamwork>) => action.payload,
+		[addTeamwork.fulfilled.type]: (state, action: PayloadAction<ITeamwork>) => ({
 			...state,
 			...action.payload
-		})
+		}),
+		[updateTeamworkTitle.fulfilled.type]: (state, action: PayloadAction<string>) => action.payload,
+		[updateTeamworkDescription.fulfilled.type]: (state, action: PayloadAction<string>) => action.payload,
+		[updateTeamworkCategory.fulfilled.type]: (state, action: PayloadAction<string>) => action.payload,
+		[updateTeamworkPriority.fulfilled.type]: (state, action: PayloadAction<string>) => action.payload,
+		[updateTeamworkStartDate.fulfilled.type]: (state, action: PayloadAction<Date>) => action.payload,
+		[updateTeamworkDueDate.fulfilled.type]: (state, action: PayloadAction<Date>) => action.payload,
+		[updateTeamwork.fulfilled.type]: (state, action: PayloadAction<ITeamwork>) => ({
+			...state,
+			...action.payload
+		}),
+		[removeTeamwork.fulfilled.type]: (state, action: PayloadAction<string>) => action.payload
 	}
 });
 

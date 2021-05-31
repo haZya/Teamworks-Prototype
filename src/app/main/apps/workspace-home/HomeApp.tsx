@@ -1,4 +1,4 @@
-import { fade, makeStyles } from '@material-ui/core';
+import { darken, fade, makeStyles } from '@material-ui/core';
 import clsx from 'clsx';
 import HomeAppForm from './HomeAppForm';
 
@@ -56,8 +56,11 @@ const useStyles = makeStyles(theme => ({
 		position: 'relative',
 		flex: '1 1 100%',
 		flexDirection: 'row',
-		backgroundImage: 'url("/assets/images/patterns/rain-grey.png")',
-		backgroundColor: theme.palette.background.paper,
+		// backgroundImage: 'url("/assets/images/patterns/rain-grey.png")',
+		backgroundColor:
+			theme.palette.type === 'dark'
+				? theme.palette.background.paper
+				: darken(theme.palette.background.paper, 0.1),
 		minHeight: 0,
 		overflow: 'auto'
 	},

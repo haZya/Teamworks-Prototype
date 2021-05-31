@@ -1,6 +1,6 @@
 import FusePageCarded from '@fuse/core/FusePageCarded';
 import { useDeepCompareEffect } from '@fuse/hooks';
-import { makeStyles, useMediaQuery, useTheme } from '@material-ui/core';
+import { Fab, Hidden, Icon, makeStyles, useMediaQuery, useTheme, Zoom } from '@material-ui/core';
 import withReducer from 'app/store/withReducer';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -8,7 +8,7 @@ import { useParams } from 'react-router-dom';
 import LeftSidebarHeader from './LeftSidebarHeader';
 import reducer from './store';
 import { getUserData } from './store/currentUserSlice';
-import { getUsers } from './store/usersSlice';
+import { getUsers, openNewUserDialog } from './store/usersSlice';
 import UserDialog from './UserDialog';
 import UserList from './UserList';
 import UsersPageHeader from './UsersPageHeader';
@@ -118,6 +118,18 @@ function UsersPage(props) {
 				innerScroll={height > minHeightThreshold}
 			/>
 			<UserDialog />
+			<Hidden lgUp>
+				<Zoom in unmountOnExit>
+					<Fab
+						className="z-99 absolute bottom-48 right-16"
+						color="secondary"
+						aria-label="add"
+						onClick={() => dispatch(openNewUserDialog())}
+					>
+						<Icon>add</Icon>
+					</Fab>
+				</Zoom>
+			</Hidden>
 		</>
 	);
 }
