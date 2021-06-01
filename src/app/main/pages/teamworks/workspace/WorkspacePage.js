@@ -7,6 +7,7 @@ import ChatApp from 'app/main/apps/chat/ChatApp';
 import FileManagerApp from 'app/main/apps/file-manager/FileManagerApp';
 import MailApp from 'app/main/apps/mail/MailApp';
 import NotesApp from 'app/main/apps/notes/NotesApp';
+import ProjectApp from 'app/main/apps/project/ProjectApp';
 import Board from 'app/main/apps/scrumboard/board/Board';
 import Boards from 'app/main/apps/scrumboard/boards/Boards';
 import TeamApp from 'app/main/apps/team/TeamApp';
@@ -16,9 +17,8 @@ import { showMessage } from 'app/store/fuse/messageSlice';
 import withReducer from 'app/store/withReducer';
 import clsx from 'clsx';
 import { useEffect, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom';
-import Error404Page from '../../errors/404/Error404Page';
 import reducer from '../store';
 import { getTeamwork } from '../store/teamworkSlice';
 import WorkspacePageContentToolbar from './WorkspacePageContentToolbar';
@@ -51,7 +51,6 @@ const useStyles = makeStyles(theme => ({
 
 function WorkspacePage(props) {
 	const dispatch = useDispatch();
-	const teamwork = useSelector(({ teamworksPage }) => teamworksPage.teamwork);
 
 	const toPath = pathToRegexp.compile('/teamworks/:teamworkId/:teamworkHandle/:tab/:folderHandle?');
 
@@ -117,7 +116,7 @@ function WorkspacePage(props) {
 					{tab === 'files' && <FileManagerApp />}
 					{tab === 'tasks' && <Boards />}
 					{boardId && <Board />}
-					{tab === 'project' && <Error404Page />}
+					{tab === 'project' && <ProjectApp />}
 					{tab === 'to-do' && <TodoApp />}
 					{tab === 'notes' && <NotesApp />}
 				</>
@@ -125,7 +124,7 @@ function WorkspacePage(props) {
 			contentToolbar={<WorkspacePageContentToolbar />}
 			rightSidebarHeader={<></>}
 			rightSidebarContent={<WorkspacePageRightSidebar />}
-			// innerScroll
+			innerScroll
 			ref={pageLayout}
 		/>
 	);

@@ -1,6 +1,6 @@
 import FusePageCarded from '@fuse/core/FusePageCarded';
 import { useDeepCompareEffect } from '@fuse/hooks';
-import { Fab, Hidden, Icon, makeStyles, useMediaQuery, useTheme, Zoom } from '@material-ui/core';
+import { Fab, Hidden, Icon, makeStyles, Tooltip, useMediaQuery, useTheme, Zoom } from '@material-ui/core';
 import withReducer from 'app/store/withReducer';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -120,14 +120,16 @@ function UsersPage(props) {
 			<UserDialog />
 			<Hidden lgUp>
 				<Zoom in unmountOnExit>
-					<Fab
-						className="z-99 absolute bottom-48 right-16"
-						color="secondary"
-						aria-label="add"
-						onClick={() => dispatch(openNewUserDialog())}
-					>
-						<Icon>add</Icon>
-					</Fab>
+					<Tooltip title="Add User">
+						<Fab
+							className="z-99 absolute bottom-48 right-16"
+							color="secondary"
+							aria-label="add"
+							onClick={() => dispatch(openNewUserDialog())}
+						>
+							<Icon>add</Icon>
+						</Fab>
+					</Tooltip>
 				</Zoom>
 			</Hidden>
 		</>

@@ -12,6 +12,7 @@ import './db/mail-db';
 import './db/notes-db';
 import './db/profile-db';
 import './db/project-dashboard-db';
+import './db/project-db';
 import './db/quick-panel-db';
 import './db/scrumboard-db';
 import './db/search-db';

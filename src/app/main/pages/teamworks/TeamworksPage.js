@@ -1,5 +1,5 @@
 import FusePageSimple from '@fuse/core/FusePageSimple';
-import { Fab, Hidden, Icon, makeStyles, Zoom } from '@material-ui/core';
+import { Fab, Hidden, Icon, makeStyles, Tooltip, Zoom } from '@material-ui/core';
 import withReducer from 'app/store/withReducer';
 import { getNewTeamwork } from 'models/Teamwork';
 import { useRef } from 'react';
@@ -49,14 +49,16 @@ function TeamworksPage() {
 
 			<Hidden lgUp>
 				<Zoom in unmountOnExit>
-					<Fab
-						className="z-99 absolute bottom-16 right-16"
-						color="secondary"
-						aria-label="add"
-						onClick={() => dispatch(addTeamwork(getNewTeamwork()))}
-					>
-						<Icon>add</Icon>
-					</Fab>
+					<Tooltip title="Add Teamwork">
+						<Fab
+							className="z-99 absolute bottom-16 right-16"
+							color="secondary"
+							aria-label="add"
+							onClick={() => dispatch(addTeamwork(getNewTeamwork()))}
+						>
+							<Icon>add</Icon>
+						</Fab>
+					</Tooltip>
 				</Zoom>
 			</Hidden>
 		</>

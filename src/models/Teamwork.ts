@@ -33,6 +33,7 @@ interface ITeamwork {
 	startDate: Date | undefined;
 	dueDate: Date | undefined;
 	team: string[];
+	projectId: string | number;
 }
 
 export default ITeamwork;
@@ -47,7 +48,8 @@ export function getNewTeamwork() {
 		priority: '0_none',
 		startDate: undefined,
 		dueDate: undefined,
-		team: []
+		team: [],
+		projectId: ''
 	};
 
 	return newTeamwork;

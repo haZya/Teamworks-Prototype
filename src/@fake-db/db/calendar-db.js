@@ -1,9 +1,9 @@
 import FuseUtils from '@fuse/utils';
-import mock from '../mock';
 import formatISO from 'date-fns/formatISO';
+import mock from '../mock';
 
 function setDate(year, month, date, hours, minutes, seconds) {
-	return formatISO(new Date(year, month, date, hours || '', minutes || '', seconds|| ''));
+	return formatISO(new Date(year, month, date, hours || '', minutes || '', seconds || ''));
 }
 
 const calendarDB = {
@@ -49,7 +49,7 @@ const calendarDB = {
 			allDay: false,
 			start: setDate(2021, 3, 11),
 			end: setDate(2021, 3, 13),
-			extendedProps:{
+			extendedProps: {
 				desc: 'Big conference for important people'
 			}
 		},
