@@ -29,7 +29,7 @@ function TodoApp(props) {
 
 	useEffect(() => {
 		if (!routeParams.folderHandle && !routeParams.filterHandle && !routeParams.labelHandle) {
-			history.push(toPath({ ...routeParams, folderHandle: 'all' }));
+			history.replace(toPath({ ...routeParams, folderHandle: 'all' }));
 		}
 	}, [history, routeParams, toPath]);
 

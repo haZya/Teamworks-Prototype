@@ -66,7 +66,7 @@ function TeamworksPageToolbar() {
 	}
 
 	const theme = useTheme();
-	const xssDown = useMediaQuery(theme.breakpoints.down(360));
+	const xssDown = useMediaQuery(theme.breakpoints.down(340));
 
 	return (
 		<motion.div

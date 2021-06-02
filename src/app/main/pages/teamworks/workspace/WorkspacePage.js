@@ -62,7 +62,7 @@ function WorkspacePage(props) {
 
 	useEffect(() => {
 		if (!routeParams.tab && !routeParams.boardId) {
-			history.push(toPath({ ...routeParams, tab: 'home' }));
+			history.replace(toPath({ ...routeParams, tab: 'home' }));
 		}
 	}, [history, routeParams, toPath]);
 

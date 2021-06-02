@@ -34,7 +34,7 @@ function TeamworksPage() {
 				classes={{
 					contentWrapper: 'px-12 pt-24',
 					leftSidebar: 'w-256 border-0',
-					toolbar: 'px-16 pt-128 pb-136 sm:py-64 md:py-0',
+					toolbar: 'px-4 sm:px-12 pt-128 pb-136 sm:py-64 md:py-0',
 					header: classes.header,
 					wrapper: 'min-h-0'
 				}}

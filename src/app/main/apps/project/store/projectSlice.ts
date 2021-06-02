@@ -106,14 +106,14 @@ interface IInitialState {
 	selectedItem: Task | Link | null;
 }
 
-const initialtState: IInitialState = {
+const initialState: IInitialState = {
 	project: null,
 	selectedItem: null
 };
 
 const projectSlice = createSlice({
 	name: 'projectApp/project',
-	initialState: initialtState,
+	initialState,
 	reducers: {
 		setSelectedItem: (state, action: PayloadAction<Task | Link | null>) => {
 			state.selectedItem = action.payload;
@@ -139,25 +139,6 @@ const projectSlice = createSlice({
 			...state,
 			...action.payload
 		})
-		// [removeTask.fulfilled.type]: (state, action: PayloadAction<IProject>) => ({
-		// 	...state,
-		// 	...action.payload
-		// })
-		// [reorderList.fulfilled.type]: (state, action: PayloadAction<ITeamList[]>) => {
-		// 	state.lists = action.payload;
-		// },
-		// [reorderTeam.fulfilled.type]: (state, action: PayloadAction<string[]>) => {
-		// 	state.team = action.payload;
-		// },
-		// [renameList.fulfilled.type]: (state, action: PayloadAction<{ listId: string; listTitle: string }>) => {
-		// 	const { listId, listTitle } = action.payload;
-		// 	state.lists = state.lists.map(list => {
-		// 		if (list.id === listId) {
-		// 			list.name = listTitle;
-		// 		}
-		// 		return list;
-		// 	});
-		// }
 	}
 });
 

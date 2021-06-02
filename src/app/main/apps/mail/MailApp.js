@@ -28,7 +28,7 @@ function MailApp(props) {
 
 	useEffect(() => {
 		if (!routeParams.folderHandle && !routeParams.filterHandle && !routeParams.labelHandle) {
-			history.push(toPath({ ...routeParams, folderHandle: 'inbox' }));
+			history.replace(toPath({ ...routeParams, folderHandle: 'inbox' }));
 		}
 	}, [history, routeParams, toPath]);
 
