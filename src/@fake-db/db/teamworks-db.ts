@@ -21,31 +21,38 @@ const teamworksDB: ITamworksDB = {
 		},
 		{
 			id: 1,
-			value: 'web',
-			label: 'Web',
+			value: 'infrastructure',
+			label: 'Infrastructure',
 			color: blue[500],
-			icon: 'language'
+			icon: 'settings_input_component'
 		},
 		{
 			id: 2,
-			value: 'firebase',
-			label: 'Firebase',
+			value: 'services',
+			label: 'Services',
 			color: amber[500],
-			icon: 'whatshot'
+			icon: 'settings_input_antenna'
 		},
 		{
 			id: 3,
-			value: 'cloud',
-			label: 'Cloud',
+			value: 'internal',
+			label: 'Internal',
 			color: purple[500],
-			icon: 'cloud'
+			icon: 'border_inner'
 		},
 		{
 			id: 4,
-			value: 'android',
-			label: 'Android',
+			value: 'external',
+			label: 'External',
 			color: green[500],
-			icon: 'android'
+			icon: 'border_outer'
+		},
+		{
+			id: 5,
+			value: 'staff',
+			label: 'Staff',
+			color: green[500],
+			icon: 'people_alt'
 		}
 	],
 	priorities: [
@@ -100,10 +107,11 @@ const teamworksDB: ITamworksDB = {
 	teamworks: [
 		{
 			id: '15459251a6d6b397565',
-			title: 'Basics of Angular',
-			slug: 'basics-of-angular',
-			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-			category: 'web',
+			title: 'Cabling Project Site A to B',
+			slug: 'cabling-project-site-a-to-b',
+			description:
+				'Site A connected via microwave link and need high speed networking as number of end points increased.',
+			category: 'infrastructure',
 			priority: '2_medium',
 			startDate: new Date('May 18, 2021'),
 			dueDate: new Date('Jun 28, 2021'),
@@ -117,35 +125,35 @@ const teamworksDB: ITamworksDB = {
 			projectId: 1
 		},
 		{
-			id: '154588a0864d2881124',
-			title: 'Basics of TypeScript',
-			slug: 'basics-of-typeScript',
-			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-			category: 'web',
-			priority: '3_low',
-			startDate: new Date('Sep 01, 2021'),
-			dueDate: new Date('Nov 18, 2021'),
-			team: ['5725a680e7eb988a58ddf303', '5725a6806acf030f9341e925', '5725a68034cb3968e1f79eac'],
-			projectId: ''
-		},
-		{
 			id: '15453ba60d3baa5daaf',
-			title: 'Android N: Quick Settings',
-			slug: 'android-n-quick-settings',
-			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-			category: 'android',
+			title: 'Guest lecture Series for GIS initiatives',
+			slug: 'guest-lecture-series-for-gis-initiatives',
+			description: '10 sessions to be discussed.',
+			category: 'external',
 			priority: '2_medium',
 			startDate: new Date('May 18, 2021'),
 			dueDate: new Date('Jun 18, 2021'),
 			team: ['5725a6801146cce777df2a08', '5725a680653c265f5c79b5a9'],
-			projectId: ''
+			projectId: 1
+		},
+		{
+			id: '154588a0864d2881124',
+			title: 'Network Planning for new site Delta',
+			slug: 'network-planning-for-new-site-delta',
+			description: 'Delta site has over 50 end points and expected to increase to 100.',
+			category: 'infrastructure',
+			priority: '3_low',
+			startDate: new Date('Sep 01, 2021'),
+			dueDate: new Date('Nov 18, 2021'),
+			team: ['5725a680e7eb988a58ddf303', '5725a6806acf030f9341e925', '5725a68034cb3968e1f79eac'],
+			projectId: 1
 		},
 		{
 			id: '15453a06c08fb021776',
-			title: 'Keep Sensitive Data Safe and Private',
-			slug: 'keep-sensitive-data-safe-and-private',
-			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-			category: 'android',
+			title: 'Staff relocation 2022',
+			slug: 'staff-relocation-2022',
+			description: 'For site Delta and retain full capacity site Alpha.',
+			category: 'staff',
 			priority: '1_high',
 			startDate: new Date('Apr 18, 2021'),
 			dueDate: new Date('Jun 8, 2021'),
@@ -155,14 +163,14 @@ const teamworksDB: ITamworksDB = {
 				'5725a680bc670af746c435e2',
 				'5725a68009e20d0a9e9acf2a'
 			],
-			projectId: ''
+			projectId: 1
 		},
 		{
 			id: '15427f4c1b7f3953234',
-			title: 'Building a gRPC Service with Java',
-			slug: 'building-a-grpc-service-with-java',
-			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-			category: 'cloud',
+			title: 'Software/Hardware Acquisition for 2022',
+			slug: 'software-hardware-acquisition-for-2022',
+			description: 'Additional budget available, collect requirements and submit proposals.',
+			category: 'internal',
 			priority: '1_high',
 			startDate: new Date('May 7, 2021'),
 			dueDate: new Date('Jul 10, 2021'),
@@ -172,62 +180,62 @@ const teamworksDB: ITamworksDB = {
 				'5725a68034cb3968e1f79eac',
 				'5725a6801146cce777df2a08'
 			],
-			projectId: ''
+			projectId: 1
 		},
 		{
 			id: '1542d75d929a603125',
-			title: 'Build a PWA Using Workbox',
-			slug: 'build-a-pwa-using-workbox',
-			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-			category: 'web',
+			title: 'Capacity and performance review in microwave links',
+			slug: 'capacity-and-performance-review-in-microwave-links',
+			description: 'Recent issues highlights that service is degraded in microwave links.',
+			category: 'infrastructure',
 			priority: '3_low',
 			startDate: new Date('Jul 14, 2021'),
 			dueDate: new Date('Aug 18, 2021'),
 			team: ['5725a680653c265f5c79b5a9', '5725a680606588342058356d', '5725a680bbcec3cc32a8488a'],
-			projectId: ''
+			projectId: 1
 		},
 		{
 			id: '1543ee3a5b43e0f9f45',
-			title: 'Build an App for the Google Assistant with Firebase and Dialogf3_low',
-			slug: 'build-an-app-for-the-google-assistant-with-firebase-and-dialogf3_low',
-			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-			category: 'firebase',
+			title: 'SCCM Implementation',
+			slug: 'sccm-implementation',
+			description: 'SCCM federated implementation according to HQ guidelines.',
+			category: 'services',
 			priority: '2_medium',
 			startDate: new Date('May 14, 2021'),
 			dueDate: new Date('May 26, 2021'),
 			team: ['5725a680bbcec3cc32a8488a', '5725a680e87cb319bd9bd673', '5725a6802d10e277a0f35775'],
-			projectId: ''
+			projectId: 1
 		},
 		{
 			id: '1543cc4515df3146112',
-			title: 'Cloud Functions for Firebase',
-			slug: 'cloud-functions-for-firebase',
-			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-			category: 'firebase',
-			priority: '3_low',
+			title: 'SOW SAT receivers for Military',
+			slug: 'sow-sat-receivers-for-military',
+			description: 'New requirement for military.',
+			category: 'services',
+			priority: '3_high',
 			startDate: new Date('Jul 18, 2021'),
 			dueDate: new Date('Nov 30, 2021'),
 			team: [],
-			projectId: ''
+			projectId: 1
 		},
 		{
 			id: '154398a4770d7aaf9a2',
-			title: "Manage Your Pivotal Cloud Foundry App's Using Apigee Edge",
-			slug: 'manage-your-pivotal-cloud-foundry-apps-using-apigee-Edge',
-			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-			category: 'cloud',
+			title: 'Firewall policies',
+			slug: 'firewall-policies',
+			description: 'To be reviewed to accommodate user community needs.',
+			category: 'internal',
 			priority: '3_low',
 			startDate: new Date('Apr 4, 2021'),
 			dueDate: new Date('Jul 8, 2021'),
 			team: ['5725a6801146cce777df2a08', '5725a680e87cb319bd9bd673'],
-			projectId: ''
+			projectId: 1
 		},
 		{
 			id: '15438351f87dcd68567',
-			title: 'Building Beautiful UIs with Flutter',
-			slug: 'building-beautiful-uis-with-flutter',
-			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-			category: 'web',
+			title: 'Fiber Optic layout project in Location Alpha',
+			slug: 'fiber-optic-layout-project-in-location-alpha',
+			description: 'Alpha site has the data center and require fiber optic cabling.',
+			category: 'infrastructure',
 			priority: '1_high',
 			startDate: new Date('Mar 12, 2021'),
 			dueDate: new Date('May 20, 2021'),
@@ -237,14 +245,14 @@ const teamworksDB: ITamworksDB = {
 				'5725a6808a178bfd034d6ecf',
 				'5725a6801146cce777df2a08'
 			],
-			projectId: ''
+			projectId: 1
 		},
 		{
 			id: '1544e43dcdae6ebf876',
-			title: 'Cloud Firestore',
-			slug: 'cloud-firestore',
-			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-			category: 'firebase',
+			title: 'IT Service Delivery improvements',
+			slug: 'it-service-delivery-improvements',
+			description: 'Review current service delivery practices because of complaints.',
+			category: 'services',
 			priority: '2_medium',
 			startDate: new Date('Apr 18, 2021'),
 			dueDate: new Date('May 18, 2021'),
@@ -254,14 +262,14 @@ const teamworksDB: ITamworksDB = {
 				'5725a6808a178bfd034d6ecf',
 				'5725a6801146cce777df2a08'
 			],
-			projectId: ''
+			projectId: 1
 		},
 		{
 			id: '1541ca7af66da284177',
-			title: 'Customize Network Topology with Subnetworks',
-			slug: 'customize-network-topology-with-subnetworks',
-			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-			category: 'web',
+			title: 'Datacenter Redundant Power',
+			slug: 'datacenter-redundant-power',
+			description: 'Required power specifications to be discussed and procured.',
+			category: 'infrastructure',
 			priority: '2_medium',
 			startDate: new Date('Jun 22, 2021'),
 			dueDate: new Date('Jul 14, 2021'),
@@ -271,79 +279,79 @@ const teamworksDB: ITamworksDB = {
 				'5725a6808a178bfd034d6ecf',
 				'5725a6801146cce777df2a08'
 			],
-			projectId: ''
+			projectId: 1
 		},
 		{
 			id: '154297167e781781745',
-			title: 'Looking at Campaign Finance with BigQuery',
-			slug: 'looking-at-campaign-finance-with-bigquery',
-			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-			category: 'cloud',
+			title: 'DR and BC plans review 2021',
+			slug: 'dr-and-bc-plans-review-2021',
+			description: 'DR and BC plans to be created, reviewed and to be submitted for approval.',
+			category: 'internal',
 			priority: '2_medium',
 			startDate: new Date('Aug 1, 2021'),
 			dueDate: new Date('Nov 1, 2021'),
 			team: [],
-			projectId: ''
+			projectId: 1
 		},
 		{
 			id: '154537435d5b32bf11a',
-			title: 'Firebase Android',
-			slug: 'firebase-android',
-			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-			category: 'android',
+			title: 'Communication/VoIP implementation',
+			slug: 'communication-vo-ip-implementation',
+			description: 'Site Delta VoIP requirements, equipment/services and implementation costs.',
+			category: 'services',
 			priority: '3_low',
 			startDate: new Date('Jul 24, 2021'),
 			dueDate: new Date('Sep 18, 2021'),
 			team: [],
-			projectId: ''
+			projectId: 1
 		},
 		{
 			id: '154204e45a59b168453',
-			title: 'Simulating a Thread Network Using OpenThread',
-			slug: 'simulating-a-thread-network-using-openthread',
-			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-			category: 'web',
+			title: 'ISP Service Review',
+			slug: 'isp-service-review',
+			description: 'ISP service agreements to be reviewed.',
+			category: 'services',
 			priority: '2_medium',
 			startDate: new Date('May 31, 2021'),
 			dueDate: new Date('Jul 31, 2021'),
 			team: [],
-			projectId: ''
+			projectId: 1
 		},
 		{
 			id: '1541dd1e05dfc439216',
-			title: 'Your First Progressive Web App',
-			slug: 'your-first-progressive-web-app',
-			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-			category: 'web',
+			title: 'SAT Providers Service Review',
+			slug: 'sat-providers-service-review',
+			description: 'SAT providers service availability issues needs discussions.',
+			category: 'services',
 			priority: '1_high',
 			startDate: new Date('May 16, 2021'),
 			dueDate: new Date('May 30, 2021'),
 			team: [],
-			projectId: ''
+			projectId: 1
 		},
 		{
 			id: '1532dfc67e704e48515',
-			title: 'Launch Cloud Datalab',
-			slug: 'launch-cloud-datalab',
-			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-			category: 'cloud',
+			title: 'Incident Management Process Review',
+			slug: 'incident-management-process-review',
+			description: 'Issues highlighted by experts require discussion.',
+			category: 'internal',
 			priority: '1_high',
 			startDate: new Date('Jun 13, 2021'),
 			dueDate: new Date('Aug 28, 2021'),
 			team: [],
-			projectId: ''
+			projectId: 1
 		},
 		{
 			id: '1542e43dfaae6ebf226',
-			title: 'Personalize Your iOS App with Firebase User Management',
-			slug: 'personalize-your-ios-app-with-firebase-user-management',
-			description: 'Commits that need to be pushed lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-			category: 'firebase',
+			title: 'Communication/VHF Radio expansion',
+			slug: 'communication-vhf-radio-expansion',
+			description: 'Site Delta VHF radio/repeaters requirements.',
+			category: 'services',
 			priority: '3_low',
 			startDate: new Date('May 27, 2021'),
 			dueDate: new Date('Jun 7, 2021'),
 			team: [],
-			projectId: ''
+			projectId: 1
 		}
 	]
 };

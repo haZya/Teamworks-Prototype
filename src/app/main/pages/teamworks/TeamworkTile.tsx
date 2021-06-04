@@ -24,7 +24,7 @@ import { differenceInMilliseconds, format, formatDistance } from 'date-fns';
 import { motion } from 'framer-motion';
 import ITeamwork, { ICategory } from 'models/Teamwork';
 import IUser from 'models/User';
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { RootStateOrAny, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { selectPriorities } from './store/prioritiesSlice';
@@ -267,9 +267,9 @@ const TeamworkTile = ({ teamwork, category }: IProps) => {
 					>
 						<List className="p-0">
 							{drawerListItems.map((_item, index) => (
-								<Tooltip key={_item.label} title={_item.label}>
-									<>
-										{index !== 0 && <Divider />}
+								<Fragment key={_item.label}>
+									{index !== 0 && <Divider />}
+									<Tooltip title={_item.label} arrow placement="left">
 										<ListItem
 											button
 											className={clsx(classes.listItem, 'py-6')}
@@ -281,8 +281,8 @@ const TeamworkTile = ({ teamwork, category }: IProps) => {
 											</ListItemIcon>
 											<ListItemText primary={_item.label} className={classes.listItemText} />
 										</ListItem>
-									</>
-								</Tooltip>
+									</Tooltip>
+								</Fragment>
 							))}
 						</List>
 					</Drawer>
