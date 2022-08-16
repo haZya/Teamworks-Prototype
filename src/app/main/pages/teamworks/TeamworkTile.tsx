@@ -155,7 +155,7 @@ const TeamworkTile = ({ teamwork, category }: IProps) => {
 	}
 
 	return (
-		<motion.div variants={item} className="w-full pb-24 sm:w-1/2 lg:w-1/3 sm:p-12">
+		<motion.div variants={item} className="w-full pb-24 sm:w-1/3 md:w-1/4 lg:w-1/5 sm:p-12">
 			<Card className="flex flex-col shadow">
 				<div
 					className="flex flex-shrink-0 items-center justify-between px-16 h-64"

@@ -1,12 +1,12 @@
 const navigationConfig = [
-	{
-		id: 'dashboard',
-		title: 'Dashboard',
-		translate: 'Dashboard',
-		type: 'item',
-		icon: 'dashboard',
-		url: '/dashboard'
-	},
+	// {
+	// 	id: 'dashboard',
+	// 	title: 'Dashboard',
+	// 	translate: 'Dashboard',
+	// 	type: 'item',
+	// 	icon: 'dashboard',
+	// 	url: '/dashboard'
+	// },
 	{
 		id: 'teamworks',
 		title: 'Teamworks',

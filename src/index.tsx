@@ -6,7 +6,6 @@ import store from 'app/store';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import 'typeface-poppins';
-import './i18n';
 import './react-chartjs-2-defaults';
 import reportWebVitals from './reportWebVitals';
 import * as serviceWorker from './serviceWorker';
